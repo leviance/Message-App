@@ -1,0 +1,25 @@
+{
+  "name": "message-app",
+  "version": "1.0.0",
+  "description": "UniChat",
+  "main": "index.js",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drdung1999/Message-App.git"
+  },
+  "author": "Anthony Levi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/drdung1999/Message-App/issues"
+  },
+  "homepage": "https://github.com/drdung1999/Message-App#readme"
+}
