@@ -1,0 +1,72 @@
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 5px grey;
+          box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #2f7059;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #3db16b;
+}
+
+#addFriends .list-friends, #newGroup .list-friends {
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr;
+      grid-template-columns: 1fr;
+  padding: 20px 30px;
+  height: 400px;
+  overflow-y: scroll;
+}
+
+#addFriends .list-friends .list-friend-item, #newGroup .list-friends .list-friend-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  margin-bottom: 20px;
+}
+
+#addFriends .list-friends .list-friend-item .avatar, #newGroup .list-friends .list-friend-item .avatar {
+  width: 65px;
+  height: 65px !important;
+}
+
+#addFriends .list-friends .list-friend-item .users-list-body, #newGroup .list-friends .list-friend-item .users-list-body {
+  width: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#addFriends .list-friends .list-friend-item .btn-add-friend, #newGroup .list-friends .list-friend-item .btn-add-friend {
+  width: 65px;
+  height: 45px;
+}
+
+@media (max-width: 576px) {
+  #addFriends .list-friends .list-friend-item .avatar {
+    margin-bottom: 15px;
+  }
+  #addFriends .list-friends .list-friend-item .users-list-body {
+    margin-bottom: 15px;
+    text-align: center !important;
+  }
+}
+/*# sourceMappingURL=main.css.map */

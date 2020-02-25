@@ -1,0 +1,73 @@
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #2f7059;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #3db16b;
+}
+
+
+#addFriends, #newGroup{
+  .list-friends{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 20px 30px;
+    height: 400px;
+    overflow-y: scroll;
+    .list-friend-item{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      margin-bottom: 20px;
+      .avatar{
+        width: 65px;
+        height: 65px !important;
+      }
+      .users-list-body{
+        width: auto;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+      .btn-add-friend{
+        width: 65px;
+        height: 45px;
+
+      }
+    }
+  }
+}
+
+
+@media (max-width: 768px){
+  
+}
+@media (max-width: 576px){
+  #addFriends{
+    .list-friends{
+      .list-friend-item{
+        .avatar{
+          margin-bottom: 15px;
+        }
+        .users-list-body{
+          margin-bottom: 15px;
+          text-align: center !important; 
+        }
+      }
+    }
+  }
+}
