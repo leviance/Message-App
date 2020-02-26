@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "dependencies": {
-    "express": "^4.17.1"
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "express-ejs-extend": "0.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

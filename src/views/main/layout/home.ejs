@@ -1,0 +1,31 @@
+<% extend("../master.ejs")  %>
+
+<!-- layout -->
+<div class="layout">
+
+  <%- include("./navigation/navigation.ejs") %>
+
+  <!-- content -->
+  <div class="content">
+
+      <!-- sidebar group -->
+      <div class="sidebar-group">
+
+        <%- include("./slidebarGroup/chatSlideBar.ejs")  %>
+
+        <%- include("./slidebarGroup/friendSlideBar.ejs")  %>
+
+        <%- include("./slidebarGroup/favoriteContactSlideBar.ejs")  %>  
+
+      </div>
+      <!-- ./ sidebar group -->
+
+      <%- include("./chat/chatModal.ejs")  %>
+
+      <%- include("./contactInformation/contactInformation.ejs")  %>
+
+  </div>
+  <!-- ./ content -->
+
+</div>
+<!-- ./ layout -->
