@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 let Schema = mongoose.Schema;
 
 let userSchema = new Schema({
+  nameAccount: String,
   username: String,
   password: {type: String, default: "avatarDefault.jpg"},
   phoneNumber: {type: String, default: null}, 

@@ -7,11 +7,11 @@ let initRouters = (app) => {
 
   router.get('/', (req, res) =>{
     res.render("auth/master");
-    let item = {
-      username: "duong hoang dung",
-      images: ["1.jpg","2.jpg"]
-    }
-    userModel.createNew(item);
+    // let item = {
+    //   username: "duong hoang dung",
+    //   images: ["1.jpg","2.jpg"]
+    // }
+    // userModel.createNew(item);
   })
 
   router.get("/login", (req, res) =>{
