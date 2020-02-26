@@ -155,7 +155,7 @@ a {
   position: relative;
 }
 
-.main .login-form .wrap-input .login-username, .main .login-form .wrap-input .login-password {
+.main .login-form .wrap-input .login-nameAccount, .main .login-form .wrap-input .login-password {
   width: 100%;
   height: 100%;
   background-color: #f7f7f7;
@@ -187,7 +187,7 @@ a {
   visibility: hidden;
 }
 
-.main .login-form .wrap-input .login-username:focus + .effect-input, .main .login-form .wrap-input .login-password:focus + .effect-input {
+.main .login-form .wrap-input .login-nameAccount:focus + .effect-input, .main .login-form .wrap-input .login-password:focus + .effect-input {
   visibility: visible !important;
   opacity: 1 !important;
   -webkit-transform: scaleX(1) scaleY(1);
