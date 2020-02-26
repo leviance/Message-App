@@ -2,10 +2,13 @@ import express from 'express';
 import http from 'http';
 import initRouters from './routers/web';
 import configViewEngine from './config/viewEngine';
+import connectDB from './config/connectDB';
 
 const app = express();
 
 const server = http.createServer(app);
+
+connectDB();
 
 initRouters(app);
 
