@@ -1,0 +1,60 @@
+<html lang="en" style="--vh:9.43px;"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Soho - Chat and Discussion Platform</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="image/appImage/logo.jpg" type="image/png">
+
+  <!-- example css -->
+  <link rel="stylesheet" href="style/main.min.css">
+
+  <!-- my css -->
+  <link rel="stylesheet" href="style/main.css">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="dark">
+
+
+<%- include("./modal/loadingModal.ejs") %>
+
+<%- include("./modal/disconnectedModal.ejs") %>
+
+<%- include("./modal/callModal.ejs")  %>
+
+<%- include("./modal/addFriendModal.ejs")  %>
+
+<%- include("./modal/newGroupModal.ejs")  %>
+
+<%- include("./modal/settingModal.ejs")  %>
+
+<%- include("./modal/editProfileModal.ejs")  %>
+
+<%- content  %>
+
+<!-- JQuery -->
+<script src="vendor/jquery-3.4.1.min.js"></script>
+
+<!-- Popper.js -->
+<script src="vendor/popper.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="vendor/bootstrap/bootstrap.min.js"></script>
+
+<!-- Nicescroll -->
+<script src="vendor/jquery.nicescroll.min.js"></script>
+
+<!-- Soho -->
+<script src="javascript/main.min.js"></script>
+
+<!-- Examples -->
+<script src="javascript/examples.js"></script>
+
+
+
+
+<div id="ascrail2000-hr" class="nicescroll-rails nicescroll-rails-hr" style="height: 4px; z-index: auto; top: 798px; left: 460px; position: absolute; cursor: default; display: none; width: 979px; opacity: 0;"><div class="nicescroll-cursors" style="position: absolute; top: 0px; height: 4px; width: 1430px; background-color: rgba(66, 66, 66, 0.2); border: 0px; background-clip: padding-box; border-radius: 5px; left: 0px;"></div></div>
+</body>
+</html>
