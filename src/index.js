@@ -3,12 +3,16 @@ import http from 'http';
 import initRouters from './routers/web';
 import configViewEngine from './config/viewEngine';
 import connectDB from './config/connectDB';
+import bodyParser from 'body-parser';
 
 const app = express();
 
 const server = http.createServer(app);
 
 connectDB();
+
+// enable post data
+app.use(bodyParser.urlencoded({extended : true}));
 
 initRouters(app);
 
