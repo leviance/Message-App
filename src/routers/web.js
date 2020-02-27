@@ -1,21 +1,14 @@
 import express from 'express';
-import userModel from '../models/userModel';
+import {auth} from '../controller/index';
 
 const router = express.Router();
 
 let initRouters = (app) => {
 
-  router.get('/', (req, res) =>{
-    res.render("auth/master");
-    // let item = {
-    //   username: "duong hoang dung",
-    //   images: ["1.jpg","2.jpg"]
-    // }
-    // userModel.createNew(item);
-  })
+  router.post("/create-new-account",auth.createNewAccount);
 
   router.get("/login", (req, res) =>{
-    res.render("main/layout/home");
+    res.render("auth/master");
   })
 
   // routes.get('*', (req,res) =>{
