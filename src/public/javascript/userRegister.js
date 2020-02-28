@@ -32,6 +32,15 @@ function alertError(error){
     </div> `;
 }
 
+// model alertSuccess
+function alertSuccess(success){
+  return `
+    <div class="success-login">
+      <i class="fa fa-check" aria-hidden="true"></i>
+      ${success}
+    </div> `;
+}
+
 // validate Email
 function validateEmail(email) {
   let re = /^[a-z0-9]+(?=@gmail.com)(@gmail.com)$/;
@@ -69,22 +78,22 @@ function checkInputRegister(){
 
   modalErrorRegister.empty();
 
-  // check Email
+  //check Email
   if(inputEmail == ""){ modalErrorRegister.append(alertError(registerIncorrect.emailIsEmpty)); checkInvalid = false; }
   if(inputEmail.length<16 || inputEmail.length >30){ modalErrorRegister.append(alertError(registerIncorrect.emailLength)); checkInvalid = false; }
   if(!validateEmail(inputEmail)&&inputEmail.length != 0){ modalErrorRegister.append(alertError(registerIncorrect.emailIncorrect)); checkInvalid = false;  }
 
-  // check nameAccount
+  //check nameAccount
   if(inputNameAccount == ""){ modalErrorRegister.append(alertError(registerIncorrect.nameAccountIsEmty)); checkInvalid = false;  }
   if(inputNameAccount.length < 6 || inputNameAccount.length > 30 ){ modalErrorRegister.append(alertError(registerIncorrect.nameAccountLengthIncorrect)); checkInvalid = false;  }
   if(!validateNameAccount(inputNameAccount)&&inputNameAccount.length != 0){ modalErrorRegister.append(alertError(registerIncorrect.nameAccounIncorrect)); checkInvalid = false;  }
   
-  // check username 
+  //check username 
   if(inputUserName == ""){ modalErrorRegister.append(alertError(registerIncorrect.usernameIsEmpty)); checkInvalid = false;  }
   if(inputUserName.length < 6 || inputUserName.length > 30 ){ modalErrorRegister.append(alertError(registerIncorrect.usernameLengthIncorrect)); checkInvalid = false;  }
   if(!validateUserName(inputUserName)&&inputUserName.length != 0){ modalErrorRegister.append(alertError(registerIncorrect.usernameIncorrect)); checkInvalid = false;  }
 
-  // check password
+  //check password
   if(inputPassword == ""){ modalErrorRegister.append(alertError(registerIncorrect.passwordIsEmpty)); checkInvalid = false;  }
   if(inputPassword.length < 6 || inputPassword.length > 30 ){ modalErrorRegister.append(alertError(registerIncorrect.passwordLengthIncorrect)); checkInvalid = false;  }
   if(!validateNameAccount(inputPassword)&&inputPassword.length != 0){ modalErrorRegister.append(alertError(registerIncorrect.passwordIncorrect)); checkInvalid = false;  }
@@ -95,7 +104,7 @@ function checkInputRegister(){
   if(checkMale === true && checkFeMale === true){modalErrorRegister.append(alertError(registerIncorrect.genderIncorrect)); checkInvalid = false; }
   if(checkFeMale === true){ gender = "Female";}
 
-  let user = {
+  let data = {
     username: inputUserName,
     email : inputEmail,
     nameAccount : inputNameAccount,
@@ -103,27 +112,56 @@ function checkInputRegister(){
     gender: gender
   }
 
-  console.log(user);
   if(checkInvalid === true){
-    $.post("/create-new-account", user, function(data){
-      console.log(data);
+    $.post("/create-new-account", data, function(data){
+      if(typeof(data) === "object"){
+        if(data.length !== 0){
+          data.forEach(function(message){
+          modalErrorRegister.append(alertError(message));
+          });
+        }
+        
+        if(data.length === 0){
+          // làm rỗng modal alert eror login
+          $(".alert-error-login").empty();
+          showLoginForm();
+  
+          $(".alert-error-login").append(alertSuccess("Đăng ký tài khoản thành công vui lòng kiểm tra email để kích hoạt tài khoản."));
+        }
+
+        return;
+      }
+      
+      if(data !== true){
+        return modalErrorRegister.append(alertError(data));
+      }
+
+      // làm rỗng modal alert eror login
+      $(".alert-error-login").empty();
+      showLoginForm();
+
+      $(".alert-error-login").append(alertSuccess("Đăng ký tài khoản thành công vui lòng kiểm tra email để kích hoạt tài khoản."));
+
+    }).fail(function(error){
+      modalErrorRegister.append(alertError(error.responseText));
     })
   }
 
 }
 
+
 $(document).ready(function(){
 
-//  check when click or enter
-$(".btn-register").on("click", function(){
-  checkInputRegister();
-  
-});
+  //  check when click or enter
+  $(".btn-register").on("click", function(){
+    checkInputRegister(); 
+  });
 
-$(".register-form").keypress(function(event) {
-  if(event.which === 13) {
-    checkInputRegister();
-  }
-});
+  $(".register-form").keypress(function(event) {
+    if(event.which === 13) {
+      checkInputRegister();
+    }
+  });
 
 })
+
