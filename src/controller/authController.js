@@ -33,16 +33,43 @@ let createNewAccount = async (req, res) => {
     res.status(500).send(error);
   }
 
-  
-
 }
 
-let activeAccount = (req, res) =>{
-  let result = "kích hoạt tài khoản thất bại !";
-  res.render('activeAccount/master',{result});
+let activeAccount = async (req, res) =>{
+  try {
+    //  data = true || false
+    let data = await auth.activeAccount(req.params.nameAccount,req.params.token);
+    res.render('activeAccount/master',{data});
+  } catch (data) {
+    res.render('activeAccount/master',{data});
+  }
+  
+}
+
+let userLogin = async (req,res) => {
+  let validationErrors = validationResult(req).errors;
+  let validationMess = [];
+  validationErrors.forEach(error => {
+    validationMess.push(error.msg);
+  });
+
+  if(validationMess.length !== 0){
+    return res.status(500).send();
+  }
+
+  try {
+
+    console.log(req.params.nameAccount, req.params.password);
+
+    return res.status(200).send();
+
+  } catch (error) {
+    res.status(500).send(error);
+  }
 }
 
 module.exports = {
   createNewAccount: createNewAccount,
-  activeAccount: activeAccount
+  activeAccount: activeAccount,
+  userLogin: userLogin
 }

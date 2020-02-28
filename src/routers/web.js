@@ -8,7 +8,9 @@ let initRouters = (app) => {
 
   router.post("/create-new-account",authValid.checkRegister,auth.createNewAccount);
 
-  router.get("/active-account-:nameAccount-:token",auth.activeAccount)
+  router.get("/active-account-:nameAccount-:token",auth.activeAccount);
+
+  router.get("/request-login/:nameAccount-:password",authValid.checkLogin,auth.userLogin);
 
   router.get("/login", (req, res) =>{
     res.render("auth/master");

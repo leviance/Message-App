@@ -2,6 +2,7 @@ import userModel from '../models/userModel';
 import {loginRegisterIncorrect} from '../../lang/vi';
 import bcrypt from 'bcrypt';
 import uid from 'uid';
+import {sendMail} from '../config/nodeMailer';
 
 const saltRounds = 12;
 
@@ -23,7 +24,16 @@ let createNewUser = (data) => {
       // hash password before save in DB
       data.local.password = bcrypt.hashSync(data.local.password, saltRounds);
       
+      // create verify token
       data.local.veryfyToken =  uid(10);
+
+      // send mail verify
+      let linkVerify = `${process.env.NODEMAILER_HOST}-${data.nameAccount}-${data.local.veryfyToken}`;
+      let resultSendmail = await sendMail(data.local.email,linkVerify);
+      if(resultSendmail === false){
+        return reject(loginRegisterIncorrect.sendMailIncorrect);
+      }
+
       
       let result = await userModel.createNew(data);
 
@@ -34,6 +44,17 @@ let createNewUser = (data) => {
   });
 };
 
+let activeAccount = (nameAccount,token) => {
+  return new Promise( async (resolve, reject) => {
+    let activeAccount = await userModel.activeAccount(nameAccount,token);
+    if(activeAccount.nModified == 1){
+      return resolve(true);
+    }
+    return reject(false);
+  })
+}
+
 module.exports = {
-  createNewUser: createNewUser
+  createNewUser: createNewUser,
+  activeAccount: activeAccount
 }
