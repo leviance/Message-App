@@ -259,6 +259,11 @@ a {
   margin-top: 20px;
 }
 
+.main .login-form .alert-error-login .success-login {
+  color: #0d9427;
+  margin-top: 20px;
+}
+
 .main .register-form .title-register {
   margin-top: 20px;
   font-size: 18px;

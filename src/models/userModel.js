@@ -5,7 +5,7 @@ let Schema = mongoose.Schema;
 let userSchema = new Schema({
   nameAccount: String,
   username: String,
-  password: {type: String, default: "avatarDefault.jpg"},
+  avatar: {type: String, default: "avatarDefault.jpg"},
   phoneNumber: {type: String, default: null}, 
   images: Array,
   adress: {type: String, default: null},
@@ -36,6 +36,12 @@ let userSchema = new Schema({
 userSchema.statics = {
   createNew(item){
     return this.create(item);
+  }, 
+  findByEmail(email){
+    return this.findOne({"local.email": email}).exec();
+  }, 
+  findNameAccount(nameAccount){
+    return this.findOne({"nameAccount": nameAccount}).exec();
   }
 }
 

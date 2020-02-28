@@ -1,4 +1,4 @@
-export APP_PORT=3000
+export APP_PORT=3001
 export APP_HOST=localhost
 
 export DB_NAME=UniChat
