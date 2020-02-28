@@ -92,6 +92,12 @@
       opacity: 1;
       visibility: visible;
     }
+
+    .main .login-form .alert-error-login .error-login {
+      color: red;
+      margin-top: 20px;
+    }
+
     @media (max-width: 768px) {
     .modal-form {
       width: 95% !important;
@@ -137,8 +143,19 @@
 
       <!-- alert when have a error login -->
       <div class="alert-error-login">
-      <div class="success-login" style="color: #0d9427;">
-        <i style="margin-right: 10px;" class="fa fa-check" aria-hidden="true"></i><%= result %></div> </div>
+      <% if(data === true) { %>
+        <div class="success-login" style="color: #0d9427;">
+          <i style="margin-right: 10px;" class="fa fa-check" aria-hidden="true"></i>
+          Kích hoạt thành công, bây giờ bạn có thể đăng nhập vào tài khoản của mình.
+        </div> 
+      <% } %>
+      <% if(data === false){ %>
+        <div class="error-login">
+          <i style="margin-right: 10px;" class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+          Kích hoạt thất bại vui lòng kiểm tra lại hoặc liên hệ với bộ phận hỗ  trợ của chúng tôi. Xin cảm ơn !
+        </div>
+      <% } %>
+    </div>
 
       <a class="btn-login" href="/login">Đăng Nhập</a>
     </div>

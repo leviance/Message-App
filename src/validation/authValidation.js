@@ -18,6 +18,16 @@ let checkRegister = [
     .isIn(["Male","Female"]).withMessage(transValidation.genderIncorrect)
 ]
 
+let checkLogin = [
+  check("nameAccount")
+    .matches(/^[A-Za-z0-9]+$/).withMessage(transValidation.nameAccountIncorrect)
+    .isLength({min: 6, max: 30}).withMessage(transValidation.nameAccountLengthIncorrect),
+  check("password")
+    .matches(/^[A-Za-z0-9]+$/).withMessage(transValidation.passwordIncorrect)
+    .isLength({min: 6, max: 30}).withMessage(transValidation.passwordLengthIncorrect),
+]
+
 module.exports = {
-  checkRegister : checkRegister
+  checkRegister : checkRegister,
+  checkLogin: checkLogin
 }

@@ -42,6 +42,12 @@ userSchema.statics = {
   }, 
   findNameAccount(nameAccount){
     return this.findOne({"nameAccount": nameAccount}).exec();
+  }, 
+  activeAccount(nameAccount,token){
+    return this.updateOne({$and:[
+      {"nameAccount":nameAccount},
+      {"local.veryfyToken":token}
+    ]},{"local.veryfyToken": null,"local.isActive": true}).exec();
   }
 }
 

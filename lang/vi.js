@@ -12,5 +12,6 @@ export const transValidation = {
 export const loginRegisterIncorrect = {
   nameAccountExists: "Tài khoản đã tồn tại vui lòng kiểm tra lại !",
   errorUndifine: "Đã có lỗi bất ngờ xảy ra vui lòng liên hệ với bộ phận hỗ trợ của chúng tôi !",
-  emailExists: "Email đã tồn tại vui lòng kiểm tra lại !"
+  emailExists: "Email đã tồn tại vui lòng kiểm tra lại !",
+  sendMailIncorrect: "Đã có lỗi xảy ra trong quá trinh gửi Email, xin vui lòng kiểm tra lại email, hoặc liên hệ với bộ phận hỗ trợ của chúng tôi !"
 }
