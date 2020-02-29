@@ -58,13 +58,16 @@ let userLogin = async (req,res) => {
   }
 
   try {
+    let nameAccount = req.params.nameAccount;
+    let password = req.params.password;
 
-    console.log(req.params.nameAccount, req.params.password);
-
-    return res.status(200).send();
+    // userLogin is true 
+    let data = await auth.userLogin(nameAccount,password);
+    
+    return res.status(200).send(data);
 
   } catch (error) {
-    res.status(500).send(error);
+    return res.status(500).send(error);
   }
 }
 

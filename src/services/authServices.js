@@ -54,7 +54,23 @@ let activeAccount = (nameAccount,token) => {
   })
 }
 
+let userLogin = (nameAccount,password) =>{
+  return new Promise( async (resolve, reject) =>{
+    let result = await userModel.userLogin(nameAccount);
+
+    // resultCompare is true || false
+    let resultCompare =  bcrypt.compareSync(password, result.local.password);
+
+    if(resultCompare){
+      return resolve(resultCompare);
+    }
+    
+      return reject(resultCompare);
+  });
+}
+
 module.exports = {
   createNewUser: createNewUser,
-  activeAccount: activeAccount
+  activeAccount: activeAccount,
+  userLogin: userLogin
 }

@@ -14,6 +14,10 @@ let initRouters = (app) => {
 
   router.get("/login", (req, res) =>{
     res.render("auth/master");
+  });
+
+  router.get("/", (req, res) => {
+    res.render("main/layout/home");
   })
 
   // routes.get('*', (req,res) =>{
