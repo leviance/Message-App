@@ -27,7 +27,9 @@ function login(){
   modalAlertLogin.empty();
   
   $.get(`/request-login/${nameAccount}-${password}`,function(data){
-    
+    if(data === true) {
+      window.location.replace("/");
+    }
   }).fail(function(){
     modalAlertLogin.append(alertError(loginIncorrect.validLoginIncorrect));
   });

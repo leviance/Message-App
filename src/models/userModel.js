@@ -48,6 +48,14 @@ userSchema.statics = {
       {"nameAccount":nameAccount},
       {"local.veryfyToken":token}
     ]},{"local.veryfyToken": null,"local.isActive": true}).exec();
+  },
+  userLogin(nameAccount){
+    return this.findOne({
+      $and:[
+        {"nameAccount":nameAccount},
+        {"local.isActive": true}
+      ]
+    },{"local.password" : 1}).exec();
   }
 }
 
