@@ -20,6 +20,8 @@ function alertSuccess(success){
 }
 
 function login(){
+  $(".loading-modal").show();
+
   let nameAccount = $(".login-nameAccount").val();
   let password = $(".login-password").val();
   let modalAlertLogin = $(".alert-error-login");
@@ -30,8 +32,15 @@ function login(){
     if(data === true) {
       window.location.replace("/");
     }
-  }).fail(function(){
-    modalAlertLogin.append(alertError(loginIncorrect.validLoginIncorrect));
+
+    $(".loading-modal").hide();
+  }).fail(function(error){
+    if(error.responseText == "false"){
+      return modalAlertLogin.append(alertError(loginIncorrect.validLoginIncorrect));
+    }
+    
+    modalAlertLogin.append(alertError(error.responseText));
+    $(".loading-modal").hide();
   });
 }
 
@@ -45,4 +54,6 @@ $(document).ready(function(){
       login();
     }
   })
+
+  $(".loading-modal").hide();
 })

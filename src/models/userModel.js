@@ -11,6 +11,7 @@ let userSchema = new Schema({
   adress: {type: String, default: null},
   class: {type: String, default: null},
   linkSocial: Object,
+  gender: String,
   local: {
     email: {type: String, trim: true},
     password: String,
@@ -53,9 +54,10 @@ userSchema.statics = {
     return this.findOne({
       $and:[
         {"nameAccount":nameAccount},
-        {"local.isActive": true}
+        {"local.isActive": true},
+        {"removedAt": null}
       ]
-    },{"local.password" : 1}).exec();
+    }).exec();
   }
 }
 

@@ -129,7 +129,6 @@ function checkInputRegister(){
           $(".alert-error-login").append(alertSuccess("Đăng ký tài khoản thành công vui lòng kiểm tra email để kích hoạt tài khoản."));
         }
 
-        return;
       }
       
       if(data !== true){
@@ -139,12 +138,38 @@ function checkInputRegister(){
       // làm rỗng modal alert eror login
       $(".alert-error-login").empty();
       showLoginForm();
-
       $(".alert-error-login").append(alertSuccess("Đăng ký tài khoản thành công vui lòng kiểm tra email để kích hoạt tài khoản."));
+
+      //  goi lai sự kiện click và bắt phím enter 
+      $(".loading-modal").hide();
+      $(".btn-register").on("click", function(){
+        checkInputRegister(); 
+      });
+      $(".register-form").keypress(function(event) {
+        if(event.which === 13) {
+          checkInputRegister();
+        }
+      });
 
     }).fail(function(error){
       modalErrorRegister.append(alertError(error.responseText));
+
+      //  goi lai sự kiện click và bắt phím enter 
+      $(".loading-modal").hide();
+      $(".btn-register").on("click", function(){
+        checkInputRegister(); 
+      });
+      $(".register-form").keypress(function(event) {
+        if(event.which === 13) {
+          checkInputRegister();
+        }
+      });
+
     })
+
+    $(".loading-modal").show();
+    $(".register-form").removeAttr("keypress");
+    $(".btn-register").off("click");
   }
 
 }
@@ -162,6 +187,7 @@ $(document).ready(function(){
       checkInputRegister();
     }
   });
+
 
 })
 

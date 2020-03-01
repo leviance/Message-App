@@ -13,5 +13,6 @@ export const loginRegisterIncorrect = {
   nameAccountExists: "Tài khoản đã tồn tại vui lòng kiểm tra lại !",
   errorUndifine: "Đã có lỗi bất ngờ xảy ra vui lòng liên hệ với bộ phận hỗ trợ của chúng tôi !",
   emailExists: "Email đã tồn tại vui lòng kiểm tra lại !",
-  sendMailIncorrect: "Đã có lỗi xảy ra trong quá trinh gửi Email, xin vui lòng kiểm tra lại email, hoặc liên hệ với bộ phận hỗ trợ của chúng tôi !"
+  sendMailIncorrect: "Đã có lỗi xảy ra trong quá trinh gửi Email, xin vui lòng kiểm tra lại email, hoặc liên hệ với bộ phận hỗ trợ của chúng tôi !",
+  accountIsNotActive: "Tài khoản của bạn chưa được xác thực vui lòng kiểm tra email và làm theo hướng dẫn để kích hoạt tài khoản này !"
 }

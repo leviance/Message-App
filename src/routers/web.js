@@ -6,23 +6,19 @@ const router = express.Router();
 
 let initRouters = (app) => {
 
+  // request from page login
   router.post("/create-new-account",authValid.checkRegister,auth.createNewAccount);
 
   router.get("/active-account-:nameAccount-:token",auth.activeAccount);
 
   router.get("/request-login/:nameAccount-:password",authValid.checkLogin,auth.userLogin);
 
-  router.get("/login", (req, res) =>{
-    res.render("auth/master");
-  });
+  router.get("/login", auth.checkLogedOut);
 
-  router.get("/", (req, res) => {
-    res.render("main/layout/home");
-  })
+  //router.get("*", (req, res) => { res.redirect("/login"); });
 
-  // routes.get('*', (req,res) =>{
-  //   res.redirect('/login');
-  // })
+  // request from home page
+  router.get("/", auth.checkLogedin);
 
   return app.use("/", router);
 }

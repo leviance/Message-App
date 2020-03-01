@@ -1,13 +1,13 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Title</title>
+    <title>UniChat</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Favicon -->
-    <link rel="icon" href="image/appImage/logo.jpg" type="image/png">
+    <link rel="icon" href="image/userImages/logo.jpg" type="image/png">
     <!-- My Css -->
     <link rel="stylesheet" href="style/auth.css">
     <!-- Font arewesome -->
@@ -16,11 +16,25 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,500,500i,600,600i,700,700i,800,900&display=swap" rel="stylesheet">
   </head>
   <body>
-
+    <style>
+      .loading-modal {
+          position: fixed;
+          min-width: 100%;
+          background-color: #ecf0f1;
+          min-height: 100%;
+          opacity: 0.7;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 10;
+      }
+    </style>
+    <div class="loading-modal"><img src="image/appImage/loading.gif" alt=""></div>
     <div class="main" style="background-image: url(image/appImage/bg-01.jpg);">
 
       <%- include("./loginForm/login.ejs") %>
       <%- include("./registerForm/register.ejs")  %>
+
      
     </div>
 
