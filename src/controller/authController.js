@@ -48,6 +48,11 @@ let activeAccount = async (req, res) =>{
 }
 
 let userLogin = async (req,res) => {
+  // prevent DoS attach
+  if(req.session.user){
+    return res.status(500).send("DoS ??");
+  }
+
   let validationErrors = validationResult(req).errors;
   let validationMess = [];
   validationErrors.forEach(error => {
@@ -108,3 +113,4 @@ module.exports = {
   checkLogedin: checkLogedin,
   checkLogedOut: checkLogedOut
 }
+
