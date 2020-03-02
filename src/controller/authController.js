@@ -16,6 +16,7 @@ let createNewAccount = async (req, res) => {
   let data = {
     nameAccount: req.body.nameAccount,
     username: req.body.username,
+    gender: req.body.gender,
     local: {
       email: req.body.email,
       password: req.body.password,
@@ -47,6 +48,11 @@ let activeAccount = async (req, res) =>{
 }
 
 let userLogin = async (req,res) => {
+  // prevent DoS attach
+  if(req.session.user){
+    return res.status(500).send("DoS ??");
+  }
+
   let validationErrors = validationResult(req).errors;
   let validationMess = [];
   validationErrors.forEach(error => {
@@ -54,7 +60,7 @@ let userLogin = async (req,res) => {
   });
 
   if(validationMess.length !== 0){
-    return res.status(500).send();
+    return res.status(500).send(false);
   }
 
   try {
@@ -64,6 +70,20 @@ let userLogin = async (req,res) => {
     // userLogin is true 
     let data = await auth.userLogin(nameAccount,password);
     
+    let userSession = {
+      email : data.local.email,
+      avatar : data.avatar,
+      images : data.images,
+      adress : data.adress,
+      class : data.class,
+      username : data.username,
+      gender : data.gender
+    }
+    req.session.user = userSession;
+
+    console.log(req.session.user);
+    
+    data = true;
     return res.status(200).send(data);
 
   } catch (error) {
@@ -71,8 +91,26 @@ let userLogin = async (req,res) => {
   }
 }
 
+let checkLogedin = (req, res) => {
+  if(req.session.user){
+    return res.render("main/layout/home",{user : req.session.user});
+  }
+  res.redirect("/login");
+}
+
+let checkLogedOut = (req, res) =>{
+  if(req.session.user){
+    return res.redirect("/");
+  }
+
+  res.render("auth/master");
+}
+
 module.exports = {
   createNewAccount: createNewAccount,
   activeAccount: activeAccount,
-  userLogin: userLogin
+  userLogin: userLogin,
+  checkLogedin: checkLogedin,
+  checkLogedOut: checkLogedOut
 }
+

@@ -4,12 +4,16 @@ import initRouters from './routers/web';
 import configViewEngine from './config/viewEngine';
 import connectDB from './config/connectDB';
 import bodyParser from 'body-parser';
+import {configSession} from './config/configSession';
 
 const app = express();
 
 const server = http.createServer(app);
 
 connectDB();
+
+// config connect-mongo and session
+configSession(app);
 
 // enable post data
 app.use(bodyParser.urlencoded({extended : true}));

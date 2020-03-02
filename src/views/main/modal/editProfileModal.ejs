@@ -4,7 +4,7 @@
       <div class="modal-content">
           <div class="modal-header">
               <h5 class="modal-title">
-                  <i class="ti-pencil"></i> Profile Edit
+                  <i class="ti-pencil"></i> Chỉnh sửa thông tin cá nhân
               </h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <i class="ti-close"></i>
@@ -13,45 +13,45 @@
           <div class="modal-body">
               <ul class="nav nav-tabs" role="tablist">
                   <li class="nav-item">
-                      <a class="nav-link active" data-toggle="tab" href="#personal" role="tab" aria-controls="personal" aria-selected="true">Personal</a>
+                      <a class="nav-link active" data-toggle="tab" href="#personal" role="tab" aria-controls="personal" aria-selected="true">Thông tin</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" data-toggle="tab" href="#about" role="tab" aria-controls="about" aria-selected="false">About</a>
+                      <a class="nav-link" data-toggle="tab" href="#about" role="tab" aria-controls="about" aria-selected="false">Giới thiệu</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" data-toggle="tab" href="#social-links" role="tab" aria-controls="social-links" aria-selected="false">Social Links</a>
+                      <a class="nav-link" data-toggle="tab" href="#social-links" role="tab" aria-controls="social-links" aria-selected="false">Mạng xã hội</a>
                   </li>
               </ul>
               <div class="tab-content">
                   <div class="tab-pane show active" id="personal" role="tabpanel">
                       <form>
                           <div class="form-group">
-                              <label for="fullname" class="col-form-label">Fullname</label>
+                              <label for="fullname" class="col-form-label">Tên đầy đủ</label>
                               <div class="input-group">
                                   <div class="input-group-prepend">
                                       <span class="input-group-text">
                                           <i class="ti-user"></i>
                                       </span>
                                   </div>
-                                  <input type="text" class="form-control" id="fullname">
+                                  <input type="text" class="form-control" id="fullname" placeholder="<%= user.username %>">
                               </div>
                           </div>
                           <div class="form-group">
-                              <label class="col-form-label">Avatar</label>
+                              <label class="col-form-label">Ảnh đại diện</label>
                               <div class="d-flex align-items-center">
                                   <div>
                                       <figure class="avatar mr-3 item-rtl">
-                                          <img src="image/userImages/man_avatar3.jpg" class="rounded-circle">
+                                          <img src="image/userImages/<%= user.avatar %>" class="rounded-circle">
                                       </figure>
                                   </div>
                                   <div class="custom-file">
                                       <input type="file" class="custom-file-input" id="customFile">
-                                      <label class="custom-file-label" for="customFile">Choose file</label>
+                                      <label class="custom-file-label" for="customFile">Chọn ảnh</label>
                                   </div>
                               </div>
                           </div>
                           <div class="form-group">
-                              <label for="city" class="col-form-label">City</label>
+                              <label for="city" class="col-form-label">Địa chỉ</label>
                               <div class="input-group">
                                   <div class="input-group-prepend">
                                       <span class="input-group-text">
@@ -62,7 +62,7 @@
                               </div>
                           </div>
                           <div class="form-group">
-                              <label for="phone" class="col-form-label">Phone</label>
+                              <label for="phone" class="col-form-label">SĐT</label>
                               <div class="input-group">
                                   <div class="input-group-prepend">
                                       <span class="input-group-text">
@@ -73,11 +73,11 @@
                               </div>
                           </div>
                           <div class="form-group">
-                              <label for="website" class="col-form-label">Website</label>
+                              <label for="website" class="col-form-label">Lớp</label>
                               <div class="input-group">
                                   <div class="input-group-prepend">
                                       <span class="input-group-text">
-                                          <i class="ti-link"></i>
+                                        <i class="fa fa-users" aria-hidden="true"></i>
                                       </span>
                                   </div>
                                   <input type="text" class="form-control" id="website">
@@ -88,12 +88,12 @@
                   <div class="tab-pane" id="about" role="tabpanel">
                       <form action="">
                           <div class="form-group">
-                              <label for="about-text" class="col-form-label">Write a few words that describe you</label>
+                              <label for="about-text" class="col-form-label">Viết vài từ mô tả bản thân bạn</label>
                               <textarea class="form-control" id="about-text"></textarea>
                           </div>
                           <div class="custom-control custom-checkbox">
                               <input type="checkbox" class="custom-control-input" checked="" id="customCheck1">
-                              <label class="custom-control-label" for="customCheck1">View profile</label>
+                              <label class="custom-control-label" for="customCheck1">Xem hồ sơ</label>
                           </div>
                       </form>
                   </div>
@@ -106,7 +106,7 @@
                                       <i class="ti-facebook"></i>
                                   </span>
                                   </div>
-                                  <input type="text" class="form-control" placeholder="Username">
+                                  <input type="text" class="form-control" placeholder="Link liên kết">
                               </div>
                           </div>
                           <div class="form-group">
@@ -116,7 +116,7 @@
                                       <i class="ti-twitter"></i>
                                   </span>
                                   </div>
-                                  <input type="text" class="form-control" placeholder="Username">
+                                  <input type="text" class="form-control" placeholder="Link liên kết">
                               </div>
                           </div>
                           <div class="form-group">
@@ -126,7 +126,7 @@
                                       <i class="ti-instagram"></i>
                                   </span>
                                   </div>
-                                  <input type="text" class="form-control" placeholder="Username">
+                                  <input type="text" class="form-control" placeholder="Link liên kết">
                               </div>
                           </div>
                           <div class="form-group">
@@ -136,7 +136,7 @@
                                       <i class="ti-linkedin"></i>
                                   </span>
                                   </div>
-                                  <input type="text" class="form-control" placeholder="Username">
+                                  <input type="text" class="form-control" placeholder="Link liên kết">
                               </div>
                           </div>
                           <div class="form-group">
@@ -146,7 +146,7 @@
                                       <i class="ti-dribbble"></i>
                                   </span>
                                   </div>
-                                  <input type="text" class="form-control" placeholder="Username">
+                                  <input type="text" class="form-control" placeholder="Link liên kết">
                               </div>
                           </div>
                           <div class="form-group">
@@ -156,7 +156,7 @@
                                       <i class="ti-youtube"></i>
                                   </span>
                                   </div>
-                                  <input type="text" class="form-control" placeholder="Username">
+                                  <input type="text" class="form-control" placeholder="Link liên kết">
                               </div>
                           </div>
                           <div class="form-group">
@@ -166,7 +166,7 @@
                                       <i class="ti-google"></i>
                                   </span>
                                   </div>
-                                  <input type="text" class="form-control" placeholder="Username">
+                                  <input type="text" class="form-control" placeholder="Link liên kết">
                               </div>
                           </div>
                           <div class="form-group">
@@ -176,7 +176,7 @@
                                       <i class="fa fa-whatsapp"></i>
                                   </span>
                                   </div>
-                                  <input type="text" class="form-control" placeholder="Username">
+                                  <input type="text" class="form-control" placeholder="Link liên kết">
                               </div>
                           </div>
                       </form>
@@ -184,7 +184,7 @@
               </div>
           </div>
           <div class="modal-footer">
-              <button type="button" class="btn btn-primary">Save</button>
+              <button type="button" class="btn btn-primary">Lưu lại</button>
           </div>
       </div>
   </div>

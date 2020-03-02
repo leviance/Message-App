@@ -58,14 +58,17 @@ let userLogin = (nameAccount,password) =>{
   return new Promise( async (resolve, reject) =>{
     let result = await userModel.userLogin(nameAccount);
 
+    // account is not active 
+    if(result === null){ return reject(loginRegisterIncorrect.accountIsNotActive);}
+
     // resultCompare is true || false
     let resultCompare =  bcrypt.compareSync(password, result.local.password);
 
     if(resultCompare){
-      return resolve(resultCompare);
+      return resolve(result);
     }
     
-      return reject(resultCompare);
+    return reject(resultCompare);
   });
 }
 
