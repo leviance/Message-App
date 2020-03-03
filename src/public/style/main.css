@@ -23,16 +23,14 @@
 
 #addFriends .list-friends, #newGroup .list-friends {
   width: 100%;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 1fr;
-      grid-template-columns: 1fr;
-  padding: 20px 30px;
+  padding: 0px 30px;
   height: 400px;
   overflow-y: scroll;
 }
 
 #addFriends .list-friends .list-friend-item, #newGroup .list-friends .list-friend-item {
+  width: 100%;
+  min-height: 70px !important;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -45,19 +43,25 @@
 }
 
 #addFriends .list-friends .list-friend-item .avatar, #newGroup .list-friends .list-friend-item .avatar {
-  width: 65px;
-  height: 65px !important;
+  width: 15%;
+  min-height: 20px !important;
+}
+
+#addFriends .list-friends .list-friend-item .avatar img, #newGroup .list-friends .list-friend-item .avatar img {
+  width: 100%;
+  height: auto;
 }
 
 #addFriends .list-friends .list-friend-item .users-list-body, #newGroup .list-friends .list-friend-item .users-list-body {
-  width: auto;
-  padding-left: 10px;
+  width: 70%;
+  min-height: 20px !important;
+  padding-left: 20px;
   padding-right: 10px;
 }
 
 #addFriends .list-friends .list-friend-item .btn-add-friend, #newGroup .list-friends .list-friend-item .btn-add-friend {
-  width: 65px;
-  height: 45px;
+  width: 15%;
+  height: 70px !important;
 }
 
 @media (max-width: 576px) {
