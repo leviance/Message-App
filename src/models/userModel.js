@@ -4,7 +4,7 @@ let Schema = mongoose.Schema;
 
 let userSchema = new Schema({
   nameAccount: String,
-  username: String,
+  username: {type: String, index: true},
   avatar: {type: String, default: "avatarDefault.jpg"},
   phoneNumber: {type: String, default: null}, 
   images: Array,
@@ -58,6 +58,14 @@ userSchema.statics = {
         {"removedAt": null}
       ]
     }).exec();
+  },
+  searchFriends(userName,regex,limit){
+    return this.find({ 
+        $and: [
+          {$text: { $search: userName  }},
+          {"local.isActive": true}
+        ]
+  },{_id: 1, avatar: 1, username: 1, class: 1,score: { $meta: "textScore" } }).sort( { score: { $meta: "textScore" } } ).limit(limit).exec();
   }
 }
 
