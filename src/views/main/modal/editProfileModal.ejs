@@ -22,9 +22,13 @@
                       <a class="nav-link" data-toggle="tab" href="#social-links" role="tab" aria-controls="social-links" aria-selected="false">Mạng xã hội</a>
                   </li>
               </ul>
-              <div class="tab-content">
+              <div id="modal-error-update-infor">
+                  <!-- <p class="alert-error-update-infor">File upload không được quá 1MB</p>
+                  <p class="alert-success-update-infor">Update thành công</p> -->
+              </div>
+              <div class="tab-content" style="padding-top: 0 !important;">
                   <div class="tab-pane show active" id="personal" role="tabpanel">
-                      <form>
+                      <form id="form-update-user-info">
                           <div class="form-group">
                               <label for="fullname" class="col-form-label">Tên đầy đủ</label>
                               <div class="input-group">
@@ -33,7 +37,7 @@
                                           <i class="ti-user"></i>
                                       </span>
                                   </div>
-                                  <input type="text" class="form-control" id="fullname" placeholder="<%= user.username %>">
+                                  <input type="text" name="username" class="form-control" id="fullname" placeholder="<%= user.username %>">
                               </div>
                           </div>
                           <div class="form-group">
@@ -41,11 +45,11 @@
                               <div class="d-flex align-items-center">
                                   <div>
                                       <figure class="avatar mr-3 item-rtl">
-                                          <img src="image/userImages/<%= user.avatar %>" class="rounded-circle">
+                                          <img id="userAvatar" src="image/userImages/<%= user.avatar %>" class="rounded-circle">
                                       </figure>
                                   </div>
                                   <div class="custom-file">
-                                      <input type="file" class="custom-file-input" id="customFile">
+                                      <input type="file" name="avatar" class="custom-file-input" id="customFile">
                                       <label class="custom-file-label" for="customFile">Chọn ảnh</label>
                                   </div>
                               </div>
@@ -58,7 +62,7 @@
                                           <i class="ti-map-alt"></i>
                                       </span>
                                   </div>
-                                  <input type="text" class="form-control" id="city">
+                                  <input type="text" name="address" class="form-control" id="city">
                               </div>
                           </div>
                           <div class="form-group">
@@ -69,7 +73,7 @@
                                           <i class="ti-mobile"></i>
                                       </span>
                                   </div>
-                                  <input type="text" class="form-control" id="phone" placeholder="(555) 555 55 55">
+                                  <input type="text" name="phoneNumber" class="form-control" id="phone" placeholder="(555) 555 55 55">
                               </div>
                           </div>
                           <div class="form-group">
@@ -80,7 +84,7 @@
                                         <i class="fa fa-users" aria-hidden="true"></i>
                                       </span>
                                   </div>
-                                  <input type="text" class="form-control" id="website">
+                                  <input type="text" name="class" class="form-control" id="class">
                               </div>
                           </div>
                       </form>
@@ -184,7 +188,8 @@
               </div>
           </div>
           <div class="modal-footer">
-              <button type="button" class="btn btn-primary">Lưu lại</button>
+              <button id="btn-update-user-infor" type="button" class="btn btn-primary">Lưu lại</button>
+              <button id="cancel-update-user-infor" type="button" class="btn btn-danger">Hủy bỏ</button>
           </div>
       </div>
   </div>

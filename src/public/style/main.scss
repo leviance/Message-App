@@ -54,6 +54,15 @@
   }
 }
 
+#modal-error-update-infor{
+  margin-top: 15px;
+  .alert-error-update-infor{
+    color: red;
+  }
+  .alert-success-update-infor{
+    color:#0d9427;
+  }
+}
 
 @media (max-width: 768px){
   

@@ -8,10 +8,12 @@ let config = (app) => {
     secret: 'drdung1999',
     resave: true,
     saveUninitialized: true,
-    maxAge: 1000 * 60 * 60 * 24, // 1 day
+    cookie:{maxAge: 1000 * 60 * 60 * 24}, // 1 day
     store: new MongoStore({ 
       url: `mongodb://${process.env.APP_HOST}/${process.env.DB_NAME}`,
-      ttl: 60 * 60 * 24 // 1 day
+      autoRemove: true,
+      ttl: 60 * 60 * 24, // 1 day
+      clearInterval: 3600 // clear every hour
     })
   }))
 }
