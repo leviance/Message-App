@@ -9,6 +9,41 @@ let regexSearchFriends = (userName) =>{
   return regex;
 }
 
+let removeExtraWhitespace = (name) => {
+ return new Promise( (resolve, reject) => {
+  let j = 0;
+  let newName = "";
+  let a = 0;
+  if(name[0]===" "){ a = 1 }
+  for(let i = 0 ; i < name.length ; i++){
+    if(a === 1){
+      if(name[i] !== " "){ 
+        a = 0;
+      }
+    }
+
+    if(a === 0){
+
+      if(name[i] === " "){
+        if(j == 0){
+            newName = newName + name[i];
+            j = 1;
+        }
+        if(j == 1){
+            continue;
+        }
+    }
+    else{  j = 0  }
+    newName = newName + name[i];
+
+    }
+  }
+
+  return resolve(newName);
+ })
+} 
+
 module.exports = {
-  regexSearchFriends: regexSearchFriends
+  regexSearchFriends: regexSearchFriends,
+  removeExtraWhitespace: removeExtraWhitespace
 }

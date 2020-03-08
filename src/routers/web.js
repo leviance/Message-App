@@ -19,8 +19,11 @@ let initRouters = (app) => {
 
   // request from home page
   router.get("/", auth.checkLogedin);
+  router.get("/logout",home.userLogOut);
 
-  router.post("/search-friends",home.searchFriends)
+  router.post("/search-friends",home.searchFriends);
+
+  router.post("/update-user-infor",home.updateUserInfor);
 
   return app.use("/", router);
 }

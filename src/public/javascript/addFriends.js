@@ -34,10 +34,11 @@ function searchFriends(){
   })
 }
 
+// gửi lời mời kết bạn làm tiếp ở phần sau
 function addFriends(){
   $("#addFriends .btn-add-friend").on("click",function(){
     console.log($(this).data("uid"));
-    
+   //làm tiếp ở phần sau 
   })
 }
 

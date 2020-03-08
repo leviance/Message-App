@@ -64,6 +64,18 @@
   height: 70px !important;
 }
 
+#modal-error-update-infor {
+  margin-top: 15px;
+}
+
+#modal-error-update-infor .alert-error-update-infor {
+  color: red;
+}
+
+#modal-error-update-infor .alert-success-update-infor {
+  color: #0d9427;
+}
+
 @media (max-width: 576px) {
   #addFriends .list-friends .list-friend-item .avatar {
     margin-bottom: 15px;
