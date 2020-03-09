@@ -6,22 +6,51 @@ import connectDB from './config/connectDB';
 import bodyParser from 'body-parser';
 import {configSession} from './config/configSession';
 
-const app = express();
+import pem from 'pem';
+import https from 'https'; 
 
-const server = http.createServer(app);
+pem.createCertificate({ days: 1, selfSigned: true }, function (err, keys) {
+  if (err) {
+    throw err
+  }
 
-connectDB();
+  const app = express();
 
-// config connect-mongo and session
-configSession(app);
+  const server = http.createServer(app);
 
-// enable post data
-app.use(bodyParser.urlencoded({extended : true}));
+  connectDB();
 
-initRouters(app);
+  // config connect-mongo and session
+  configSession(app);
 
-configViewEngine(app);
+  // enable post data
+  app.use(bodyParser.urlencoded({extended : true}));
 
-server.listen(process.env.APP_PORT, function(){
-  console.log(`Start complete at ${process.env.APP_HOST}:${process.env.APP_PORT}`);
+  initRouters(app);
+
+  configViewEngine(app);
+
+  https.createServer({ key: keys.serviceKey, cert: keys.certificate }, app).listen(process.env.APP_PORT, function(){
+    console.log(`Start complete at ${process.env.APP_HOST}:${process.env.APP_PORT}`);
+  });
 })
+
+// const app = express();
+
+// const server = http.createServer(app);
+
+// connectDB();
+
+// // config connect-mongo and session
+// configSession(app);
+
+// // enable post data
+// app.use(bodyParser.urlencoded({extended : true}));
+
+// initRouters(app);
+
+// configViewEngine(app);
+
+// server.listen(process.env.APP_PORT, function(){
+//   console.log(`Start complete at ${process.env.APP_HOST}:${process.env.APP_PORT}`);
+// })

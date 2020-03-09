@@ -72,6 +72,12 @@ userSchema.statics = {
   },
   inforUser(userId){
     return this.findOne({"_id": userId},{"local.password": 0, "local.isActive": 0, "local.veryfyToken": 0, "facebook.token": 0, "google.token": 0}).exec();
+  },
+  findByFacebookUid(uid) {
+    return this.findOne({"facebook.uid": uid}).exec();
+  },
+  findUserById(id) {
+    return this.findOne({"_id": id}).exec();
   }
 }
 
