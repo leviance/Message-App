@@ -8,7 +8,7 @@ let userSchema = new Schema({
   avatar: {type: String, default: "avatarDefault.jpg"},
   phoneNumber: {type: String, default: null}, 
   images: Array,
-  adress: {type: String, default: null},
+  address: {type: String, default: null},
   class: {type: String, default: null},
   linkSocial: Object,
   gender: String,
@@ -66,6 +66,12 @@ userSchema.statics = {
           {"local.isActive": true}
         ]
   },{_id: 1, avatar: 1, username: 1, class: 1,score: { $meta: "textScore" } }).sort( { score: { $meta: "textScore" } } ).limit(limit).exec();
+  },
+  updateUserInfor(userId,inforToUpdate){
+    return this.updateOne({"_id": userId},inforToUpdate).exec();
+  },
+  inforUser(userId){
+    return this.findOne({"_id": userId},{"local.password": 0, "local.isActive": 0, "local.veryfyToken": 0, "facebook.token": 0, "google.token": 0}).exec();
   }
 }
 

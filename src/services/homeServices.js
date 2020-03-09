@@ -15,6 +15,14 @@ let searchFriends = (userName,limit) => {
   })
 }
 
+let updateUserInfor = async (userId,inforToUpdate) =>{
+  return new Promise( async (resolve, reject) => {
+    let result = await userModel.updateUserInfor(userId,inforToUpdate);
+    return resolve(result);
+  })
+}
+
 module.exports = {
-  searchFriends: searchFriends
+  searchFriends: searchFriends,
+  updateUserInfor: updateUserInfor
 }
