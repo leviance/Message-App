@@ -1,16 +1,15 @@
 import {home} from '../services/index';
-import _ from 'lodash';
 import multer  from 'multer';
 import uid  from 'uid';
 import {app} from "../config/app";
-import {transUpdateUserInfo, transValidation} from "../../lang/vi";
-import regularExpressions from '../regularExpressions/index';
+import {transUpdateUserInfo} from "../../lang/vi";
+import {homeValid} from "../validation/index";
 
 const LIMIT_FRIENDS_TEKEN = 10;
 
 let storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './src/public/image/userImages')
+    cb(null, app.avatar_directory)
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + '-' + uid(4) + '-' + file.originalname)
@@ -26,7 +25,7 @@ let upload = multer({
     callback(null, true)
   },
   limits: {
-    fileSize: 1048576
+    fileSize: app.avatar_limit_size
   }
 }).single("avatar");
 
@@ -54,90 +53,22 @@ let updateUserInfor = (req, res) => {
       return res.status(500).send(transUpdateUserInfo.errorUpdateAvatar);
     }
 
-    let inforToUpdate = {};
+    let inforToUpdate = await homeValid.validUserUpdateInfor(req,res);
 
-    // validation username
-    if(req.body.username){
-      let regex = new RegExp(/^[A-Za-z0-9 âăêưôđơèéẹẻẽỳýỵỹỷểệễềếủũụùúửữựừứỉĩịìíòóỏõọổồốỗộảạãáàẳặẵắằẩẫậấầÂĂÊƯÔĐƠÈÉẸẺẼỲÝỴỸỶỂỆỄỀẾỦŨỤÙÚỬỮỰỪỨỈĨỊÌÍÒÓỎÕỌỔỒỐỖỘẢẠÃÁÀẲẶẴẮẰẨẪẬẤẦ]+$/);
-      
-      if(!regex.test(req.body.username)){
-        return res.status(500).send(transValidation.usernameIncorrect);
-      }
-
-      // loại bỏ khoảng trắng thừa
-      let edditUserName = await regularExpressions.removeExtraWhitespace(req.body.username);
-
-      if(edditUserName.length < 6 || edditUserName.length > 30){
-        return res.status(500).send(transValidation.usernameLengthIncorrect);
-      }
-
-      if(edditUserName !== ""){
-        inforToUpdate.username = edditUserName;
-      }
+    if(req.file){
+      inforToUpdate.avatar = req.file.filename;
     }
 
-    if(req.body.address){
-      let regex = new RegExp(/^[A-Za-z0-9 âăêưôđơèéẹẻẽỳýỵỹỷểệễềếủũụùúửữựừứỉĩịìíòóỏõọổồốỗộảạãáàẳặẵắằẩẫậấầÂĂÊƯÔĐƠÈÉẸẺẼỲÝỴỸỶỂỆỄỀẾỦŨỤÙÚỬỮỰỪỨỈĨỊÌÍÒÓỎÕỌỔỒỐỖỘẢẠÃÁÀẲẶẴẮẰẨẪẬẤẦ]+$/);
-      
-      if(!regex.test(req.body.address)){
-        return res.status(500).send(transUpdateUserInfo.addressIncorrect);
-      }
-
-      // loại bỏ khoảng trắng thừa
-      let edditAddress = await regularExpressions.removeExtraWhitespace(req.body.address);
-
-      if(edditAddress.length < 6 || edditAddress.length > 50){
-        return res.status(500).send(transUpdateUserInfo.addressLengthIncorrect);
-      }
-
-      if(edditAddress !== ""){
-        inforToUpdate.address = edditAddress;
-      }
-    }
-
-    if(req.body.phoneNumber){
-      let regex = new RegExp(/^[0-9]+$/);
-      
-      if(!regex.test(req.body.phoneNumber)){
-        return res.status(500).send(transUpdateUserInfo.phoneNumberIncorrect);
-      }
-
-      if(req.body.phoneNumber.length !== 10){
-        return res.status(500).send(transUpdateUserInfo.phoneNumberIncorrect);
-      }
-
-      inforToUpdate.phoneNumber = req.body.phoneNumber
-    }
-
-    if(req.body.class){
-      let regex = new RegExp(/^[A-Za-z0-9 âăêưôđơèéẹẻẽỳýỵỹỷểệễềếủũụùúửữựừứỉĩịìíòóỏõọổồốỗộảạãáàẳặẵắằẩẫậấầÂĂÊƯÔĐƠÈÉẸẺẼỲÝỴỸỶỂỆỄỀẾỦŨỤÙÚỬỮỰỪỨỈĨỊÌÍÒÓỎÕỌỔỒỐỖỘẢẠÃÁÀẲẶẴẮẰẨẪẬẤẦ]+$/);
-      
-      if(!regex.test(req.body.class)){
-        return res.status(500).send(transUpdateUserInfo.classIncorrect);
-      }
-
-      // loại bỏ khoảng trắng thừa
-      let edditClass = await regularExpressions.removeExtraWhitespace(req.body.class);
-
-      if(edditClass.length < 6 || edditClass.length > 30){
-        return res.status(500).send(transUpdateUserInfo.classIncorrect);
-      }
-
-      if(edditClass !== ""){
-        inforToUpdate.class = edditClass;
-      }
-    }
-
+    // check inforToUpdate ? = null 
     if(Object.keys(inforToUpdate).length === 0 && !req.file){
       return res.status(500).send(transUpdateUserInfo.dataToUpdateEmpty);
     }
 
-
     try {
-      
+      let result = await home.updateUserInfor(req.session.user.userId,inforToUpdate);
       res.status(200).send(transUpdateUserInfo.updateSuccess);
     } catch (error) {
-      
+      res.status(500).send(error)
     }
     
   })

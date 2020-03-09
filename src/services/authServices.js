@@ -72,8 +72,16 @@ let userLogin = (nameAccount,password) =>{
   });
 }
 
+let inforUser = (userId) =>{
+  return new Promise( async (resolve, reject) => {
+    let userInfo = await userModel.inforUser(userId);
+    return resolve(userInfo);
+  })
+}
+
 module.exports = {
   createNewUser: createNewUser,
   activeAccount: activeAccount,
-  userLogin: userLogin
+  userLogin: userLogin,
+  inforUser: inforUser
 }

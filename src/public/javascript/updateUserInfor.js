@@ -23,14 +23,14 @@ function changeAvatar(){
     let checkSize = 1048576;
     $("#modal-error-update-infor").empty();
 
-    // if(fileToUpdateAvatar.size > checkSize){
-    //   modalAlertErrorUpdate("File quá lớn chỉ được upload tối đã 1MB !");
-    //   return;
-    // }
-    // if($.inArray(fileToUpdateAvatar.type,checkType) === -1){
-    //   modalAlertErrorUpdate("Chỉ được upload ảnh !");
-    //   return;
-    // }
+    if(fileToUpdateAvatar.size > checkSize){
+      modalAlertErrorUpdate("File quá lớn chỉ được upload tối đã 1MB !");
+      return;
+    }
+    if($.inArray(fileToUpdateAvatar.type,checkType) === -1){
+      modalAlertErrorUpdate("Chỉ được upload ảnh !");
+      return;
+    }
 
     let fileReader = new FileReader();
 

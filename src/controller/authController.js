@@ -71,13 +71,7 @@ let userLogin = async (req,res) => {
     let data = await auth.userLogin(nameAccount,password);
     
     let userSession = {
-      email : data.local.email,
-      avatar : data.avatar,
-      images : data.images,
-      adress : data.adress,
-      class : data.class,
-      username : data.username,
-      gender : data.gender
+      userId: data._id
     }
     req.session.user = userSession;
 
@@ -91,9 +85,10 @@ let userLogin = async (req,res) => {
   }
 }
 
-let checkLogedin = (req, res) => {
+let checkLogedin = async (req, res) => {
   if(req.session.user){
-    return res.render("main/layout/home",{user : req.session.user});
+    let userInfo = await auth.inforUser(req.session.user.userId);
+    return res.render("main/layout/home",{user : userInfo});
   }
   res.redirect("/login");
 }
