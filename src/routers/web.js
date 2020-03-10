@@ -1,6 +1,10 @@
 import express from 'express';
 import {auth,home} from '../controller/index';
 import {authValid} from '../validation/index';
+import passport from 'passport';
+import initPassportFacebook from '../controller/loginWithApp/loginFacebook';
+
+initPassportFacebook();
 
 const router = express.Router();
 
@@ -14,6 +18,12 @@ let initRouters = (app) => {
   router.get("/request-login/:nameAccount-:password",authValid.checkLogin,auth.userLogin);
 
   router.get("/login", auth.checkLogedOut);
+
+  router.get("/auth/facebook", passport.authenticate("facebook"));
+  router.get("/auth/facebook/callback", passport.authenticate("facebook", {
+    successRedirect: "/", 
+    failureRedirect: "/login"
+  }))
 
   //router.get("*", (req, res) => { res.redirect("/login"); });
 
