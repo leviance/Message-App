@@ -49,7 +49,7 @@ let activeAccount = async (req, res) =>{
 
 let userLogin = async (req,res) => {
   // prevent DoS attach
-  if(req.session.user){
+  if(req.session.user || req.session.passport){
     return res.status(500).send("DoS ??");
   }
 
@@ -75,7 +75,7 @@ let userLogin = async (req,res) => {
     }
     req.session.user = userSession;
 
-    console.log(req.session.user);
+    console.log(req.session.user || req.session.passport);
     
     data = true;
     return res.status(200).send(data);
@@ -86,15 +86,24 @@ let userLogin = async (req,res) => {
 }
 
 let checkLogedin = async (req, res) => {
-  if(req.session.user){
+  if(req.session.user || req.session.passport){
+    // đặt lại session thành chuẩn chung thay cho session passport
+    if(req.session.passport){
+      let userSession = {
+        userId: req.session.passport.user.userId
+      }
+      req.session.user = userSession;
+    }
+
     let userInfo = await auth.inforUser(req.session.user.userId);
+
     return res.render("main/layout/home",{user : userInfo});
   }
   res.redirect("/login");
 }
 
 let checkLogedOut = (req, res) =>{
-  if(req.session.user){
+  if(req.session.user || req.session.passport){
     return res.redirect("/");
   }
 

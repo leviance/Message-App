@@ -11,7 +11,7 @@ let userSchema = new Schema({
   address: {type: String, default: null},
   class: {type: String, default: null},
   linkSocial: Object,
-  gender: String,
+  gender: {type: String, default: "Male"},
   local: {
     email: {type: String, trim: true},
     password: String,
@@ -72,6 +72,9 @@ userSchema.statics = {
   },
   inforUser(userId){
     return this.findOne({"_id": userId},{"local.password": 0, "local.isActive": 0, "local.veryfyToken": 0, "facebook.token": 0, "google.token": 0}).exec();
+  },
+  findByFaceBookId(uid){
+    return this.findOne({"facebook.uid": uid}).exec();
   }
 }
 
