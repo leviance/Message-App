@@ -45,7 +45,7 @@
                               <div class="d-flex align-items-center">
                                   <div>
                                       <figure class="avatar mr-3 item-rtl">
-                                          <img id="userAvatar" src="image/userImages/<%= user.avatar %>" class="rounded-circle">
+                                          <img id="userAvatar" src="<%if(user.google){%> <%=user.avatar%> <%} else {%> image/userImages/<%= user.avatar %> <%}%>" class="rounded-circle">
                                       </figure>
                                   </div>
                                   <div class="custom-file">

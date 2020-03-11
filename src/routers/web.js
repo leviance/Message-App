@@ -2,9 +2,12 @@ import express from 'express';
 import {auth,home} from '../controller/index';
 import {authValid} from '../validation/index';
 import passport from 'passport';
+
 import initPassportFacebook from '../controller/loginWithApp/loginFacebook';
+import initPassportGoogle from '../controller/loginWithApp/loginGoogle';
 
 initPassportFacebook();
+initPassportGoogle();
 
 const router = express.Router();
 
@@ -23,7 +26,18 @@ let initRouters = (app) => {
   router.get("/auth/facebook/callback", passport.authenticate("facebook", {
     successRedirect: "/", 
     failureRedirect: "/login"
-  }))
+  }));
+
+  router.get('/auth/google',passport.authenticate('google', { scope: [
+    'https://www.googleapis.com/auth/userinfo.profile',
+    'https://www.googleapis.com/auth/userinfo.email'
+  ] }));
+  router.get('/auth/google/callback', 
+  passport.authenticate('google', { 
+    successRedirect: "/", 
+    failureRedirect: '/login' 
+  }));
+
 
   //router.get("*", (req, res) => { res.redirect("/login"); });
 

@@ -6,7 +6,6 @@ const FacebookStrategy = strategy.Strategy;
 
 let initPassportFacebook = () => {
   passport.serializeUser(function(user, done) {
-
     done(null, user);
   });
   
@@ -24,9 +23,9 @@ let initPassportFacebook = () => {
       },
       async function(accessToken, refreshToken, profile, done) {
         // check account exist or not
-        let checkUser = await UserModel.findByFaceBookId(profile.id);
+        let result = await UserModel.findByFaceBookId(profile.id);
        
-        if(checkUser === null) {
+        if(result === null) {
           let dataToCreateUser = {
             username: profile._json.name,
             local: {
@@ -41,11 +40,9 @@ let initPassportFacebook = () => {
 
           let createUser = await UserModel.createNew(dataToCreateUser); 
         }
-
-        checkUser = await UserModel.findByFaceBookId(profile.id);
         // save session
         let userSession = {
-          userId: checkUser._id
+          userId: result._id
         }
         
 
