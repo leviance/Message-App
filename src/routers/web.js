@@ -48,6 +48,7 @@ let initRouters = (app) => {
   router.post("/search-friends",home.searchFriends);
 
   router.post("/update-user-infor",home.updateUserInfor);
+  router.post("/user-update-password",home.updateUserPassword);
 
   return app.use("/", router);
 }

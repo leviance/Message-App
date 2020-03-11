@@ -78,6 +78,9 @@ userSchema.statics = {
   },
   findByGoogleId(uid){
     return this.findOne({"google.uid": uid}).exec();
+  },
+  updateData(userId,dataToUpdate){
+    return this.updateOne({"_id" : userId, "local.isActive" : true},dataToUpdate).exec();
   }
 }
 

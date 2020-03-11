@@ -4,90 +4,100 @@
       <div class="modal-content">
           <div class="modal-header">
               <h5 class="modal-title">
-                  <i class="ti-settings"></i> Settings
+                  <i class="ti-settings"></i> Cài đặt
               </h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <button id="btn-close-settings-modal" type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <i class="ti-close"></i>
               </button>
           </div>
           <div class="modal-body">
               <ul class="nav nav-tabs" role="tablist">
                   <li class="nav-item">
-                      <a class="nav-link active" data-toggle="tab" href="#account" role="tab" aria-controls="account" aria-selected="true">Account</a>
+                      <a class="nav-link active" data-toggle="tab" href="#account" role="tab" aria-controls="account" aria-selected="true">Tài khoản</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" data-toggle="tab" href="#notification" role="tab" aria-controls="notification" aria-selected="false">Notification</a>
+                      <a class="nav-link" data-toggle="tab" href="#notification" role="tab" aria-controls="notification" aria-selected="false">Thông báo</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Security</a>
+                      <a class="nav-link" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Bảo mật</a>
                   </li>
               </ul>
               <div class="tab-content">
                   <div class="tab-pane show active" id="account" role="tabpanel">
                       <div class="form-item custom-control custom-switch">
                           <input type="checkbox" class="custom-control-input" checked="" id="customSwitch1">
-                          <label class="custom-control-label" for="customSwitch1">Allow connected contacts</label>
+                          <label class="custom-control-label" for="customSwitch1">Chỉ nhận lời mời kết bạn từ bạn của bạn bè</label>
                       </div>
                       <div class="form-item custom-control custom-switch">
                           <input type="checkbox" class="custom-control-input" checked="" id="customSwitch2">
-                          <label class="custom-control-label" for="customSwitch2">Confirm message requests</label>
+                          <label class="custom-control-label" for="customSwitch2">Nhận tin nhắn từ người lạ</label>
                       </div>
                       <div class="form-item custom-control custom-switch">
                           <input type="checkbox" class="custom-control-input" checked="" id="customSwitch3">
-                          <label class="custom-control-label" for="customSwitch3">Profile privacy</label>
+                          <label class="custom-control-label" for="customSwitch3">Cho phép tất cả mọi người xem hồ sơ</label>
                       </div>
                       <div class="form-item custom-control custom-switch">
                           <input type="checkbox" class="custom-control-input" id="customSwitch4">
-                          <label class="custom-control-label" for="customSwitch4">Developer mode options</label>
+                          <label class="custom-control-label" for="customSwitch4">Dark mode</label>
                       </div>
                       <div class="form-item custom-control custom-switch">
                           <input type="checkbox" class="custom-control-input" checked="" id="customSwitch5">
-                          <label class="custom-control-label" for="customSwitch5">Two-step security verification</label>
+                          <label class="custom-control-label" for="customSwitch5">Bảo mật xác thực 2 bước</label>
                       </div>
                   </div>
                   <div class="tab-pane" id="notification" role="tabpanel">
                       <div class="form-item custom-control custom-switch">
                           <input type="checkbox" class="custom-control-input" checked="" id="customSwitch6">
-                          <label class="custom-control-label" for="customSwitch6">Allow mobile notifications</label>
+                          <label class="custom-control-label" for="customSwitch6">Nhận thông báo trên điện thoại</label>
                       </div>
                       <div class="form-item custom-control custom-switch">
                           <input type="checkbox" class="custom-control-input" id="customSwitch7">
-                          <label class="custom-control-label" for="customSwitch7">Notifications from your friends</label>
+                          <label class="custom-control-label" for="customSwitch7">Nhận thông báo về hoạt động của bạn bè</label>
                       </div>
                       <div class="form-item custom-control custom-switch">
                           <input type="checkbox" class="custom-control-input" id="customSwitch8">
-                          <label class="custom-control-label" for="customSwitch8">Send notifications by email</label>
+                          <label class="custom-control-label" for="customSwitch8">Gửi thông báo đến email</label>
                       </div>
                   </div>
                   <div class="tab-pane" id="contact" role="tabpanel">
                       <div class="form-item custom-control custom-switch">
                           <input type="checkbox" class="custom-control-input" id="customSwitch9">
-                          <label class="custom-control-label" for="customSwitch9">Suggest changing passwords every month.</label>
+                          <label class="custom-control-label" for="customSwitch9">Tự động thay đổi mật khẩu mỗi tuần</label>
                       </div>
                       <div class="form-item custom-control custom-switch">
                           <input type="checkbox" class="custom-control-input" checked="" id="customSwitch10">
-                          <label class="custom-control-label" for="customSwitch10">Let me know about suspicious entries to your account</label>
+                          <label class="custom-control-label" for="customSwitch10">Thông báo về hoạt động bất thường</label>
                       </div>
                       <div class="form-item">
                           <p>
                               <a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                  <span class="ti-plus btn-icon"></span> Security Questions
+                                  <span class="ti-plus btn-icon"></span> Đổi mật khẩu
                               </a>
                           </p>
                           <div class="collapse" id="collapseExample">
                               <div class="form-group">
-                                  <input type="text" class="form-control" placeholder="Question 1">
+                                  <input type="password" id="new-password" class="form-control" name="new-password" placeholder="Mật khẩu mới">
                               </div>
                               <div class="form-group">
-                                  <input type="text" class="form-control" placeholder="Question 2">
+                                  <input type="password" id="repeat-new-password" class="form-control" name="repeat-new-password" placeholder="Nhập lại mật khẩu">
                               </div>
                           </div>
                       </div>
                   </div>
               </div>
           </div>
+          <div id="alert-error-setting-modal" style="padding: 0 30px 35px 30px;">
+            <!-- <div class="setting-error" style="color: red;">
+                <i style="padding-right: 10px;" class="fa fa-exclamation" aria-hidden="true"></i>
+                Nhập lại mật khẩu không chính xác, vui lòng kiểm tra lại.
+            </div>
+            <div class="setting-success" style="color:#0d9427;">
+                <i style="padding-right: 10px;" class="fa fa-check" aria-hidden="true"></i>
+                Thay đổi mật khẩu thành công.
+            </div> -->
+          </div>
           <div class="modal-footer">
-              <button type="button" class="btn btn-primary">Save</button>
+              <button type="button" class="btn btn-primary" id="btn-save-settings-modal">Lưu thay đổi</button>
           </div>
       </div>
   </div>

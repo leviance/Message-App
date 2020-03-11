@@ -75,11 +75,26 @@ let updateUserInfor = (req, res) => {
   
 }
 
+let updateUserPassword = async (req, res) =>{
+  let userId = req.session.user.userId;
+  let newPassword = req.body.newPassword;
+  
+  try {
+    await homeValid.updateUserPassword(newPassword);
+    await home.updateUserPassword(userId,newPassword);
+    res.status(200).send(transUpdateUserInfo.updateSuccess);
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+  
+}
+
 
 
 module.exports = {
   searchFriends: searchFriends,
   userLogOut: userLogOut,
-  updateUserInfor: updateUserInfor
+  updateUserInfor: updateUserInfor,
+  updateUserPassword: updateUserPassword
 };
 
