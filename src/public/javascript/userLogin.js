@@ -36,6 +36,7 @@ function login(){
     $(".loading-modal").hide();
   }).fail(function(error){
     if(error.responseText == "false"){
+      $(".loading-modal").hide();
       return modalAlertLogin.append(alertError(loginIncorrect.validLoginIncorrect));
     }
     

@@ -82,6 +82,18 @@ let validUserUpdateInfor = (req,res) => {
   
 }
 
+let updateUserPassword = (newPassword) =>{
+  return new Promise((resolve, reject) =>{
+    if(newPassword.length < 6 || newPassword.length > 30) return reject(transValidation.passwordLengthIncorrect);
+
+    let regex = new RegExp(/^[a-zA-Z0-9]+$/);
+    if(regex.test(newPassword) !== true) return reject(transValidation.passwordIncorrect);
+
+    else return resolve();
+  })  
+}
+
 module.exports = {
-  validUserUpdateInfor: validUserUpdateInfor
+  validUserUpdateInfor: validUserUpdateInfor,
+  updateUserPassword: updateUserPassword
 }
