@@ -12,3 +12,4 @@ export FACEBOOK_CALLBACK_URL=https://localhost:3000/auth/facebook/callback
 
 export GOOGLE_ID=333012711808-kq7l7j5ot7vk0vi6ivlmt02cen7d7jd0.apps.googleusercontent.com
 export GOOGLE_SECRET=Vp651QtwUHADFpNXu_CijnYg
+export GOOGLE_CALLBACK_URL=https://localhost:3000/auth/google/callback

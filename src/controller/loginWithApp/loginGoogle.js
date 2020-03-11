@@ -12,7 +12,7 @@ let initPassportGoogle = () =>{
   passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_ID,
     clientSecret: process.env.GOOGLE_SECRET,
-    callbackURL: `https://${process.env.APP_HOST}:${process.env.APP_PORT}/auth/google/callback`,
+    callbackURL: process.env.GOOGLE_CALLBACK_URL
     },
     async function(accessToken, refreshToken, profile, done) {
       let result = await UserModel.findByGoogleId(profile.id);
