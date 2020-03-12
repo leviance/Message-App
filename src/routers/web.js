@@ -1,5 +1,5 @@
 import express from 'express';
-import {auth,home} from '../controller/index';
+import {auth,home,contact} from '../controller/index';
 import {authValid} from '../validation/index';
 import passport from 'passport';
 
@@ -49,6 +49,8 @@ let initRouters = (app) => {
 
   router.post("/update-user-infor",home.updateUserInfor);
   router.post("/user-update-password",home.updateUserPassword);
+
+  router.put("/send-request-contact-:userId",contact.sendRequestContact);
 
   return app.use("/", router);
 }

@@ -45,7 +45,7 @@
                               <div class="d-flex align-items-center">
                                   <div>
                                       <figure class="avatar mr-3 item-rtl">
-                                          <img id="userAvatar" src="<%if(user.google){%> <%=user.avatar%> <%} else {%> image/userImages/<%= user.avatar %> <%}%>" class="rounded-circle">
+                                          <img id="userAvatar" src="<%if(user.google.email){%> <%=user.avatar%> <%} else {%> image/userImages/<%= user.avatar %> <%}%>" class="rounded-circle">
                                       </figure>
                                   </div>
                                   <div class="custom-file">
@@ -62,9 +62,7 @@
                                           <i class="ti-map-alt"></i>
                                       </span>
                                   </div>
-                                  <input placeholder="<% if(user.address !== null){ %>
-                                    <%= user.address %>
-                                  <% } %>" type="text" name="address" class="form-control" id="city">
+                                  <input placeholder="<% if(user.address !== null){ %><%= user.address %><% } %>" type="text" name="address" class="form-control" id="city">
                               </div>
                           </div>
                           <div class="form-group">

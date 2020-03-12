@@ -59,11 +59,12 @@ userSchema.statics = {
       ]
     }).exec();
   },
-  searchFriends(userName,regex,limit){
+  searchFriends(userName,regex,limit,listdeprecatedUserId){
     return this.find({ 
         $and: [
           {$text: { $search: userName  }},
-          {"local.isActive": true}
+          {"local.isActive": true},
+          {"_id": {$nin: listdeprecatedUserId }}
         ]
   },{_id: 1, avatar: 1, username: 1, class: 1,score: { $meta: "textScore" } }).sort( { score: { $meta: "textScore" } } ).limit(limit).exec();
   },
