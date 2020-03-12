@@ -1,19 +1,38 @@
 import UserModel from '../models/userModel';
 import regularExpressions from '../regularExpressions/index';
 import bcrypt from 'bcrypt';
+import ContactModel from '../models/contactModel';
+import _ from 'lodash';
 
 const saltRounds = 12;
 
-let searchFriends = (userName,limit) => {
+let searchFriends = (userName,limit,senderId) => {
   return new Promise( async (resolve, reject) => {
+
     // regular expression for search friends 
     let regex = regularExpressions.regexSearchFriends(userName);
 
-    searchFriends = await UserModel.searchFriends(userName,regex,limit);
+    // tìm trong danh sách contact những người có contact với mình 
+    let deprecatedUserId = await ContactModel.findUserById(senderId);
 
+    let listdeprecatedUserId = [];
+
+    // gắn nó những contact có mình vào một mảng
+    deprecatedUserId.forEach(user =>{
+      listdeprecatedUserId.push(user.senderId);
+      listdeprecatedUserId.push(user.receiverId);
+    });
+
+    // lọc loại bỏ id lặp lại của chính mình
+    listdeprecatedUserId = _.uniq(listdeprecatedUserId);
+
+    // tìm những người không có id trong listdeprecatedUserId
+    searchFriends = await UserModel.searchFriends(userName,regex,limit,listdeprecatedUserId);
+    
     if(searchFriends.length === 0) {
       return reject(searchFriends);
     }
+    
     return resolve(searchFriends);
   })
 }

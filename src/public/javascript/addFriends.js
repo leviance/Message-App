@@ -37,8 +37,46 @@ function searchFriends(){
 // gửi lời mời kết bạn làm tiếp ở phần sau
 function addFriends(){
   $("#addFriends .btn-add-friend").on("click",function(){
-    console.log($(this).data("uid"));
-   //làm tiếp ở phần sau 
+    //console.log($(this).data("uid"));
+    let srcAvatar = $(this).parent().find("img").attr("src");
+    let targetName = $(this).parent().find("h5").text();
+    let targetClass = $(this).parent().find("p").text();
+    let targetId = $(this).parent().find("button").attr("data-uid");
+
+    // model data to append
+    let newReqContactSend = `
+          <li class="list-group-item" data-uid="${targetId}">
+              <div>
+                  <figure class="avatar">
+                      <img src="${srcAvatar}" class="rounded-circle">
+                  </figure>
+              </div>
+              <div class="users-list-body">
+                  <h5>${targetName}</h5>
+                  <p>${targetClass}</p>
+                  <div class="users-list-action action-toggle">
+                      <div class="dropdown">
+                          <a data-toggle="dropdown" href="#">
+                              <i class="ti-more"></i>
+                          </a>
+                          <div class="dropdown-menu dropdown-menu-right">
+                              <a href="#" class="dropdown-item">Hủy yêu cầu</a>
+                              <a href="#" data-navigation-target="contact-information" class="dropdown-item active">Xem hồ sơ</a>
+                              <a href="#" class="dropdown-item">Nhắn tin</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </li>`
+    
+    // them nguoi vừa gửỉ yêu cầu kết bạn vào danh sách lời mời đã gửi 
+    $(this).parent().hide();
+    $("#list-request-contacts-send .list-group").append(newReqContactSend);
+
+    $.ajax({
+      url: `/send-request-contact-${targetId}`,
+      type: 'put'
+    })
   })
 }
 

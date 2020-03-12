@@ -32,10 +32,11 @@ let upload = multer({
 
 let searchFriends = async (req,res) => {
   let userName = req.body.userName;
+  let senderId = req.session.user.userId;
 
   try {
-    let searchResults = await home.searchFriends(userName,LIMIT_FRIENDS_TEKEN);
-
+    let searchResults = await home.searchFriends(userName,LIMIT_FRIENDS_TEKEN,senderId);
+    
     return res.status(200).send(searchResults);
   } catch (error) {
     return res.status(500).send(error);
