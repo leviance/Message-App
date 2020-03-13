@@ -29,7 +29,17 @@ let updateUserPassword = async (userId,newPassword) =>{
   })
 }
 
+let getUserInformation = (userId) => {
+  return new Promise( async (resolve, reject) =>{
+    let userInfo = await UserModel.inforUser(userId);
+
+    return resolve(userInfo);
+  });
+
+}
+
 module.exports = {
   updateUserInfor: updateUserInfor,
-  updateUserPassword: updateUserPassword
+  updateUserPassword: updateUserPassword,
+  getUserInformation: getUserInformation
 }

@@ -51,6 +51,8 @@ let initRouters = (app) => {
   router.post("/search-friends",contact.searchFriends);
   router.put("/send-request-contact-:userId",contact.sendRequestContact);
 
+  router.get("/view-user-information-:userId",user.getUserInformation);
+
   return app.use("/", router);
 }
 

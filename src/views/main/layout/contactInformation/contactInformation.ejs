@@ -1,144 +1,123 @@
-
+<!-- Contact information -->
 <div class="sidebar-group">
-    <% listReqContactSend.forEach(function(user) { %>
-        <div id="contact-information-<%= user._id %>" class="sidebar">
-            <header>
-                <span>Giới thiệu</span>
-                <ul class="list-inline">
-                    <li class="list-inline-item">
-                        <a href="#" class="btn btn-light sidebar-close">
-                            <i class="ti-close"></i>
+  <div id="contact-information" class="sidebar">
+      <header>
+          <span>Thông tin : </span>
+          <ul class="list-inline">
+              <li class="list-inline-item">
+                  <a href="#" class="btn btn-light sidebar-close">
+                      <i class="ti-close"></i>
+                  </a>
+              </li>
+          </ul>
+      </header>
+      <div class="sidebar-body">
+          <div class="pl-4 pr-4 text-center">
+              <figure class="avatar avatar-state-danger avatar-xl mb-4">
+                  <img id="view-user-infor-avatar" src="image/userImages/women_avatar5.jpg" class="rounded-circle">
+              </figure>
+              <h5 id="view-user-infor-name" class="text-primary">Frans Hanscombe</h5>
+              <p id="view-user-infor-class" class="text-muted">Last seen: Today</p>
+          </div>
+          <hr>
+          <div class="pl-4 pr-4">
+              <h6>Giới thiệu</h6>
+              <p id="view-user-infor-about" class="text-muted">I love reading, traveling and discovering new things. You need to be happy in life.</p>
+          </div>
+          <hr>
+          <div class="pl-4 pr-4">
+              <h6>Số điện thoại</h6>
+              <p id="view-user-infor-phoneNumber" class="text-muted">(555) 555 55 55</p>
+          </div>
+          <hr>
+          <div class="pl-4 pr-4">
+              <h6>Ảnh</h6>
+              <div class="files">
+                  <ul id="view-user-infor-images" class="list-inline"> 
+                      
+                  </ul>
+              </div>
+          </div>
+          <hr>
+          <div class="pl-4 pr-4">
+              <h6>Địa chỉ</h6>
+              <p id="view-user-infor-address" class="text-muted">Germany / Berlin</p>
+          </div>
+          <hr>
+          <div class="pl-4 pr-4">
+              <h6>Website</h6>
+              <p>
+                  <a id="view-user-infor-website" href="#">www.franshanscombe.com</a>
+              </p>
+          </div>
+          <hr>
+          <div class="pl-4 pr-4">
+              <h6>Liên kết </h6>
+              <ul class="list-inline social-links">
+                  <li class="list-inline-item">
+                      <a id="view-user-infor-facebook" href="#" class="btn btn-sm btn-floating btn-facebook">
+                          <i class="fa fa-facebook"></i>
+                      </a>
+                  </li>
+                  <li class="list-inline-item">
+                        <a id="view-user-infor-instagram" href="#" class="btn btn-sm btn-floating btn-instagram">
+                            <i class="fa fa-instagram"></i>
                         </a>
                     </li>
-                </ul>
-            </header>
-            <div class="sidebar-body">
-                <div class="pl-4 pr-4 text-center">
-                    <figure class="avatar avatar-state-danger avatar-xl mb-4">
-                        <img src="image/userImages/<%= user.avatar %>" class="rounded-circle">
-                    </figure>
-                    <h5 class="text-primary"><%= user.username %></h5>
-                    <p class="text-muted"><%= user.class %></p>
-                </div>
-                <hr>
-                <div class="pl-4 pr-4">
-                    <h6>Thông tin</h6>
-                    <p class="text-muted"><% if(user.about === null) {%> Chưa cập nhật thông tin <%} else {%> <%= user.about %> <%}%> </p>
-                </div>
-                <hr>
-                <div class="pl-4 pr-4">
-                    <h6>Số điện thoại</h6>
-                    <p class="text-muted"><% if(user.phoneNumber === null) {%> Chưa cập nhật thông tin <%} else {%> <%= user.phoneNumber %> <% } %></p>
-                </div>
-                <hr>
-                <div class="pl-4 pr-4">
-                    <h6>Ảnh</h6>
-                    <div class="files">
-                        <ul class="list-inline">
-                          <% if(user.images.length !== 0) {%> 
-                              <% user.images.forEach(function(img) { %>
-                                  <li class="list-inline-item">
-                                      <a href="#">
-                                          <figure class="avatar avatar-lg">
-                                              <img src="image/userImages/<%= img %>" alt="">
-                                          </figure>
-                                      </a>
-                                  </li>
-                              <% }) %>
-                              <% } else { %>
-                                  <li class="list-inline-item">
-                                      <a href="#">
-                                          <figure class="avatar avatar-lg">
-                                              <img src="image/userImages/<%= user.avatar %>" alt="">
-                                          </figure>
-                                      </a>
-                                  </li>
-                              <% } %>
-                        </ul>
-                    </div>
-                </div>
-                <hr>
-                <div class="pl-4 pr-4">
-                    <h6>Địa chỉ</h6>
-                    <p class="text-muted"><%= user.address %></p>
-                </div>
-                <hr>
-                <div class="pl-4 pr-4">
-                    <h6>Website</h6>
-                    <p>
-                        <a href="#">www.franshanscombe.com</a>
-                    </p>
-                </div>
-                <hr>
-                <div class="pl-4 pr-4">
-                    <h6>Social Links</h6>
-                    <ul class="list-inline social-links">
-                        <li class="list-inline-item">
-                            <a href="#" class="btn btn-sm btn-floating btn-facebook">
-                                <i class="fa fa-facebook"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#" class="btn btn-sm btn-floating btn-twitter">
-                                <i class="fa fa-twitter"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#" class="btn btn-sm btn-floating btn-dribbble">
-                                <i class="fa fa-dribbble"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#" class="btn btn-sm btn-floating btn-whatsapp">
-                                <i class="fa fa-whatsapp"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#" class="btn btn-sm btn-floating btn-linkedin">
-                                <i class="fa fa-linkedin"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#" class="btn btn-sm btn-floating btn-google">
-                                <i class="fa fa-google"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#" class="btn btn-sm btn-floating btn-behance">
-                                <i class="fa fa-behance"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#" class="btn btn-sm btn-floating btn-instagram">
-                                <i class="fa fa-instagram"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <hr>
-                <div class="pl-4 pr-4">
-                    <div class="form-group">
-                        <div class="form-item custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitch11">
-                            <label class="custom-control-label" for="customSwitch11">Chặn</label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-item custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" checked="" id="customSwitch12">
-                            <label class="custom-control-label" for="customSwitch12">Tắt thông báo</label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-item custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitch13">
-                            <label class="custom-control-label" for="customSwitch13">Nhận thông báo</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <% }); %>
+                  <li class="list-inline-item">
+                      <a href="#" class="btn btn-sm btn-floating btn-twitter">
+                          <i class="fa fa-twitter"></i>
+                      </a>
+                  </li>
+                  <li class="list-inline-item">
+                      <a href="#" class="btn btn-sm btn-floating btn-dribbble">
+                          <i class="fa fa-dribbble"></i>
+                      </a>
+                  </li>
+                  <li class="list-inline-item">
+                      <a href="#" class="btn btn-sm btn-floating btn-whatsapp">
+                          <i class="fa fa-whatsapp"></i>
+                      </a>
+                  </li>
+                  <li class="list-inline-item">
+                      <a href="#" class="btn btn-sm btn-floating btn-linkedin">
+                          <i class="fa fa-linkedin"></i>
+                      </a>
+                  </li>
+                  <li class="list-inline-item">
+                      <a href="#" class="btn btn-sm btn-floating btn-google">
+                          <i class="fa fa-google"></i>
+                      </a>
+                  </li>
+                  <li class="list-inline-item">
+                      <a href="#" class="btn btn-sm btn-floating btn-behance">
+                          <i class="fa fa-behance"></i>
+                      </a>
+                  </li>
+              </ul>
+          </div>
+          <hr>
+          <div class="pl-4 pr-4">
+              <div class="form-group">
+                  <div class="form-item custom-control custom-switch">
+                      <input type="checkbox" class="custom-control-input" id="customSwitch11">
+                      <label class="custom-control-label" for="customSwitch11">Block</label>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <div class="form-item custom-control custom-switch">
+                      <input type="checkbox" class="custom-control-input" checked="" id="customSwitch12">
+                      <label class="custom-control-label" for="customSwitch12">Mute</label>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <div class="form-item custom-control custom-switch">
+                      <input type="checkbox" class="custom-control-input" id="customSwitch13">
+                      <label class="custom-control-label" for="customSwitch13">Get notification</label>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 </div>
-
-
+<!-- ./ Contact information -->

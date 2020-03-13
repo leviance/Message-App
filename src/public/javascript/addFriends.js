@@ -61,7 +61,7 @@ function addFriends(){
                           </a>
                           <div class="dropdown-menu dropdown-menu-right">
                               <a href="#" class="dropdown-item">Hủy yêu cầu</a>
-                              <a href="#" data-navigation-target="contact-information" class="dropdown-item active">Xem hồ sơ</a>
+                              <a href="#" data-uid="${targetId}" data-navigation-target="contact-information" class="dropdown-item active">Xem hồ sơ</a>
                               <a href="#" class="dropdown-item">Nhắn tin</a>
                           </div>
                       </div>
@@ -75,9 +75,13 @@ function addFriends(){
 
     $.ajax({
       url: `/send-request-contact-${targetId}`,
-      type: 'put'
-    })
+      type: 'put',
+      success: 
+      viewInformation(),
+    });
   })
+
+  
 }
 
 $(document).ready(function(){
@@ -93,4 +97,5 @@ $(document).ready(function(){
 
   // add friends
   addFriends();
+
 });

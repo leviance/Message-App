@@ -75,8 +75,16 @@ let userLogOut = (req, res) => {
   res.redirect("/login");
 }
 
+let getUserInformation = async (req, res) =>{
+  
+  let inforUser = await user.getUserInformation(req.params.userId);
+
+  return res.status(200).send(inforUser)
+}
+
 module.exports = {
   updateUserInfor: updateUserInfor,
   updateUserPassword: updateUserPassword,
-  userLogOut: userLogOut
+  userLogOut: userLogOut,
+  getUserInformation: getUserInformation
 }

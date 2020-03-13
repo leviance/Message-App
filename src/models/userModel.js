@@ -11,7 +11,11 @@ let userSchema = new Schema({
   about: {type: String, default: null},
   address: {type: String, default: null},
   class: {type: String, default: null},
-  linkSocial: Object,
+  linkSocial: {
+    facebook: {type: String, default: null},
+    instagram: {type: String, default: null}
+  },
+  website: {type: String, default: null},
   gender: {type: String, default: "Male"},
   local: {
     email: {type: String, trim: true},

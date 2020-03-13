@@ -61,6 +61,7 @@ let searchFriends = (userName,senderId) => {
     // lọc loại bỏ id lặp lại của chính mình
     listdeprecatedUserId = _.uniq(listdeprecatedUserId);
 
+    listdeprecatedUserId.push(senderId);
     // tìm những người không có id trong listdeprecatedUserId
     
     searchFriends = await UserModel.searchFriends(userName,regex,LIMIT_FRIENDS_TEKEN,listdeprecatedUserId);
