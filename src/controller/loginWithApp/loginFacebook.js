@@ -40,6 +40,8 @@ let initPassportFacebook = () => {
 
           let createUser = await UserModel.createNew(dataToCreateUser); 
         }
+        result = await UserModel.findByFaceBookId(profile.id);
+
         // save session
         let userSession = {
           userId: result._id

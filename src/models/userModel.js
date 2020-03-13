@@ -8,6 +8,7 @@ let userSchema = new Schema({
   avatar: {type: String, default: "avatarDefault.jpg"},
   phoneNumber: {type: String, default: null}, 
   images: Array,
+  about: {type: String, default: null},
   address: {type: String, default: null},
   class: {type: String, default: null},
   linkSocial: Object,

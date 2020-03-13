@@ -40,6 +40,14 @@ contactSchema.statics = {
         {"receiverId": senderId}
       ]
     }).exec();
+  },
+  getListReqContactSend(senderId,limit){
+    return this.find({
+      $and: [
+        {"senderId": senderId},
+        {"active": false}
+      ]
+    }).limit(limit).sort({"createdAt": -1}).exec();
   }
 }
 

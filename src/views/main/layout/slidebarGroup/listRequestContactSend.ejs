@@ -12,29 +12,32 @@
   </header>
   <div class="sidebar-body">
       <ul class="list-group list-group-flush">
-          <!-- <li class="list-group-item">
-              <div>
-                  <figure class="avatar">
-                      <img src="image/userImages/women_avatar5.jpg" class="rounded-circle">
-                  </figure>
-              </div>
-              <div class="users-list-body">
-                  <h5>Harrietta Souten</h5>
-                  <p>Lorem ipsum dolor sitsdc sdcsdc sdcsdcs</p>
-                  <div class="users-list-action action-toggle">
-                      <div class="dropdown">
-                          <a data-toggle="dropdown" href="#">
-                              <i class="ti-more"></i>
-                          </a>
-                          <div class="dropdown-menu dropdown-menu-right">
-                              <a href="#" class="dropdown-item">Hủy yêu cầu</a>
-                              <a href="#" data-navigation-target="contact-information" class="dropdown-item active">Xem hồ sơ</a>
-                              <a href="#" class="dropdown-item">Nhắn tin</a>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </li> -->
+        <% listReqContactSend.forEach(function(user) { %>
+            <li class="list-group-item" data-uid="<%= user._id %>"</li>
+                <div>
+                    <figure class="avatar">
+                        <img src="image/userImages/<%= user.avatar %>" class="rounded-circle">
+                    </figure>
+                </div>
+                <div class="users-list-body">
+                    <h5><%= user.username %></hh5>
+                    <p><%= user.class %></p>
+                    <div class="users-list-action action-toggle">
+                        <div class="dropdown">
+                            <a data-toggle="dropdown" href="#">
+                                <i class="ti-more"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a href="#" class="dropdown-item">Hủy yêu cầu</a>
+                                <a href="#" data-navigation-target="contact-information-<%= user._id %>" class="dropdown-item active">Xem hồ sơ</a>
+                                <a href="#" class="dropdown-item">Nhắn tin</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        <% }) %>
+          
       </ul>
   </div>
 </div>
