@@ -85,23 +85,6 @@ let userLogin = async (req,res) => {
   }
 }
 
-let checkLogedin = async (req, res) => {
-  if(req.session.user || req.session.passport){
-    // đặt lại session thành chuẩn chung thay cho session passport
-    if(req.session.passport){
-      let userSession = {
-        userId: req.session.passport.user.userId
-      }
-      req.session.user = userSession;
-    }
-
-    let userInfo = await auth.inforUser(req.session.user.userId);
-
-    return res.render("main/layout/home",{user : userInfo});
-  }
-  res.redirect("/login");
-}
-
 let checkLogedOut = (req, res) =>{
   if(req.session.user || req.session.passport){
     return res.redirect("/");
@@ -114,7 +97,6 @@ module.exports = {
   createNewAccount: createNewAccount,
   activeAccount: activeAccount,
   userLogin: userLogin,
-  checkLogedin: checkLogedin,
   checkLogedOut: checkLogedOut
 }
 

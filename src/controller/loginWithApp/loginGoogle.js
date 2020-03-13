@@ -20,7 +20,6 @@ let initPassportGoogle = () =>{
       if(result === null) {
         let dataToCreateUser = {
           username: profile._json.name,
-          avatar: profile._json.picture,
           local: {
             isActive : true,
             veryfyToken: null
@@ -34,6 +33,8 @@ let initPassportGoogle = () =>{
         let createUser = await UserModel.createNew(dataToCreateUser); 
       }
 
+      result = await UserModel.findByGoogleId(profile.id);
+      
       let userSession = {
           userId: result._id
         }

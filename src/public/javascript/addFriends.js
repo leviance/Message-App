@@ -71,7 +71,7 @@ function addFriends(){
     
     // them nguoi vừa gửỉ yêu cầu kết bạn vào danh sách lời mời đã gửi 
     $(this).parent().hide();
-    $("#list-request-contacts-send .list-group").append(newReqContactSend);
+    $("#list-request-contacts-send .list-group").prepend(newReqContactSend);
 
     $.ajax({
       url: `/send-request-contact-${targetId}`,

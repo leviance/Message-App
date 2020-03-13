@@ -1,5 +1,5 @@
 import express from 'express';
-import {auth,home,contact} from '../controller/index';
+import {auth,home,contact,user} from '../controller/index';
 import {authValid} from '../validation/index';
 import passport from 'passport';
 
@@ -42,14 +42,13 @@ let initRouters = (app) => {
   //router.get("*", (req, res) => { res.redirect("/login"); });
 
   // request from home page
-  router.get("/", auth.checkLogedin);
-  router.get("/logout",home.userLogOut);
+  router.get("/", home);
+  
+  router.get("/logout",user.userLogOut);
+  router.post("/update-user-infor",user.updateUserInfor);
+  router.post("/user-update-password",user.updateUserPassword);
 
-  router.post("/search-friends",home.searchFriends);
-
-  router.post("/update-user-infor",home.updateUserInfor);
-  router.post("/user-update-password",home.updateUserPassword);
-
+  router.post("/search-friends",contact.searchFriends);
   router.put("/send-request-contact-:userId",contact.sendRequestContact);
 
   return app.use("/", router);
