@@ -79,6 +79,15 @@ function addFriends(){
       success: 
       viewInformation(),
     });
+
+    let dataToEmit = {
+      receiverId : targetId,
+      avatar: srcAvatar,
+      username: targetName,
+      class: targetClass
+    }
+
+    socket.emit("sent-request-add-friend", dataToEmit);
   })
 
   
@@ -97,5 +106,43 @@ $(document).ready(function(){
 
   // add friends
   addFriends();
+
+  socket.on("receive-request-add-friend",data =>{
+    let senderId  = data.receiverId;
+    let avatar = data.avatar;
+    let username = data.username;
+    let userClass = data.class;
+
+    // model data to append
+    let newReqContactSend = `
+          <li class="list-group-item" data-uid="${senderId}">
+              <div>
+                  <figure class="avatar">
+                      <img src="${avatar}" class="rounded-circle">
+                  </figure>
+              </div>
+              <div class="users-list-body">
+                  <h5>${username}</h5>
+                  <p>${userClass}</p>
+                  <div class="users-list-action action-toggle">
+                      <div class="dropdown">
+                          <a data-toggle="dropdown" href="#">
+                              <i class="ti-more"></i>
+                          </a>
+                          <div class="dropdown-menu dropdown-menu-right">
+                              <a href="#" class="dropdown-item">Hủy yêu cầu</a>
+                              <a href="#" data-uid="${senderId}" data-navigation-target="contact-information" class="dropdown-item active">Xem hồ sơ</a>
+                              <a href="#" class="dropdown-item">Nhắn tin</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </li>`
+
+    $("#list-request-contacts-received .list-group").prepend(newReqContactSend);
+    
+    viewInformation();
+
+  })
 
 });

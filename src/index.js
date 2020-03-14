@@ -6,6 +6,8 @@ import connectDB from './config/connectDB';
 import bodyParser from 'body-parser';
 import {configSession} from './config/configSession';
 import passport from 'passport';
+import socketIo from 'socket.io';
+import initSocket from './socket/index';
 
 import pem from 'pem';
 import https from 'https';
@@ -38,7 +40,10 @@ pem.createCertificate({ days: 1, selfSigned: true }, function (err, keys) {
  
   const app = express();
 
-  const server = http.createServer(app);
+  const server = https.createServer({ key: keys.serviceKey, cert: keys.certificate }, app);
+
+  const io = socketIo(server);
+  initSocket(io);
 
   connectDB();
 
@@ -55,7 +60,7 @@ pem.createCertificate({ days: 1, selfSigned: true }, function (err, keys) {
   configViewEngine(app);
   
  
-  https.createServer({ key: keys.serviceKey, cert: keys.certificate }, app).listen(process.env.APP_PORT, function(){
+  server.listen(process.env.APP_PORT, function(){
     console.log(`Start complete at ${process.env.APP_HOST}:${process.env.APP_PORT}`);
   });
 });

@@ -1,3 +1,5 @@
+const socket = io();
+
 let loadingModal = $(".loading-modal");
 
 function viewInformation(){
@@ -66,8 +68,16 @@ function viewInformation(){
   })
 }
 
+function sendUserIdBySocketToServer() {
+  // send user id to server
+  let userId = $("#editProfileModal").attr("data-uid");
+  socket.emit('userId', {userId : userId })
+}
+
 $(document).ready(function(){
   loadingModal.hide();
+
+  sendUserIdBySocketToServer();
 
   viewInformation();
  
