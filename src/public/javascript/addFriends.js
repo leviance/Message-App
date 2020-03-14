@@ -80,11 +80,18 @@ function addFriends(){
       viewInformation(),
     });
 
+    // send request add friend real time 
+    let avatarToEmit = $("#userAvatar").attr("src");
+    let userNameToEmit = $("#fullname").attr("placeholder");
+    let classToEmit = $("#city").attr("placeholder");
+    let senderIdToEmit = $("#editProfileModal").attr("data-uid");
+
     let dataToEmit = {
+      senderId: senderIdToEmit,
       receiverId : targetId,
-      avatar: srcAvatar,
-      username: targetName,
-      class: targetClass
+      avatar: avatarToEmit,
+      username: userNameToEmit,
+      class: classToEmit
     }
 
     socket.emit("sent-request-add-friend", dataToEmit);
@@ -108,7 +115,7 @@ $(document).ready(function(){
   addFriends();
 
   socket.on("receive-request-add-friend",data =>{
-    let senderId  = data.receiverId;
+    let senderId  = data.senderId;
     let avatar = data.avatar;
     let username = data.username;
     let userClass = data.class;
