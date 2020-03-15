@@ -43,13 +43,13 @@
 }
 
 #addFriends .list-friends .list-friend-item .avatar, #newGroup .list-friends .list-friend-item .avatar {
-  width: 15%;
-  min-height: 20px !important;
+  width: 65px;
+  height: 65px !important;
 }
 
 #addFriends .list-friends .list-friend-item .avatar img, #newGroup .list-friends .list-friend-item .avatar img {
   width: 100%;
-  height: auto;
+  height: 100%;
 }
 
 #addFriends .list-friends .list-friend-item .users-list-body, #newGroup .list-friends .list-friend-item .users-list-body {
@@ -60,7 +60,7 @@
 }
 
 #addFriends .list-friends .list-friend-item .btn-add-friend, #newGroup .list-friends .list-friend-item .btn-add-friend {
-  width: 15%;
+  width: 65px;
   height: 70px !important;
 }
 

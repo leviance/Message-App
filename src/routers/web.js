@@ -50,6 +50,7 @@ let initRouters = (app) => {
 
   router.post("/search-friends",contact.searchFriends);
   router.put("/send-request-contact-:userId",contact.sendRequestContact);
+  router.put("/accept-contact-:targetId",contact.acceptContact);
 
   router.get("/view-user-information-:userId",user.getUserInformation);
 

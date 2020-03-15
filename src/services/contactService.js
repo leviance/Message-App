@@ -4,7 +4,7 @@ import regularExpressions from '../regularExpressions/index';
 import ContactModel from '../models/contactModel';
 import _ from 'lodash';
 
-const LIMIT_REQUEST_CONTACT_SEND_TEKEN = 20;
+const LIMIT_REQUEST_CONTACT_SEND_TEKEN = 12;
 const LIMIT_FRIENDS_TEKEN = 10;
 
 
@@ -24,15 +24,15 @@ let getListReqContactSend = (userId) => {
     if(result === null) return resolve(result);
 
     // get id user received
-    let userReceiverId = [];
+    let listReceiverId = [];
     result.forEach(user =>{
-      userReceiverId.push(user.receiverId);
+      listReceiverId.push(user.receiverId);
     })
 
     // find user Receive
     let inforUserReceiveContact = [];
-    for(let i = 0 ; i < userReceiverId.length ; i ++){
-      let result =  await UserModel.inforUser(userReceiverId[i]);
+    for(let i = 0 ; i < listReceiverId.length ; i ++){
+      let result =  await UserModel.inforUser(listReceiverId[i]);
       inforUserReceiveContact.push(result);
     }
    
@@ -74,8 +74,32 @@ let searchFriends = (userName,senderId) => {
   })
 }
 
+let getListReqContactReceived = (userId) => {
+  return new Promise( async (resolve, reject) => {
+    let result = await ContactModel.getListReqContactReceived(userId,LIMIT_REQUEST_CONTACT_SEND_TEKEN);
+
+    if(result === null) return resolve(result);
+
+    // get id user received
+    let listSenderId = [];
+    result.forEach(user =>{
+      listSenderId.push(user.senderId);
+    })
+    // find user Receive
+      let listInforSender =  await UserModel.listInForUser(listSenderId);
+      
+    return resolve(listInforSender);
+  })
+}
+
+let acceptContact = (targetId, receiverId) =>{
+   ContactModel.acceptContact(targetId,receiverId);
+}
+
 module.exports = {
   sendRequestContact: sendRequestContact,
   getListReqContactSend: getListReqContactSend,
-  searchFriends: searchFriends
+  searchFriends: searchFriends,
+  getListReqContactReceived: getListReqContactReceived,
+  acceptContact: acceptContact
 }

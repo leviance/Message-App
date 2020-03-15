@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+mongoose.set('useFindAndModify', false);
 
 let Schema = mongoose.Schema;
 
@@ -48,6 +49,22 @@ contactSchema.statics = {
         {"active": false}
       ]
     }).limit(limit).sort({"createdAt": -1}).exec();
+  },
+  getListReqContactReceived(receiverId, limit){
+    return this.find({
+      $and: [
+        {"receiverId": receiverId},
+        {"active": false}
+      ]
+    }).limit(limit).sort({"createdAt": -1}).exec();
+  },
+  acceptContact(senderId, receiverId){
+    return this.findOneAndUpdate({
+      $and: [
+        {"senderId": senderId},
+        {"receiverId" : receiverId}
+      ]
+    },{"active" : true}).exec();
   }
 }
 

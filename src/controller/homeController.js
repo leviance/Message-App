@@ -13,10 +13,12 @@ let homeController = async (req, res) => {
 
     let userInfo = await auth.inforUser(req.session.user.userId);
     let listReqContactSend = await contact.getListReqContactSend(req.session.user.userId);
+    let listReqContactReceived = await contact.getListReqContactReceived(req.session.user.userId);
 
     return res.render("main/layout/home",{
       user : userInfo,
-      listReqContactSend: listReqContactSend
+      listReqContactSend: listReqContactSend,
+      listReqContactReceived: listReqContactReceived
     });
   }
 

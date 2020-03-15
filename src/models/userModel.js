@@ -87,6 +87,12 @@ userSchema.statics = {
   },
   updateData(userId,dataToUpdate){
     return this.updateOne({"_id" : userId, "local.isActive" : true},dataToUpdate).exec();
+  },
+  listInForUser(listId){
+    return this.find(
+      {"_id": {$in : listId}},
+      {"local.password": 0, "local.isActive": 0, "local.veryfyToken": 0, "facebook.token": 0, "google.token": 0}
+      ).exec();
   }
 }
 
