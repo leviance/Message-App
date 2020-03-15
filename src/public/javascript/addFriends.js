@@ -137,6 +137,7 @@ $(document).ready(function(){
                               <i class="ti-more"></i>
                           </a>
                           <div class="dropdown-menu dropdown-menu-right">
+                              <a href="#" data-uid="${senderId}" class="dropdown-item btn-accept-contact">Chấp nhận</a>
                               <a href="#" class="dropdown-item">Hủy yêu cầu</a>
                               <a href="#" data-uid="${senderId}" data-navigation-target="contact-information" class="dropdown-item active">Xem hồ sơ</a>
                               <a href="#" class="dropdown-item">Nhắn tin</a>
@@ -149,6 +150,7 @@ $(document).ready(function(){
     $("#list-request-contacts-received .list-group").prepend(newReqContactSend);
     
     viewInformation();
+    acceptContact();
 
   })
 
