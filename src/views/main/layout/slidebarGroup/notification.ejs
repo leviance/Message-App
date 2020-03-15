@@ -1,0 +1,38 @@
+<!-- Friends sidebar -->
+<div id="notification-modal" class="sidebar" style="position: relative;">
+  <style>
+      #mark-all-as-read-notification{
+          font-size: 15px;
+          text-align: center;
+          cursor: pointer;
+          color: #3db16b;
+      }
+  </style>
+  <header>
+      <span>Thông Báo</span>
+      <ul class="list-inline">
+          <li class="list-inline-item d-lg-none d-sm-block">
+              <a href="#" class="btn btn-light sidebar-close">
+                  <i class="ti-close"></i>
+              </a>
+          </li>
+      </ul>
+  </header>
+  <p id="mark-all-as-read-notification">Đánh dấu tất cả đã đọc</p>
+  <div class="sidebar-body">
+      <ul class="list-group list-group-flush">
+            <li class="list-group-item" data-uid=""</li>
+                <div>
+                    <figure class="avatar">
+                        <img src="image/userImages/<%= user.avatar %>" class="rounded-circle">
+                    </figure>
+                </div>
+                <div class="users-list-body">
+                    <h5 >Dương Hoàng Dũng thêm một ảnh mới ! </h5>
+                    <p><i style="padding-right: 10px" class="fa fa-clock-o" aria-hidden="true"></i>5p trước </p>
+                </div>
+            </li>
+      </ul>
+  </div>
+</div>
+<!-- ./ Friends sidebar -->

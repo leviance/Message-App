@@ -1,4 +1,4 @@
-const socket = io();
+const socket = io({reconnection: false});
 
 let loadingModal = $(".loading-modal");
 
@@ -26,6 +26,7 @@ function viewInformation(){
           if(user.phoneNumber === null) $("#view-user-infor-phoneNumber").html("Chưa cập nhật thông tin !");
           else $("#view-user-infor-phoneNumber").html(user.phoneNumber);
 
+          $("#view-user-infor-images").empty();
           if(user.images.length === 0) $("#view-user-infor-images").append(`
             <li class="list-inline-item">
                 <a href="#">
@@ -71,7 +72,8 @@ function viewInformation(){
 function sendUserIdBySocketToServer() {
   // send user id to server
   let userId = $("#editProfileModal").attr("data-uid");
-  socket.emit('userId', {userId : userId })
+  socket.emit('userId', {userId : userId });
+  
 }
 
 $(document).ready(function(){

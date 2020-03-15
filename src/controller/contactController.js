@@ -20,7 +20,14 @@ let searchFriends = async (req,res) => {
   }
 }
 
+let acceptContact = (req, res) => {
+  let senderId = req.params.targetId;
+  let receiverId = req.session.user.userId;
+  contact.acceptContact(senderId,receiverId);
+}
+
 module.exports = {
   sendRequestContact: sendRequestContact,
-  searchFriends: searchFriends
+  searchFriends: searchFriends,
+  acceptContact: acceptContact
 }

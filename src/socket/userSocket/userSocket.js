@@ -31,7 +31,7 @@ let userSocket = (io) => {
 
     });
 
-  })
+  });
 }
 
 module.exports.userSocket = userSocket;
