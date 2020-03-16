@@ -32,7 +32,6 @@ $(document).ready(function(){
     
     $("#list-request-contacts-send ").find(`ul li[data-uid = ${data.senderId}]`).remove();
     
-   
     // thông báo real time làm ở bài sau
     // avatar: "image/userImages/1584275257379-qudo-83099310_2452637865001590_1831061265431134208_o.jpg"
     //  ​

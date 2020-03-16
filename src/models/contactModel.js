@@ -65,6 +65,14 @@ contactSchema.statics = {
         {"receiverId" : receiverId}
       ]
     },{"active" : true}).exec();
+  },
+  cancelReqContactSend(senderId,receiverId){
+    return this.findOneAndDelete({
+      $and: [
+        {"senderId": senderId},
+        {"receiverId": receiverId}
+      ]
+    }).exec();
   }
 }
 

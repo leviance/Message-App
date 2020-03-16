@@ -26,8 +26,15 @@ let acceptContact = (req, res) => {
   contact.acceptContact(senderId,receiverId);
 }
 
+let cancelReqContactSend = (req, res) =>{
+  let receiverId = req.params.receiverId;
+  let senderId = req.session.user.userId;
+  contact.cancelReqContactSend(senderId,receiverId);
+}
+
 module.exports = {
   sendRequestContact: sendRequestContact,
   searchFriends: searchFriends,
-  acceptContact: acceptContact
+  acceptContact: acceptContact,
+  cancelReqContactSend: cancelReqContactSend
 }

@@ -96,10 +96,16 @@ let acceptContact = (targetId, receiverId) =>{
    ContactModel.acceptContact(targetId,receiverId);
 }
 
+let cancelReqContactSend = (senderId,receiverId) => {
+  
+  ContactModel.cancelReqContactSend(senderId,receiverId);
+}
+
 module.exports = {
   sendRequestContact: sendRequestContact,
   getListReqContactSend: getListReqContactSend,
   searchFriends: searchFriends,
   getListReqContactReceived: getListReqContactReceived,
-  acceptContact: acceptContact
+  acceptContact: acceptContact,
+  cancelReqContactSend: cancelReqContactSend
 }
