@@ -1,10 +1,12 @@
 import {contact} from '../services/index';
 
-let sendRequestContact = (req, res) => {
+let sendRequestContact = async (req, res) => {
   let senderId = req.session.user.userId;
   let receiverId = req.params.userId;
 
-  contact.sendRequestContact(senderId, receiverId);
+  let Notif = await contact.sendRequestContact(senderId, receiverId);
+
+  return res.status(200).send(Notif);
 }
 
 let searchFriends = async (req,res) => {
@@ -20,10 +22,13 @@ let searchFriends = async (req,res) => {
   }
 }
 
-let acceptContact = (req, res) => {
+let acceptContact = async (req, res) => {
   let senderId = req.params.targetId;
   let receiverId = req.session.user.userId;
-  contact.acceptContact(senderId,receiverId);
+  
+  let Notif = await contact.acceptContact(senderId,receiverId);
+
+  return res.status(200).send(Notif);
 }
 
 let cancelReqContactSend = (req, res) =>{

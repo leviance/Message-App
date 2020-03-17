@@ -61,7 +61,6 @@ function viewInformation(){
         },
         error(error){
           loadingModal.hide();
-          console.log(error);
         }
       })
     }
@@ -84,7 +83,7 @@ function tickReadNotif(){
     if(className === "active" || className === "active notifiy_badge" || className === ""){
       let listNotif = document.querySelectorAll("#notification-modal .sidebar-body ul li.unread_notification");
       let listNotifUnread = [];
-      console.log(listNotif);
+      
       listNotif.forEach(function(notif){
         notif.classList.remove("unread_notification");
         listNotifUnread.push(notif.dataset.uid);

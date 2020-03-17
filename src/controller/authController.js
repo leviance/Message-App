@@ -74,8 +74,6 @@ let userLogin = async (req,res) => {
       userId: data._id
     }
     req.session.user = userSession;
-
-    console.log(req.session.user || req.session.passport);
     
     data = true;
     return res.status(200).send(data);

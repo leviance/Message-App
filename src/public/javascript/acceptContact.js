@@ -5,19 +5,25 @@ function acceptContact(){
 
     $.ajax({
       url: `/accept-contact-${targetId}`,
-      type: "put"
+      type: "post",
+      success: function(data) {
+        let dataToEmit = {
+          notifId: data._id,
+          receiverId: targetId,
+          senderId : $("#editProfileModal").attr("data-uid"),
+          avatar: $("#userAvatar").attr("src"),
+          username: $("#fullname").attr("placeholder")
+        }
+
+        socket.emit("accept-contact",dataToEmit);
+      }
     });
   
-    let dataToEmit = {
-      receiverId: targetId,
-      senderId : $("#editProfileModal").attr("data-uid"),
-      avatar: $("#userAvatar").attr("src"),
-      username: $("#fullname").attr("placeholder")
-    }
+    
     
     $(this).parents("li").remove();
 
-    socket.emit("accept-contact",dataToEmit);
+    
 
   });
   
@@ -33,7 +39,7 @@ $(document).ready(function(){
     $("#list-request-contacts-send ").find(`ul li[data-uid = ${data.senderId}]`).remove();
     
     let modelNotification = `
-      <li class="list-group-item unread_notification" data-uid="${data.receiverId}" >
+      <li class="list-group-item unread_notification" data-uid="${data.notifId}" >
           <div>
               <figure class="avatar">
                   <img src="${data.avatar}" class="rounded-circle">

@@ -76,24 +76,26 @@ function addFriends(){
     
     $.ajax({
       url: `/send-request-contact-${targetId}`,
-      type: 'put'
+      type: 'post',
+      success: function(data){
+         // send request add friend real time 
+        let avatarToEmit = $("#userAvatar").attr("src");
+        let userNameToEmit = $("#fullname").attr("placeholder");
+        let classToEmit = $("#city").attr("placeholder");
+        let senderIdToEmit = $("#editProfileModal").attr("data-uid");
+
+        let dataToEmit = {
+          notifId: data._id,
+          senderId: senderIdToEmit,
+          receiverId : targetId,
+          avatar: avatarToEmit,
+          username: userNameToEmit,
+          class: classToEmit
+        }
+
+        socket.emit("sent-request-add-friend", dataToEmit);
+      }
     });
-
-    // send request add friend real time 
-    let avatarToEmit = $("#userAvatar").attr("src");
-    let userNameToEmit = $("#fullname").attr("placeholder");
-    let classToEmit = $("#city").attr("placeholder");
-    let senderIdToEmit = $("#editProfileModal").attr("data-uid");
-
-    let dataToEmit = {
-      senderId: senderIdToEmit,
-      receiverId : targetId,
-      avatar: avatarToEmit,
-      username: userNameToEmit,
-      class: classToEmit
-    }
-
-    socket.emit("sent-request-add-friend", dataToEmit);
     
     cancelReqContactSend();
     viewInformation();
@@ -121,6 +123,7 @@ $(document).ready(function(){
     let avatar = data.avatar;
     let username = data.username;
     let userClass = data.class;
+    let notifId = data.notifId;
 
     // model data to append
     let newReqContactSend = `
@@ -150,7 +153,7 @@ $(document).ready(function(){
           </li>`;
 
     let newNotification = `
-    <li class="list-group-item unread_notification" data-uid="${senderId}" </li>
+    <li class="list-group-item unread_notification" data-uid="${notifId}" </li>
                 <div>
                     <figure class="avatar">
                         <img src="${avatar}" class="rounded-circle">
