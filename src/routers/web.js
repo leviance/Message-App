@@ -49,9 +49,10 @@ let initRouters = (app) => {
   router.post("/user-update-password",user.updateUserPassword);
 
   router.post("/search-friends",contact.searchFriends);
-  router.put("/send-request-contact-:userId",contact.sendRequestContact);
-  router.put("/accept-contact-:targetId",contact.acceptContact);
   router.put("/cancel-request-contact-send-:receiverId",contact.cancelReqContactSend);
+
+  router.post("/send-request-contact-:userId",contact.sendRequestContact);
+  router.post("/accept-contact-:targetId",contact.acceptContact);
 
   router.post("/list-notification-viewed",notif.notificationViewed);
   router.post("/read-more-notifications",notif.readMoreNotifications);
