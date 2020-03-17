@@ -73,6 +73,7 @@ function addFriends(){
     $(this).parent().hide();
     $("#list-request-contacts-send .list-group").prepend(newReqContactSend);
 
+    
     $.ajax({
       url: `/send-request-contact-${targetId}`,
       type: 'put'
@@ -146,14 +147,32 @@ $(document).ready(function(){
                       </div>
                   </div>
               </div>
-          </li>`
+          </li>`;
+
+    let newNotification = `
+    <li class="list-group-item unread_notification" data-uid="${senderId}" </li>
+                <div>
+                    <figure class="avatar">
+                        <img src="${avatar}" class="rounded-circle">
+                    </figure>
+                </div>
+                <div class="users-list-body">
+                    <h5 style="line-height: 22px !important; "><strong style="color: #3db16b;">${username}</strong> đã gửi cho bạn một lời mời kết bạn.</h5>
+                    <p><i style="padding-right: 10px" class="fa fa-clock-o" aria-hidden="true"></i>Vừa xong </p>
+                </div>
+            </li> `;
 
     $("#list-request-contacts-received .list-group").prepend(newReqContactSend);
-    
+
+    $("#notification-modal .sidebar-body ul").prepend(newNotification);
+    $("#btn-view-notification").addClass("notifiy_badge");
+
+    tickReadNotif();
     viewInformation();
     acceptContact();
     cancelReqContactSend();
-
+    
+    
   })
 
 });

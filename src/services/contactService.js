@@ -4,6 +4,12 @@ import regularExpressions from '../regularExpressions/index';
 import ContactModel from '../models/contactModel';
 import _ from 'lodash';
 
+import Notification from '../models/notificationModel';
+import {notificationContent} from '../../lang/vi';
+import {notificationType} from '../../lang/vi';
+
+
+
 const LIMIT_REQUEST_CONTACT_SEND_TEKEN = 12;
 const LIMIT_FRIENDS_TEKEN = 10;
 
@@ -13,6 +19,31 @@ let sendRequestContact = async (senderId,receiverId) =>{
 
   if(checkContactExist === null){
     ContactModel.createNew(senderId,receiverId);
+
+    // create notification
+    let inforSender = await UserModel.inforUser(senderId);
+    let inforReceiver = await UserModel.inforUser(receiverId);
+
+    let contentNotif = notificationContent.requestContact(inforSender.username);
+    let typeNotif = notificationType.requestContact;
+
+    let notification = {
+      senderNotif:{
+        id: inforSender._id,
+        username: inforSender.username,
+        avatar: inforSender.avatar
+      },
+      receiverNotif:{
+        id: inforReceiver._id,
+        username: inforReceiver.username,
+        avatar: inforReceiver.avatar
+      },
+      content: contentNotif,
+      typeNotif: typeNotif
+    }
+
+    let inforNotif = await Notification.createNew(notification);
+    //console.log(inforNotif);
   }
   
 }
@@ -92,8 +123,32 @@ let getListReqContactReceived = (userId) => {
   })
 }
 
-let acceptContact = (targetId, receiverId) =>{
-   ContactModel.acceptContact(targetId,receiverId);
+let acceptContact = async (senderId, receiverId) =>{
+   ContactModel.acceptContact(senderId,receiverId);
+
+   // create notification
+   let inforSender = await UserModel.inforUser(senderId);
+   let inforReceiver = await UserModel.inforUser(receiverId);
+
+   let contentNotif = notificationContent.acceptContact(inforReceiver.username);
+   let typeNotif = notificationType.acceptContact;
+
+   let notification = {
+     senderNotif:{
+      id: inforReceiver._id,
+      username: inforReceiver.username,
+      avatar: inforReceiver.avatar
+     },
+     receiverNotif:{
+      id: inforSender._id,
+      username: inforSender.username,
+      avatar: inforSender.avatar
+     },
+     content: contentNotif,
+     typeNotif: typeNotif
+   }
+
+   Notification.createNew(notification);
 }
 
 let cancelReqContactSend = (senderId,receiverId) => {

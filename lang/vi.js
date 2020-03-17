@@ -27,3 +27,17 @@ export const transUpdateUserInfo = {
   classIncorrect: "Lớp không họp lệ !",
   dataToUpdateEmpty: "Bạn chưa sửa bất cứ thông tin gì !"
 }
+
+export const notificationContent = {
+  requestContact: (name) =>{
+    return `<strong style="color: #3db16b;">${name}</strong> đã gửi cho bạn một lời mời kết bạn.`
+  },
+  acceptContact: (name) =>{
+    return `<strong style="color: #3db16b;">${name}</strong> đã chấp nhận lời mời kết bạn của bạn.`
+  }
+}
+
+export const notificationType = {
+  requestContact: "requestContact",
+  acceptContact: "acceptContact"
+}

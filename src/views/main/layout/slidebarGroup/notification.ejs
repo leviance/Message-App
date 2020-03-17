@@ -1,7 +1,7 @@
 <!-- Friends sidebar -->
 <div id="notification-modal" class="sidebar" style="position: relative;">
   <style>
-      #mark-all-as-read-notification{
+      #remove_all_notifications{
           font-size: 15px;
           text-align: center;
           cursor: pointer;
@@ -18,20 +18,22 @@
           </li>
       </ul>
   </header>
-  <p id="mark-all-as-read-notification">Đánh dấu tất cả đã đọc</p>
+  <p id="remove_all_notifications">Xóa thông báo</p>
   <div class="sidebar-body">
       <ul class="list-group list-group-flush">
-            <li class="list-group-item" data-uid=""</li>
+        <% listNotifications.forEach( notif => { %>
+            <li class="list-group-item <% if(notif.isRead === false){%> unread_notification <%} %>" data-uid="<%= notif._id %>" >
                 <div>
                     <figure class="avatar">
-                        <img src="image/userImages/<%= user.avatar %>" class="rounded-circle">
+                        <img src="image/userImages/<%= notif.senderNotif.avatar %>" class="rounded-circle">
                     </figure>
                 </div>
                 <div class="users-list-body">
-                    <h5 >Dương Hoàng Dũng thêm một ảnh mới ! </h5>
-                    <p><i style="padding-right: 10px" class="fa fa-clock-o" aria-hidden="true"></i>5p trước </p>
+                    <h5 style="line-height: 22px !important; "><%- notif.content %></h5>
+                    <p><i style="padding-right: 10px" class="fa fa-clock-o" aria-hidden="true"></i><%= notif.time %> </p>
                 </div>
-            </li>
+            </li>      
+        <% } ) %>
       </ul>
   </div>
 </div>
