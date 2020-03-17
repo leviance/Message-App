@@ -1,6 +1,6 @@
-function modelNotif(notifId,senderNotifAvatar,content,timeStamp) {
+function modelNotif(notifId,senderNotifAvatar,content,timeStamp,isRead) {
   return `
-      <li class="list-group-item " data-uid="${notifId}" >
+      <li class="list-group-item ${isRead}" data-uid="${notifId}" >
           <div>
               <figure class="avatar">
                   <img src="image/userImages/${senderNotifAvatar}" class="rounded-circle">
@@ -31,11 +31,14 @@ function readMoreNotifications(){
         data: {amountNotif: amountNotif},
         success: function(data) {
           data.forEach(function(notif){
-            $("#notification-modal .sidebar-body ul").append(modelNotif(notif._id,notif.senderNotif.avatar,notif.content,notif.time));
+            let isRead = "";
+            if(notif.isRead === false){ isRead = "unread_notification"}
+            $("#notification-modal .sidebar-body ul").append(modelNotif(notif._id,notif.senderNotif.avatar,notif.content,notif.time,isRead));
           });
           
           loadingModal.hide();
           readMoreNotifications();
+          tickReadNotif();
         },
         error: function(error){
           loadingModal.hide();

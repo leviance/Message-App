@@ -81,7 +81,7 @@ function tickReadNotif(){
     
     // bỏ nền xanh ra khỏi thông báo
     if(className === "active" || className === "active notifiy_badge" || className === ""){
-      let listNotif = document.querySelectorAll("#notification-modal .sidebar-body ul li.unread_notification");
+      let listNotif = document.querySelectorAll("#notification-modal .sidebar-body ul li.unread_notification");s
       let listNotifUnread = [];
       
       listNotif.forEach(function(notif){
