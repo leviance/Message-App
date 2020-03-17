@@ -1,5 +1,5 @@
 import express from 'express';
-import {auth,home,contact,user} from '../controller/index';
+import {auth,home,contact,user,notif} from '../controller/index';
 import {authValid} from '../validation/index';
 import passport from 'passport';
 
@@ -52,6 +52,9 @@ let initRouters = (app) => {
   router.put("/send-request-contact-:userId",contact.sendRequestContact);
   router.put("/accept-contact-:targetId",contact.acceptContact);
   router.put("/cancel-request-contact-send-:receiverId",contact.cancelReqContactSend);
+
+  router.post("/list-notification-viewed",notif.notificationViewed);
+  router.post("/read-more-notifications",notif.readMoreNotifications);
 
   router.get("/view-user-information-:userId",user.getUserInformation);
 

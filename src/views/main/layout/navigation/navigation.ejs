@@ -21,27 +21,27 @@
               </a>
           </li>
           <li>
-              <a data-navigation-target="chats" class="" href="#">
+              <a id="btn-view-list-chat"  data-navigation-target="chats" class="" href="#">
                   <i class="ti-comment-alt"></i>
               </a>
           </li>
           <li>
-              <a data-navigation-target="friends" href="#" class="notifiy_badge">
+              <a id="btn-view-list-friends" data-navigation-target="friends" href="#" >
                   <i class="ti-user"></i>
               </a>
           </li>
           <li>
-            <a data-navigation-target="notification-modal" href="#" class="notifiy_badge">
+            <a id="btn-view-notification" data-navigation-target="notification-modal" href="#" <%for(let i = 0 ; i < listNotifications.length ; i++){if(listNotifications[i].isRead === false){ %>class="notifiy_badge"<%break;}} %>>
                 <i class="fa fa-globe" aria-hidden="true"></i>
             </a>
           </li>
           <li>
-            <a data-navigation-target="list-request-contacts-send" href="#">
+            <a id="btn-view-request-contact-send" data-navigation-target="list-request-contacts-send" href="#">
                 <i class="fa fa-arrow-right" aria-hidden="true"></i>
             </a>
           </li>
           <li>
-            <a data-navigation-target="list-request-contacts-received" href="#">
+            <a id="btn-view-request-contact-received" data-navigation-target="list-request-contacts-received" href="#">
                 
                 <i class="fa fa-arrow-left" aria-hidden="true"></i>
             </a>

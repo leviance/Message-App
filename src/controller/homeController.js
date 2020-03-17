@@ -1,4 +1,4 @@
-import {home,contact,auth} from '../services/index';
+import {home,contact,auth,notification} from '../services/index';
 
 let homeController = async (req, res) => {
   // go home page
@@ -14,11 +14,13 @@ let homeController = async (req, res) => {
     let userInfo = await auth.inforUser(req.session.user.userId);
     let listReqContactSend = await contact.getListReqContactSend(req.session.user.userId);
     let listReqContactReceived = await contact.getListReqContactReceived(req.session.user.userId);
+    let listNotifications = await notification.getListNotifications(req.session.user.userId);
 
     return res.render("main/layout/home",{
       user : userInfo,
       listReqContactSend: listReqContactSend,
-      listReqContactReceived: listReqContactReceived
+      listReqContactReceived: listReqContactReceived,
+      listNotifications: listNotifications
     });
   }
 

@@ -21,6 +21,10 @@
   background: #3db16b;
 }
 
+.unread_notification {
+  background-color: #3db15b33;
+}
+
 #addFriends .list-friends, #newGroup .list-friends {
   width: 100%;
   padding: 0px 30px;

@@ -32,14 +32,23 @@ $(document).ready(function(){
     
     $("#list-request-contacts-send ").find(`ul li[data-uid = ${data.senderId}]`).remove();
     
-    // thông báo real time làm ở bài sau
-    // avatar: "image/userImages/1584275257379-qudo-83099310_2452637865001590_1831061265431134208_o.jpg"
-    //  ​
-    // receiverId: "5e6b5983f7059b2833ed80c6"  id của người chấp nhận lời mời kết bạn 
-    //      ​
-    // senderId: "5e6c5991393d6f4e5173ccd7"
-    //      ​
-    // username: "Dũng Dương"
+    let modelNotification = `
+      <li class="list-group-item unread_notification" data-uid="${data.receiverId}" >
+          <div>
+              <figure class="avatar">
+                  <img src="${data.avatar}" class="rounded-circle">
+              </figure>
+          </div>
+          <div class="users-list-body">
+              <h5 style="line-height: 22px !important; "><strong style="color: #3db16b;">${data.username}</strong> đã chấp nhận lời mời kết bạn của bạn.</h5>
+              <p><i style="padding-right: 10px" class="fa fa-clock-o" aria-hidden="true"></i>Vừa xong </p>
+          </div>
+      </li>`;
+
+    $("#notification-modal .sidebar-body ul").prepend(modelNotification);
+    $("#btn-view-notification").addClass("notifiy_badge");
+    
+    tickReadNotif();
   });
 
 })
