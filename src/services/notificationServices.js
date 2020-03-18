@@ -21,17 +21,24 @@ let notificationViewed = (listNotifUnread) => {
 
 let readMoreNotifications = (userId, skip) => {
   return new Promise( async (resolve, reject) => {
-    let notif = await NotificationModal.getMore(userId,skip,LIMIT_NOTIF_TAKEN);
+    let listNotifications = await NotificationModal.getMore(userId,skip,LIMIT_NOTIF_TAKEN);
 
-    notif.forEach(notification => {
-      notification.time = timeSince(notification.createdAt);
+    let dataToReturn = {};
+    let listDataToReturn = [];
+
+    listNotifications.forEach(notification => {
+      dataToReturn.time = timeSince(notification.createdAt);
+      dataToReturn.id = notification._id;
+      dataToReturn.senderAvatar = notification.senderNotif.avatar;
+      dataToReturn.content = notification.content;
+      dataToReturn.isRead = notification.isRead;
+
+      listDataToReturn.push(dataToReturn);
     });
 
-    if(notif.length === 0) return reject();
-
+    if(listNotifications.length === 0) return reject();
     
-
-    return resolve(notif);
+    return resolve(listDataToReturn);
 
   })
 }

@@ -30,10 +30,11 @@ function readMoreNotifications(){
         type: "POST",
         data: {amountNotif: amountNotif},
         success: function(data) {
+
           data.forEach(function(notif){
             let isRead = "";
             if(notif.isRead === false){ isRead = "unread_notification"}
-            $("#notification-modal .sidebar-body ul").append(modelNotif(notif._id,notif.senderNotif.avatar,notif.content,notif.time,isRead));
+            $("#notification-modal .sidebar-body ul").append(modelNotif(notif.id,notif.senderAvatar,notif.content,notif.time,isRead));
           });
           
           loadingModal.hide();
