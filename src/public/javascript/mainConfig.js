@@ -81,7 +81,7 @@ function tickReadNotif(){
     
     // bỏ nền xanh ra khỏi thông báo
     if(className === "active" || className === "active notifiy_badge" || className === ""){
-      let listNotif = document.querySelectorAll("#notification-modal .sidebar-body ul li.unread_notification");s
+      let listNotif = document.querySelectorAll("#notification-modal .sidebar-body ul li.unread_notification");
       let listNotifUnread = [];
       
       listNotif.forEach(function(notif){
@@ -106,6 +106,23 @@ function tickReadNotif(){
   })
 }
 
+function removeAllNotifications(){
+  $("#remove_all_notifications").on("click", function(){
+    let targetId = $("#editProfileModal").attr("data-uid");
+    
+    $.ajax({
+      url: `/remove-all-notifications-${targetId}`,
+      type: "put",
+    });
+
+    // để nó không load thêm thông báo khi ấn nút xóa
+    $("#notification-modal .sidebar-body").unbind("scroll");
+
+    // xóa
+    $("#notification-modal .sidebar-body ul").empty();
+  });
+}
+
 
 
 $(document).ready(function(){
@@ -116,5 +133,7 @@ $(document).ready(function(){
   viewInformation();
 
   tickReadNotif();
+
+  removeAllNotifications();
  
 })

@@ -40,15 +40,16 @@ function readMoreNotifications(){
           loadingModal.hide();
           readMoreNotifications();
           tickReadNotif();
+          viewInformation();
+          removeAllNotifications();
+
         },
         error: function(error){
           loadingModal.hide();
           $("#notification-modal .sidebar-body").unbind("scroll");
         }
       });
-      
     }
-    
   });
 }
 

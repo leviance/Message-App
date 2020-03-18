@@ -20,7 +20,12 @@ let readMoreNotifications = async (req, res) => {
   }
 }
 
+let removeAllNotifications = (req, res) => {
+  notification.removeAllNotifications(req.params.targetId);
+}
+
 module.exports = {
   notificationViewed: notificationViewed,
-  readMoreNotifications: readMoreNotifications
+  readMoreNotifications: readMoreNotifications,
+  removeAllNotifications: removeAllNotifications
 }

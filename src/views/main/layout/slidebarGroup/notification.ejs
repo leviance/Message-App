@@ -18,7 +18,7 @@
           </li>
       </ul>
   </header>
-  <p id="remove_all_notifications">Xóa thông báo</p>
+  <p id="remove_all_notifications">Xóa tòan bộ thông báo</p>
   <div class="sidebar-body">
       <ul class="list-group list-group-flush">
         <% listNotifications.forEach( notif => { %>
@@ -31,6 +31,18 @@
                 <div class="users-list-body">
                     <h5 style="line-height: 22px !important; "><%- notif.content %></h5>
                     <p><i style="padding-right: 10px" class="fa fa-clock-o" aria-hidden="true"></i><%= notif.time %> </p>
+                    <div class="users-list-action action-toggle">
+                        <div class="dropdown">
+                            <a data-toggle="dropdown" href="#">
+                                <i class="ti-more"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a href="#" class="dropdown-item btn-cancel-req-contact" data-uid="<%= notif.senderNotif.id %>">Tắt thông báo từ người này</a>
+                                <a href="#" data-navigation-target="contact-information" data-uid="<%= notif.senderNotif.id %>" class="dropdown-item active">Xem hồ sơ</a>
+                                <a href="#" data-uid="<%= notif.senderNotif.id %>" class="dropdown-item">Chặn</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </li>      
         <% } ) %>
