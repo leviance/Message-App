@@ -163,11 +163,60 @@ let cancelReqContactSend = (senderId,receiverId) => {
   ContactModel.cancelReqContactSend(senderId,receiverId);
 }
 
+let notAcceptMakeFriend = (senderReqId,receiverReqId) => {
+  ContactModel.removeContact(senderReqId,receiverReqId)
+}
+
+let readMoreReqSend = (senderReqId,skip) => {
+ 
+  return new Promise( async (resolve, reject) => {
+    skip = Number(skip);
+    let listContacts = await ContactModel.readMoreReqSend(senderReqId,skip,LIMIT_REQUEST_CONTACT_SEND_TEKEN);
+
+    if(listContacts.length === 0) return reject();
+
+    let listIdToGetInfor = [];
+
+    listContacts.forEach( contact => { 
+      listIdToGetInfor.push(contact.receiverId);
+    })
+
+    let listInforReceiver = await UserModel.listInForUser(listIdToGetInfor);
+
+    return resolve(listInforReceiver);
+
+  })
+}
+
+let readMoreReqReceived = (receivedId,skip) => {
+ 
+  return new Promise( async (resolve, reject) => {
+    skip = Number(skip);
+    let listContacts = await ContactModel.readMoreReqReceived(receivedId,skip,LIMIT_REQUEST_CONTACT_SEND_TEKEN);
+
+    if(listContacts.length === 0) return reject();
+
+    let listIdToGetInfor = [];
+
+    listContacts.forEach( contact => { 
+      listIdToGetInfor.push(contact.senderId);
+    })
+
+    let listInforReceiver = await UserModel.listInForUser(listIdToGetInfor);
+
+    return resolve(listInforReceiver);
+
+  })
+}
+
 module.exports = {
   sendRequestContact: sendRequestContact,
   getListReqContactSend: getListReqContactSend,
   searchFriends: searchFriends,
   getListReqContactReceived: getListReqContactReceived,
   acceptContact: acceptContact,
-  cancelReqContactSend: cancelReqContactSend
+  cancelReqContactSend: cancelReqContactSend,
+  notAcceptMakeFriend: notAcceptMakeFriend,
+  readMoreReqSend: readMoreReqSend,
+  readMoreReqReceived: readMoreReqReceived
 }

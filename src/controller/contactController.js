@@ -37,9 +37,45 @@ let cancelReqContactSend = (req, res) =>{
   contact.cancelReqContactSend(senderId,receiverId);
 }
 
+let notAcceptMakeFriend = (req, res) => {
+  let senderReqId = req.params.senderReqId;
+  let receiverReqId = req.params.receiverReqId;
+  
+  contact.notAcceptMakeFriend(senderReqId,receiverReqId);
+}
+
+let readMoreReqSend = async (req,res) => {
+  try {
+    let skip = req.params.amountReqSend;
+    let senderReqId = req.session.user.userId;
+
+    let listContacts = await contact.readMoreReqSend(senderReqId,skip);
+
+    return res.status(200).send(listContacts);
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+}
+
+let readMoreReqReceived = async (req,res) => {
+  try {
+    let skip = req.params.amountReqSend;
+    let receivedId = req.session.user.userId;
+
+    let listContacts = await contact.readMoreReqSend(receivedId,skip);
+
+    return res.status(200).send(listContacts);
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+}
+
 module.exports = {
   sendRequestContact: sendRequestContact,
   searchFriends: searchFriends,
   acceptContact: acceptContact,
-  cancelReqContactSend: cancelReqContactSend
+  cancelReqContactSend: cancelReqContactSend,
+  notAcceptMakeFriend: notAcceptMakeFriend,
+  readMoreReqSend: readMoreReqSend,
+  readMoreReqReceived: readMoreReqReceived
 }

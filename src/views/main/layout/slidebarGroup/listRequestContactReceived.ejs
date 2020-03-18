@@ -21,7 +21,7 @@
                     </div>
                     <div class="users-list-body">
                         <h5><%= user.username %></h5>
-                        <p><% if(user.class === null) {%> Chưa cập nhật thông tin <%} else {%> <%= user.class %> <%} %></p>
+                        <p><% if(user.gender === "Male") {%> Nam <%} else {%> Nữ <%} %></p>
                         <div class="users-list-action action-toggle">
                             <div class="dropdown">
                                 <a data-toggle="dropdown" href="#">
@@ -31,7 +31,7 @@
                                     <a href="#" data-uid="<%= user._id %>" class="dropdown-item btn-accept-contact">Chấp nhận</a>
                                     <a href="#" data-uid="<%= user._id %>" data-navigation-target="contact-information" class="dropdown-item active">Xem hồ sơ</a>
                                     <a href="#" data-uid="<%= user._id %>" class="dropdown-item">Nhắn tin</a>
-                                    <a href="#" data-uid="<%= user._id %>" class="dropdown-item">Xóa</a>
+                                    <a href="#" data-uid="<%= user._id %>" class="dropdown-item btn-remove-req-contact">Xóa</a>
                                 </div>
                             </div>
                         </div>

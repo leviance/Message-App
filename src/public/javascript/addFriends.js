@@ -1,6 +1,6 @@
 let modalAddFriends = $("#addFriends .list-friends");
 
-function friendModel(userId,userName,avatar,userClass){
+function friendModel(userId,userName,avatar,gender){
   return `
     <li class="list-friend-item"">
       <figure class="avatar">
@@ -8,7 +8,7 @@ function friendModel(userId,userName,avatar,userClass){
       </figure>
       <div class="users-list-body">
           <h5>${userName}</h5>
-          <p>LỚP: ${userClass}</p>
+          <p>${gender}</p>
       </div>
       <button data-uid="${userId}" type="button" class="btn-add-friend btn btn-primary">Thêm</button>
     </li>`
@@ -22,8 +22,9 @@ function searchFriends(){
     let countFriends = 0;
     // loại bỏ những người có score = 0, prepend vào modal add friend
     data.forEach(function(friend){
-        if(friend.class === null){ friend.class = "Chưa cập nhật thông tin"}
-        modalAddFriends.append(friendModel(friend._id, friend.username, friend.avatar, friend.class));
+        (friend.gender === "Male") ? friend.gender = "Nam" : friend.gender = "Nữ";
+
+        modalAddFriends.append(friendModel(friend._id, friend.username, friend.avatar, friend.gender));
         countFriends += 1;
     })
 
@@ -122,7 +123,7 @@ $(document).ready(function(){
     let senderId  = data.senderId;
     let avatar = data.avatar;
     let username = data.username;
-    let userClass = data.class;
+    let gender; (data.class === "Male") ? gender = "Nam" : gender = "Nữ";
     let notifId = data.notifId;
 
     // model data to append
@@ -135,7 +136,7 @@ $(document).ready(function(){
               </div>
               <div class="users-list-body">
                   <h5>${username}</h5>
-                  <p>${userClass}</p>
+                  <p>${gender}</p>
                   <div class="users-list-action action-toggle">
                       <div class="dropdown">
                           <a data-toggle="dropdown" href="#">
@@ -143,9 +144,8 @@ $(document).ready(function(){
                           </a>
                           <div class="dropdown-menu dropdown-menu-right">
                               <a href="#" data-uid="${senderId}" class="dropdown-item btn-accept-contact">Chấp nhận</a>
-                              <a href="#" data-uid="${senderId}" class="dropdown-item">Hủy yêu cầu</a>
                               <a href="#" data-uid="${senderId}" data-navigation-target="contact-information" class="dropdown-item active">Xem hồ sơ</a>
-                              <a href="#" data-uid="${senderId}" class="dropdown-item">Nhắn tin</a>
+                              <a href="#" data-uid="${senderId}" class="dropdown-item btn-remove-req-contact">Xóa</a>
                           </div>
                       </div>
                   </div>
@@ -174,7 +174,7 @@ $(document).ready(function(){
     viewInformation();
     acceptContact();
     cancelReqContactSend();
-    
+    notAcceptMakeFriend();
     
   })
 

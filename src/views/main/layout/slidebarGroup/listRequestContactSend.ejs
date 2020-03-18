@@ -20,8 +20,8 @@
                     </figure>
                 </div>
                 <div class="users-list-body">
-                    <h5><%= user.username %></hh5>
-                    <p><%= user.class %></p>
+                    <h5><%= user.username %></h5>
+                    <p><% if(user.gender === "Male"){%> Nam <%}else{%> Nữ <%}%></p>
                     <div class="users-list-action action-toggle">
                         <div class="dropdown">
                             <a data-toggle="dropdown" href="#">

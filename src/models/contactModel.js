@@ -73,6 +73,30 @@ contactSchema.statics = {
         {"receiverId": receiverId}
       ]
     }).exec();
+  },
+  removeContact(senderReqId,receiverReqId){
+    this.deleteOne({
+      $and: [
+        {"senderId": senderReqId},
+        {"receiverId": receiverReqId},
+      ]
+    }).exec();
+  },
+  readMoreReqSend(senderReqId,skip,limit){
+    return this.find({
+      $and: [
+        {"senderId": senderReqId},
+        {"active": false}
+      ]
+    }).sort({"createdAt" : -1}).skip(skip).limit(limit).exec();
+  },
+  readMoreReqReceived(receiverReqId,skip,limit){
+    return this.find({
+      $and: [
+        {"receiverId": receiverReqId},
+        {"active": false}
+      ]
+    }).sort({"createdAt" : -1}).skip(skip).limit(limit).exec();
   }
 }
 
