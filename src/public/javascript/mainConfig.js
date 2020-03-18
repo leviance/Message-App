@@ -106,6 +106,21 @@ function tickReadNotif(){
   })
 }
 
+function notAcceptMakeFriend(){
+  $(".btn-remove-req-contact").on("click", function(){
+    let senderReqId = $(this).attr("data-uid");
+    let receiverReqId = $("#editProfileModal").attr("data-uid");
+
+    $.ajax({
+      url: `/do-not-accept-make-friend-${senderReqId}-${receiverReqId}`,
+      type: "put"
+    })
+
+    $(this).parents("li").remove();
+
+  });
+}
+
 function removeAllNotifications(){
   $("#remove_all_notifications").on("click", function(){
     let targetId = $("#editProfileModal").attr("data-uid");
@@ -135,5 +150,7 @@ $(document).ready(function(){
   tickReadNotif();
 
   removeAllNotifications();
+
+  notAcceptMakeFriend();
  
 })

@@ -15,11 +15,11 @@ function modelNotif(notifId,senderNotifAvatar,content,timeStamp,isRead) {
 
 function readMoreNotifications(){
   $("#notification-modal .sidebar-body").scroll(function(){
-    let heightDIV = $("#notification-modal .sidebar-body").height();
+    let heightDIV = $(this).height();
     let heightUL = $("#notification-modal .sidebar-body ul").height();
-    let location = $(this).scrollTop();
+    let location = $(this).scrollTop() + 2;
    
-    if(location + heightDIV === heightUL || location + heightDIV > heightUL){
+    if(location + heightDIV > heightUL){
       loadingModal.show();
       let amountNotif = $("#notification-modal .sidebar-body ul li").length;
       

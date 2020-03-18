@@ -53,6 +53,9 @@ let initRouters = (app) => {
 
   router.post("/send-request-contact-:userId",contact.sendRequestContact);
   router.post("/accept-contact-:targetId",contact.acceptContact);
+  router.put("/do-not-accept-make-friend-:senderReqId-:receiverReqId",contact.notAcceptMakeFriend);
+  router.get("/read-more-request-contacts-send-:amountReqSend",contact.readMoreReqSend);
+  router.get("/read-more-request-contacts-received-:amountReqReceived",contact.readMoreReqReceived);
 
   router.post("/list-notification-viewed",notif.notificationViewed);
   router.post("/read-more-notifications",notif.readMoreNotifications);
