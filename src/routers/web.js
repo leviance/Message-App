@@ -56,6 +56,7 @@ let initRouters = (app) => {
 
   router.post("/list-notification-viewed",notif.notificationViewed);
   router.post("/read-more-notifications",notif.readMoreNotifications);
+  router.put("/remove-all-notifications-:targetId",notif.removeAllNotifications);
 
   router.get("/view-user-information-:userId",user.getUserInformation);
 

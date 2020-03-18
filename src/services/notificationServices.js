@@ -43,8 +43,13 @@ let readMoreNotifications = (userId, skip) => {
   })
 }
 
+let removeAllNotifications = (targetId) => {
+  NotificationModal.removeAll(targetId);
+}
+
 module.exports = {
   getListNotifications: getListNotifications,
   notificationViewed: notificationViewed,
-  readMoreNotifications: readMoreNotifications
+  readMoreNotifications: readMoreNotifications,
+  removeAllNotifications: removeAllNotifications
 }
