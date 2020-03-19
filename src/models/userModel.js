@@ -93,7 +93,17 @@ userSchema.statics = {
       {"_id": {$in : listId}},
       {"local.password": 0, "local.isActive": 0, "local.veryfyToken": 0, "facebook.token": 0, "google.token": 0}
       ).exec();
-  }
+  },
+  searchFriendsToAddGroup(listFriendsId,listUserIdAdded,keyWords,limit,skip){
+    return this.find({ 
+        $and: [
+          {$text: { $search: keyWords  }},
+          {"local.isActive": true},
+          {"_id": {$in: listFriendsId }},
+          {"_id": {$nin: listUserIdAdded}}
+        ]
+  },{_id: 1, avatar: 1, username: 1, class: 1,score: { $meta: "textScore" } }).sort( { score: { $meta: "textScore" } } ).skip(skip).limit(limit).exec();
+  },
 }
 
 module.exports = mongoose.model("Users", userSchema);

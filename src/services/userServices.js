@@ -1,6 +1,9 @@
 import UserModel from '../models/userModel';
+import ContactModel from '../models/contactModel';
 import bcrypt from 'bcrypt';
+import _ from 'lodash';
 
+const LIMIT_FRIENDS_TEKEN = 20;
 const saltRounds = 12;
 
 let updateUserInfor = async (userId,inforToUpdate) =>{
@@ -38,8 +41,32 @@ let getUserInformation = (userId) => {
 
 }
 
+let searchFriendsToAddGroup = (searcherId,listUserIdAdded,keyWords,skip) => {
+  return new Promise( async (resolve, reject) => {
+
+    let listFriends = await ContactModel.findUserById(searcherId);
+
+    if(listFriends.length === 0) return reject();
+
+    let listFriendsId = [];
+    listFriends.forEach( friend => {
+      listFriendsId.push(friend.senderId);
+      listFriendsId.push(friend.receiverId);
+    });
+
+    _.remove(listFriendsId, function(id) {
+      return id  == searcherId;
+    });
+
+    let inforUser = await UserModel.searchFriendsToAddGroup(listFriendsId,listUserIdAdded,keyWords,LIMIT_FRIENDS_TEKEN,skip);
+
+    return resolve(inforUser);
+  })
+}
+
 module.exports = {
   updateUserInfor: updateUserInfor,
   updateUserPassword: updateUserPassword,
-  getUserInformation: getUserInformation
+  getUserInformation: getUserInformation,
+  searchFriendsToAddGroup: searchFriendsToAddGroup
 }

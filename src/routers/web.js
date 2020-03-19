@@ -1,5 +1,5 @@
 import express from 'express';
-import {auth,home,contact,user,notif} from '../controller/index';
+import {auth,home,contact,user,notif,group} from '../controller/index';
 import {authValid} from '../validation/index';
 import passport from 'passport';
 
@@ -62,6 +62,9 @@ let initRouters = (app) => {
   router.put("/remove-all-notifications-:targetId",notif.removeAllNotifications);
 
   router.get("/view-user-information-:userId",user.getUserInformation);
+
+  router.post("/search-friends-to-add-group",user.searchFriendsToAddGroup);
+  router.post("/create-new-group-chat",group.createNewGroup);
 
   return app.use("/", router);
 }
