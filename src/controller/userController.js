@@ -3,7 +3,7 @@ import uid  from 'uid';
 import {app} from "../config/app";
 import {user} from "../services/index";
 import {homeValid} from "../validation/index";
-import {transUpdateUserInfo} from "../../lang/vi";
+import {transUpdateUserInfo,transValidation} from "../../lang/vi";
 
 let storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -82,9 +82,33 @@ let getUserInformation = async (req, res) =>{
   return res.status(200).send(inforUser)
 }
 
+let searchFriendsToAddGroup = async (req, res) => {
+  let keyWords = req.body.keyWords;
+  let searcherId = req.session.user.userId;
+  let skip = Number(req.body.skip);
+  let listUserIdAdded = req.body.listIdUserAdded;
+
+  let regex = new RegExp(/^[A-Za-z0-9 âăêưôđơèéẹẻẽỳýỵỹỷểệễềếủũụùúửữựừứỉĩịìíòóỏõọổồốỗộảạãáàẳặẵắằẩẫậấầÂĂÊƯÔĐƠÈÉẸẺẼỲÝỴỸỶỂỆỄỀẾỦŨỤÙÚỬỮỰỪỨỈĨỊÌÍÒÓỎÕỌỔỒỐỖỘẢẠÃÁÀẲẶẴẮẰẨẪẬẤẦ]+$/);     
+  if(!regex.test(keyWords)){
+    return res.status(500).send(transValidation.usernameIncorrect);
+  }
+
+  try {
+    let userInfor = await user.searchFriendsToAddGroup(searcherId,listUserIdAdded,keyWords,skip);
+
+    if(userInfor.length === 0) return res.status(500).send(transValidation.dataNoFound);
+
+    return res.status(200).send(userInfor);
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+
+}
+
 module.exports = {
   updateUserInfor: updateUserInfor,
   updateUserPassword: updateUserPassword,
   userLogOut: userLogOut,
-  getUserInformation: getUserInformation
+  getUserInformation: getUserInformation,
+  searchFriendsToAddGroup: searchFriendsToAddGroup
 }

@@ -6,7 +6,16 @@ export const transValidation = {
   nameAccountLengthIncorrect: "Tên tài khoản phải có tối thiểu 6 và tối đa 30 ký tự ",
   passwordIncorrect: "Mật khẩu chỉ được phép chứa chữ thường chữ hoa và số !",
   passwordLengthIncorrect: "Mật khẩu phải có từ 6 đên 30 ký tự",
-  genderIncorrect: "Giới tính không hợp lệ ?? Bạn có phải là một hacker ..."
+  genderIncorrect: "Giới tính không hợp lệ ?? Bạn có phải là một hacker ...",
+  dataNoFound: "Không tìm thấy kết quả phù hợp !",
+}
+
+export const groupValid = {
+  idIsCorrect: "Có chứa ID không hợp lệ vui lòng kiểm tra lại !",
+  userAmountIsCorrect: "Cần phải có tối thiểu 3 người để tạo nhóm !",
+  groupNameIsCorrect: "Tên nhóm phải có từ 6 đến 45 ký tự! không được chứa ký tự đặc biệt !",
+  descriptionIsCorrect: "Giới thiệu nhóm phải có từ 6 đến 100 ký tự! không được chứa ký tự đặc biệt !",
+  exeededGroupAllow: "Bạn đã đạt đến số lượng nhóm mỗi người có thể tạo là 10 nhóm !"
 }
 
 export const loginRegisterIncorrect = {

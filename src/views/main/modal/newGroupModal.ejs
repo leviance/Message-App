@@ -4,24 +4,41 @@
       <div class="modal-content">
           <div class="modal-header">
               <h5 class="modal-title">
-                  <i class="fa fa-users"></i> New Group
+                  <i class="fa fa-users"></i> Tạo nhóm mới
               </h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <i class="ti-close"></i>
               </button>
           </div>
+          <div id="modal-error-create-group" style="width: 100%; height:auto; padding: 30px 30px 0 30px;">
+              <!-- <p class="error" style="color: red;"></p>
+              <p class="success" style="color:#3db16b"></p> -->
+          </div>
           <div class="modal-body">
               <form>
                   <div class="form-group">
-                      <label for="group_name" class="col-form-label">Group name</label>
+                      <label for="group_name" class="col-form-label">Tên nhóm</label>
                       <input type="text" class="form-control" id="group_name">
                   </div>
-                  <div class="form-group">
-                      <label for="users" class="col-form-label">Users</label>
-                      <input type="text" class="form-control" id="users" placeholder="Find user">
+                  <ul class="list-friends" id="list-user-added-to-group">
+                    <!-- <li class="list-friend-item">
+                        <figure class="avatar">
+                            <img src="image/userImages/man_avatar1.jpg" class="rounded-circle">
+                        </figure>
+                        <div class="users-list-body">
+                            <h5>Patsy Paulton</h5>
+                            <p>Traditional heading elscas sdscsd sdcsdsc</p>
+                        </div>
+                        <button type="button" class="btn-add-friend btn-remove-friend-to-group btn btn-danger">Xóa</button>
+                    </li> -->
+                    </ul>
+                  <div class="form-group" style="position: relative;">
+                      <label for="users" class="col-form-label">Tìm kiếm</label>
+                      <input type="text" class="form-control" id="users" placeholder="Tìm bạn bè">
+                      <div id="btn-search-friends-to-add-group"><i class="fa fa-search" aria-hidden="true"></i></div>
                   </div>
-                  <ul class="list-friends">
-                    <li class="list-friend-item">
+                  <ul class="list-friends" id="list-search-user-to-add-group" >
+                    <!-- <li class="list-friend-item">
                         <figure class="avatar">
                             <img src="image/userImages/man_avatar1.jpg" class="rounded-circle">
                         </figure>
@@ -29,91 +46,18 @@
                             <h5>Patsy Paulton</h5>
                             <p>Traditional heading elscas sdscsd sdcsdsc</p>
                         </div>
-                        <button type="button" class="btn-add-friend btn btn-primary">Thêm</button>
-                    </li>
-                    <li class="list-friend-item">
-                        <figure class="avatar">
-                            <img src="image/userImages/man_avatar1.jpg" class="rounded-circle">
-                        </figure>
-                        <div class="users-list-body">
-                            <h5>Patsy Paulton</h5>
-                            <p>Traditional heading elscas sdscsd sdcsdsc</p>
-                        </div>
-                        <button type="button" class="btn-add-friend btn btn-primary">Thêm</button>
-                    </li>
-                    <li class="list-friend-item">
-                        <figure class="avatar">
-                            <img src="image/userImages/man_avatar1.jpg" class="rounded-circle">
-                        </figure>
-                        <div class="users-list-body">
-                            <h5>Patsy Paulton</h5>
-                            <p>Traditional heading elscas sdscsd sdcsdsc</p>
-                        </div>
-                        <button type="button" class="btn-add-friend btn btn-primary">Thêm</button>
-                    </li>
-                    <li class="list-friend-item">
-                        <figure class="avatar">
-                            <img src="image/userImages/man_avatar1.jpg" class="rounded-circle">
-                        </figure>
-                        <div class="users-list-body">
-                            <h5>Patsy Paulton</h5>
-                            <p>Traditional heading elscas sdscsd sdcsdsc</p>
-                        </div>
-                        <button type="button" class="btn-add-friend btn btn-primary">Thêm</button>
-                    </li>
-                    <li class="list-friend-item">
-                        <figure class="avatar">
-                            <img src="image/userImages/man_avatar1.jpg" class="rounded-circle">
-                        </figure>
-                        <div class="users-list-body">
-                            <h5>Patsy Paulton</h5>
-                            <p>Traditional heading elscas sdscsd sdcsdsc</p>
-                        </div>
-                        <button type="button" class="btn-add-friend btn btn-primary">Thêm</button>
-                    </li>
-                    <li class="list-friend-item">
-                        <figure class="avatar">
-                            <img src="image/userImages/man_avatar1.jpg" class="rounded-circle">
-                        </figure>
-                        <div class="users-list-body">
-                            <h5>Patsy Paulton</h5>
-                            <p>Traditional heading elscas sdscsd sdcsdsc</p>
-                        </div>
-                        <button type="button" class="btn-add-friend btn btn-primary">Thêm</button>
-                    </li>
+                        <button type="button" class="btn-add-friend btn-add-friend-to-group btn btn-primary">Thêm</button>
+                    </li> -->
+                    
                     </ul>
                   <div class="form-group">
-                      <div class="avatar-group">
-                          <figure class="avatar">
-                            <img src="image/userImages/women_avatar1.jpg" class="rounded-circle" title="Dương Hoàng Dũng">
-                          </figure>
-                          <figure class="avatar">
-                              <img src="image/userImages/women_avatar1.jpg" class="rounded-circle">
-                          </figure>
-                          <figure class="avatar">
-                              <span class="avatar-title bg-danger rounded-circle">S</span>
-                          </figure>
-                          <figure class="avatar">
-                              <img src="image/userImages/man_avatar2.jpg" class="rounded-circle">
-                          </figure>
-                          <figure class="avatar">
-                              <span class="avatar-title bg-info rounded-circle">C</span>
-                          </figure>
-                          <a href="#">
-                              <figure class="avatar">
-                                  <span class="avatar-title bg-primary rounded-circle"><i class="fa fa-search" aria-hidden="true"></i></span>
-                              </figure>
-                          </a>
-                      </div>
-                  </div>
-                  <div class="form-group">
-                      <label for="description" class="col-form-label">Description</label>
+                      <label for="description" class="col-form-label">Thềm lời giới thiệu</label>
                       <textarea class="form-control" id="description"></textarea>
                   </div>
               </form>
           </div>
           <div class="modal-footer">
-              <button type="button" class="btn btn-primary">Create Group</button>
+              <button type="button" id="btn-create-new-group" class="btn btn-primary">Tạo nhóm</button>
           </div>
       </div>
   </div>

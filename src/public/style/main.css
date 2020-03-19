@@ -28,9 +28,25 @@
 #addFriends .list-friends, #newGroup .list-friends {
   width: 100%;
   padding: 0px 30px;
-  height: 400px;
+  max-height: 400px;
   overflow-y: scroll;
 }
+
+#btn-search-friends-to-add-group{
+  width: 45px;
+  height: 35px;
+  background-color: #3db16b;
+  display: flex;
+  justify-content: center;
+  border-radius: 6px;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  right: 0px;
+  cursor: pointer;
+}
+
+#btn-search-friends-to-add-group >i{ font-size: 22px;}
 
 #addFriends .list-friends .list-friend-item, #newGroup .list-friends .list-friend-item {
   width: 100%;
@@ -38,8 +54,6 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
