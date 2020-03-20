@@ -143,6 +143,8 @@ function removeAllNotifications(){
 $(document).ready(function(){
   loadingModal.hide();
 
+  $("#list-messages").find("li:first").addClass("open-chat");
+
   sendUserIdBySocketToServer();
 
   viewInformation();
