@@ -12,7 +12,7 @@ let groupSchema = new Schema({
   description: String,
   createdAt : { type: Number, default: Date.now},
   removedAt: { type: Number, default: null},
-  updatedAt: { type: Number, default: null} 
+  updatedAt: { type: Number, default: Date.now} 
 });
 
 groupSchema.statics = { 
@@ -27,6 +27,9 @@ groupSchema.statics = {
   },
   findByUserCreatedId(userCreatedId){
     return this.find({"userCreatedId": userCreatedId}).exec();
+  },
+  findById(userId){
+    return this.find({"members": userId}).sort({"updatedAt": 1}).exec();
   }
 }
 

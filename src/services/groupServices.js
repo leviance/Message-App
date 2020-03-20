@@ -8,12 +8,21 @@ let createNewGroup = (userCreatedId,listUserIdToCreateGroup,groupName,descriptio
 
     if(amountGroupThisUserCreated.length > 10) return reject(groupValid.exeededGroupAllow);
 
-    await GroupModel.createNewGroup(userCreatedId,listUserIdToCreateGroup,groupName,description,userAmount);
+    let inforGroupCreated = await GroupModel.createNewGroup(userCreatedId,listUserIdToCreateGroup,groupName,description,userAmount);
 
-    return resolve();
+    return resolve(inforGroupCreated);
+  })
+}
+
+let getListChatGoupMess = (userId) => {
+  return new Promise( async (resolve, reject) => {
+    let listChatGoupMess = await GroupModel.findById(userId);
+
+    return resolve(listChatGoupMess);
   })
 }
 
 module.exports = {
-  createNewGroup: createNewGroup
+  createNewGroup: createNewGroup,
+  getListChatGoupMess: getListChatGoupMess
 }

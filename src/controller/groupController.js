@@ -13,8 +13,8 @@ let createNewGroup = async (req, res) => {
 
     await groupValid.validDataToCreateGroup(listUserIdToCreateGroup,groupName,description);
     
-    await group.createNewGroup(userCreatedId,listUserIdToCreateGroup,groupName,description,userAmount);
-    return res.status(200).send();
+    let inforGroupCreated = await group.createNewGroup(userCreatedId,listUserIdToCreateGroup,groupName,description,userAmount);
+    return res.status(200).send(inforGroupCreated);
   } catch (error) {
     return res.status(500).send(error);
   }

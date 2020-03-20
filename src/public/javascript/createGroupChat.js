@@ -161,18 +161,45 @@ function createNewGroup() {
     url: "/create-new-group-chat",
     type: "POST",
     data: {listIdUserAdded: listIdUserAdded,groupName,description},
-    success: function(){
+    success: function(data){
       modalAlertCreateGroup.append(`<p class="success" style="color:#3db16b">Tạo nhóm thành công.</p>`);
       $("#group_name").val("");
       $("#list-user-added-to-group").empty();
       $("#list-search-user-to-add-group").empty();
       $("#users").val("");
       $("#description").val("");
+
+      // handle real time send notification for all members
+      let dataToEmit = {
+        groupId : data._id,
+        userCreateGroupId : data.userCreatedId, 
+        members : data.members,
+        groupName : data.groupName,
+        avatar: data.avatar,
+        description: data.description
+      }
+      socket.emit("create-new-group",dataToEmit);
     },
     error: function(error){
       modalAlertCreateGroup.append(`<p class="error" style="color: red;">${error}</p>`);
     }
   })
+}
+
+function modelMessChatGroup(groupId,avatar,groupName,description){
+  return `
+    <li class="list-group-item" data-uid="${groupId}" data-type="chat-group" >
+        <figure class="avatar avatar-state-success">
+            <img src="image/userImages/${avatar}" class="rounded-circle">
+        </figure>
+        <div class="users-list-body">
+            <h5>${groupName}</h5>
+            <p>${description}</p>
+            <div class="users-list-action">
+                <div class="new-message-count">+</div>
+            </div>
+        </div>
+    </li>`;
 }
 
 $(document).ready(function(){
@@ -191,5 +218,15 @@ $(document).ready(function(){
   $("#btn-create-new-group").on("click",function(){
     createNewGroup();
   });
+
+  socket.on("response-create-new-group", data => {
+    let groupId = data.groupId;
+    let avatar = data.avatar;
+    let groupName = data.groupName;
+    let description = data.description;
+
+    $("#list-messages").prepend(modelMessChatGroup(groupId,avatar,groupName,description));
+
+  })
 
 })

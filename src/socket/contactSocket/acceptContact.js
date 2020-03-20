@@ -6,7 +6,11 @@ let acceptContact = (io) => {
     socket.on('accept-contact', async (data) => {
       try {
         // valid data
-        await socketValid.acceptContactValid(data);
+        await socketValid.validUserId(data.senderId);
+        await socketValid.validUserId(data.receiverId);
+        await socketValid.validAvatar(data.avatar);
+        await socketValid.validUserName(data.username);
+        
         //console.log(data.receiverId);
         emitSocket("response-accept-contact",data,io);
 

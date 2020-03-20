@@ -9,35 +9,44 @@
  * }
  *  
  */
-let acceptContactValid = (data) => {
+let validUserId = (userId) =>{
   return new Promise((resolve, reject) => {
-    let isID = new RegExp(/^[0-9a-zA-Z]+$/);
-    let isLinkImage = new RegExp(/^(image\/).+(.jpg|.png|.jpeg)$/);
-    let isUserName = new RegExp(/^[A-Za-z0-9 âăêưôđơèéẹẻẽỳýỵỹỷểệễềếủũụùúửữựừứỉĩịìíòóỏõọổồốỗộảạãáàẳặẵắằẩẫậấầÂĂÊƯÔĐƠÈÉẸẺẼỲÝỴỸỶỂỆỄỀẾỦŨỤÙÚỬỮỰỪỨỈĨỊÌÍÒÓỎÕỌỔỒỐỖỘẢẠÃÁÀẲẶẴẮẰẨẪẬẤẦ]+$/);
+      let isID = new RegExp(/^[0-9a-zA-Z]+$/);
 
-    if(data.receiverId && data.senderId){
-      if(!isID.test(data.receiverId) || !isID.test(data.senderId) ){
+      if(!isID.test(userId)){
         return reject();
       }
-    }
-    
-    if(data.avatar){
-      if(!isLinkImage.test(data.avatar)){
+
+      return resolve();
+  })
+}
+
+let validAvatar = (avatar) => {
+  return new Promise((resolve, reject) => {
+    let isLinkImage = new RegExp(/(.jpg|.png|.jpeg)$/);
+
+      if(!isLinkImage.test(avatar)){
         return reject();
       }
+
+      return resolve();
+  })
+}
+
+let validUserName = (username) => {
+  return new Promise((resolve, reject) => {
+    let isUserName = new RegExp(/^[A-Za-z0-9 âăêưôđơèéẹẻẽỳýỵỹỷểệễềếủũụùúửữựừứỉĩịìíòóỏõọổồốỗộảạãáàẳặẵắằẩẫậấầÂĂÊƯÔĐƠÈÉẸẺẼỲÝỴỸỶỂỆỄỀẾỦŨỤÙÚỬỮỰỪỨỈĨỊÌÍÒÓỎÕỌỔỒỐỖỘẢẠÃÁÀẲẶẴẮẰẨẪẬẤẦ]+$/);
+  
+    if(!isUserName.test(username)){
+      return reject();
     }
-    
-    if(data.username){
-      if(!isUserName.test(data.username)){
-        return reject();
-      }
-    }
-    
+
     return resolve();
-    
   })
 }
 
 module.exports = {
-  acceptContactValid: acceptContactValid
+  validUserId: validUserId,
+  validAvatar: validAvatar,
+  validUserName: validUserName
 }
