@@ -138,6 +138,20 @@ function removeAllNotifications(){
   });
 }
 
+function changeDisplayOnMobile(){
+  // ẩn slide-bar khi khi ấn vào một chức năng bên trong của nó 
+  // VD: ấn vào 1 bạn trong ds bạn bè thì ẩn slide-bar bb đi để cho người dùng xem tin nhắn hoặc nhắn tin
+  $(document).on('click', '.layout .content .sidebar-group .sidebar .list-group-item', function () {
+      if (jQuery.browser.mobile) {
+          $(this).closest('.sidebar-group').removeClass('mobile-open');
+      }
+  });
+
+  // show list acction
+  if(jQuery.browser.mobile){
+    $(".users-list-action").show();
+  }
+}
 
 
 $(document).ready(function(){
@@ -155,4 +169,5 @@ $(document).ready(function(){
 
   notAcceptMakeFriend();
  
+  changeDisplayOnMobile();
 })

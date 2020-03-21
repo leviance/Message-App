@@ -1,6 +1,6 @@
 function openModalChat(){
   $("#friends .sidebar-body ul li .support-click").on("click",function(){
-    $("#modal-chat-person").show();
+    $("#modal-chat").show();
     $("#modal-chat-group").hide();
 
     let avatar = $(this).parents("li").find("img").attr("src");
@@ -9,7 +9,7 @@ function openModalChat(){
 
     $("#content-chat-person-avatar").attr("src", avatar);
     $("#content-chat-person-name").html(username);
-    $("#modal-chat-person").attr("data-uid",idFriend);
+    $("#modal-chat").attr("data-uid",idFriend);
 
     // load mess from server
     let receiverMessId = $(this).parents("li").attr("data-uid");
@@ -21,9 +21,10 @@ function openModalChat(){
       type: "post",
       data: {receiverMessId,type},
       success: function(data) {
-        
+        $('.layout .content .chat .chat-body .messages').empty();
+
         if(data.length === 0){
-          $("#modal-chat-person .chat-body .messages").empty();
+          $("#modal-chat .chat-body .messages").empty();
         }
 
         else{
@@ -71,8 +72,8 @@ function openModalChat(){
             }
 
             // cuộn chuột xuống cuối 
-            $("#modal-chat-person").find("input.form-control").val("");
-            let heightDivMess =  $('#modal-chat-person .chat-body .message-item').outerHeight();
+            $("#modal-chat").find("input.form-control").val("");
+            let heightDivMess =  $('#modal-chat .chat-body .message-item').outerHeight();
             let amountMessage = $('.layout .content .chat .chat-body .messages .message-item').length;
             $('.layout .content .chat .chat-body .messages').scrollTop(heightDivMess * amountMessage);
           })
@@ -80,7 +81,7 @@ function openModalChat(){
         }
       },
       error: function(error) {
-        $("#modal-chat-person .chat-body .messages").empty();
+        $("#modal-chat .chat-body .messages").empty();
       }
     })
   });
