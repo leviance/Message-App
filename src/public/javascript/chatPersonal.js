@@ -122,6 +122,8 @@ $(document).ready(function(){
     let messageNotRead = + isMessThere.find(".new-message-count").html();
     isMessThere.find(".new-message-count").html(messageNotRead + 1);
 
+    $("#btn-view-list-chat").addClass("notifiy_badge");
+
   })
 })
 

@@ -73,7 +73,6 @@ function addFriends(){
     // them nguoi vừa gửỉ yêu cầu kết bạn vào danh sách lời mời đã gửi 
     $(this).parent().hide();
     $("#list-request-contacts-send .list-group").prepend(newReqContactSend);
-
     
     $.ajax({
       url: `/send-request-contact-${targetId}`,
@@ -100,6 +99,7 @@ function addFriends(){
     
     cancelReqContactSend();
     viewInformation();
+    readMoreReqSend();
   })
 
   
@@ -170,12 +170,15 @@ $(document).ready(function(){
     $("#notification-modal .sidebar-body ul").prepend(newNotification);
     $("#btn-view-notification").addClass("notifiy_badge");
 
+    $("#btn-view-request-contact-received").addClass("notifiy_badge");
+
     tickReadNotif();
     viewInformation();
     acceptContact();
     cancelReqContactSend();
     notAcceptMakeFriend();
-    
+    readMoreContactReceived();
+
   })
 
 });
