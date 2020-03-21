@@ -22,7 +22,29 @@ let messagesSchema = new Schema({
 });
 
 messagesSchema.statics = {
-
+  findMessages(senderMessId, receiverMessId, limit){
+    return this.find({
+      $or: [
+        {
+          $and: [
+            {"sender.id": senderMessId},
+            {"receiver.id" : receiverMessId},
+            {"removedAt" : null}
+          ]
+        },
+        {
+          $and: [
+            {"sender.id": receiverMessId},
+            {"receiver.id" : senderMessId},
+            {"removedAt" : null}
+          ]
+        }
+      ]
+    }).sort({"createdAt" : 1}).limit(limit).exec();
+  },
+  sendPersonalMess(sender,receiver,message){
+    return this.create({"sender": sender, "receiver": receiver,"text" : message });
+  }
 }
 
 module.exports = mongoose.model("Messages",messagesSchema);

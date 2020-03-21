@@ -209,6 +209,27 @@ let readMoreReqReceived = (receivedId,skip) => {
   })
 }
 
+let getListFriends = (userId) => {
+  return new Promise( async (resolve, reject) => {
+    let listContacts = await ContactModel.findUserById(userId);
+    
+    let listID = [];
+    listContacts.forEach( contact => {
+      listID.push(contact.senderId);
+      listID.push(contact.receiverId);
+    });
+
+    _.remove(listID, function(n) {
+      return n  == userId;
+    });
+
+    let listFriends = await UserModel.listInForUser(listID);
+
+    return resolve(listFriends);
+
+  });
+}
+
 module.exports = {
   sendRequestContact: sendRequestContact,
   getListReqContactSend: getListReqContactSend,
@@ -218,5 +239,6 @@ module.exports = {
   cancelReqContactSend: cancelReqContactSend,
   notAcceptMakeFriend: notAcceptMakeFriend,
   readMoreReqSend: readMoreReqSend,
-  readMoreReqReceived: readMoreReqReceived
+  readMoreReqReceived: readMoreReqReceived,
+  getListFriends: getListFriends
 }
