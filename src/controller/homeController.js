@@ -16,13 +16,15 @@ let homeController = async (req, res) => {
     let listReqContactReceived = await contact.getListReqContactReceived(req.session.user.userId);
     let listNotifications = await notification.getListNotifications(req.session.user.userId);
     let listChatGoupMess = await group.getListChatGoupMess(req.session.user.userId);
+    let listFriends = await contact.getListFriends(req.session.user.userId);
 
     return res.render("main/layout/home",{
       user : userInfo,
       listReqContactSend: listReqContactSend,
       listReqContactReceived: listReqContactReceived,
       listNotifications: listNotifications,
-      listChatGoupMess: listChatGoupMess
+      listChatGoupMess: listChatGoupMess,
+      listFriends: listFriends
     });
   }
 

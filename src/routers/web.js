@@ -1,5 +1,5 @@
 import express from 'express';
-import {auth,home,contact,user,notif,group} from '../controller/index';
+import {auth,home,contact,user,notif,group,message} from '../controller/index';
 import {authValid} from '../validation/index';
 import passport from 'passport';
 
@@ -65,6 +65,9 @@ let initRouters = (app) => {
 
   router.post("/search-friends-to-add-group",user.searchFriendsToAddGroup);
   router.post("/create-new-group-chat",group.createNewGroup);
+
+  router.post("/get-messages",message.getMessages);
+  router.post("/send-personal-message",message.sendPersonalMess);
 
   return app.use("/", router);
 }

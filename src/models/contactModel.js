@@ -34,11 +34,11 @@ contactSchema.statics = {
       ]
     }).exec();
   },
-  findUserById(senderId){
+  findUserById(userId){
     return this.find({
       $or: [
-        {"senderId": senderId},
-        {"receiverId": senderId}
+        {"senderId": userId},
+        {"receiverId": userId}
       ]
     }).exec();
   },
