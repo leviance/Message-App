@@ -7,7 +7,7 @@ function sendPersonalMess(){
     if(!message) return;
 
     let receiver = {
-      id : $(this).parents("#modal-chat-person").attr("data-uid"),
+      id : $(this).parents("#modal-chat").attr("data-uid"),
       username: $("#content-chat-person-name").html(),
       avatar: $("#content-chat-person-avatar").attr("src"),
     }
@@ -59,9 +59,9 @@ function appendPersonalMessageToModal(message,error){
       </div>`);
   }
 
-  $("#modal-chat-person").find("input.form-control").val("");
+  $("#modal-chat").find("input.form-control").val("");
 
-  let heightDivMess =  $('#modal-chat-person .chat-body .message-item').outerHeight();
+  let heightDivMess =  $('#modal-chat .chat-body .message-item').outerHeight();
   let amountMessage = $('.layout .content .chat .chat-body .messages .message-item').length;
 
   $('.layout .content .chat .chat-body .messages').scrollTop(heightDivMess * amountMessage);
