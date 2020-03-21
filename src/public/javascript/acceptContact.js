@@ -16,17 +16,51 @@ function acceptContact(){
         }
 
         socket.emit("accept-contact",dataToEmit);
+
       }
     });
   
-    
-    
+    //  prepend to list friends
+    let userId = targetId;
+    let avatar = $(this).parents("li").find("img").attr("src");
+    let username = $(this).parents("li").find("h5").html();
+
+    $("#friends .sidebar-body ul").prepend(modelFriendToApendListFriends(userId,avatar,username));
+
     $(this).parents("li").remove();
 
-    
-
+    viewInformation();
   });
   
+}
+
+function modelFriendToApendListFriends(userId,avatar,username){
+  return `
+  <li class="list-group-item" data-uid="${userId}" style="position: relative">
+      <div>
+          <figure class="avatar">
+              <img src="${avatar}" class="rounded-circle">
+          </figure>
+      </div>
+      <div class="users-list-body">
+          <h5>${username}</h5>
+          <p> Bạn mới </p>
+          <div class="users-list-action action-toggle">
+              <div class="dropdown">
+                  <a data-toggle="dropdown" href="#">
+                      <i class="ti-more"></i>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                      <a href="#" data-uid="${userId}" data-navigation-target="contact-information" class="dropdown-item">Xem hồ sơ</a>
+                      <a href="#" data-uid="${userId}" class="dropdown-item">Thêm vào liên hệ yêu thích</a>
+                      <a href="#" data-uid="${userId}" class="dropdown-item">Hủy kết bạn</a>
+                      <a href="#" data-uid="${userId}" class="dropdown-item">Chặn</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="support-click" style="position: absolute; height: 100%; width: 75%; background-color:rgba(0, 255, 255, 0);"></div>
+  </li>`;
 }
 
 $(document).ready(function(){
@@ -55,6 +89,11 @@ $(document).ready(function(){
     $("#btn-view-notification").addClass("notifiy_badge");
     
     tickReadNotif();
+    //  prepend to list friends
+    $("#friends .sidebar-body ul").prepend(modelFriendToApendListFriends(data.senderId,data.avatar,data.username));
+
+    openModalChat();
+    viewInformation();
   });
 
 })

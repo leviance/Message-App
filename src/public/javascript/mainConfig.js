@@ -103,7 +103,26 @@ function tickReadNotif(){
       $(this).removeClass("notifiy_badge");
     }
 
-  })
+  });
+
+  $("#btn-view-request-contact-received").unbind('click').on('click', function(){
+    let className = $(this).attr('class');
+
+    // bỏ chấm đỏ khỏi biểu tượng thông báo
+    if(className === "active" || className === "notifiy_badge" || className === "" || className === "notifiy_badge active" || className=== "active notifiy_badge"){ 
+      $(this).removeClass("notifiy_badge");
+    }
+  });
+
+  $("#btn-view-list-chat").unbind('click').on('click', function(){
+    let className = $(this).attr('class');
+
+    // bỏ chấm đỏ khỏi biểu tượng thông báo
+    if(className === "active" || className === "notifiy_badge" || className === "" || className === "notifiy_badge active" || className=== "active notifiy_badge"){ 
+      $(this).removeClass("notifiy_badge");
+    }
+  });
+
 }
 
 function notAcceptMakeFriend(){
