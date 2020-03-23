@@ -183,12 +183,15 @@ function createNewGroup() {
     error: function(error){
       modalAlertCreateGroup.append(`<p class="error" style="color: red;">${error}</p>`);
     }
-  })
+  });
+
+  getMessages();
+  tickMessActive();
 }
 
 function modelMessChatGroup(groupId,avatar,groupName,description){
   return `
-    <li class="list-group-item" data-uid="${groupId}" data-type="chat-group" >
+    <li class="list-group-item click-to-chats" data-uid="${groupId}" data-type="chat-group" >
         <figure class="avatar avatar-state-success">
             <img src="image/userImages/${avatar}" class="rounded-circle">
         </figure>
@@ -227,6 +230,8 @@ $(document).ready(function(){
 
     $("#list-messages").prepend(modelMessChatGroup(groupId,avatar,groupName,description));
 
+    getMessages();
+    tickMessActive();
   })
 
 })
