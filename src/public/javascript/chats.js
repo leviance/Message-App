@@ -139,13 +139,29 @@ function sendMessageText(){
 
 function receiveMessageText(){
   socket.on("response-send-message-text", data => {
-    console.log(data);
+  
     let senderId = data.senderId
         ,avatar = data.avatar
         ,message = data.message
-        ,username = data.username;
+        ,username = data.username
+        ,messageText = data.message
 
     let isMessThere = $("#chats .sidebar-body ul").find(`li[data-uid=${senderId}]`);
+
+    // append message to modal chat
+    let curentlyUserChatId = $("#modal-chat").attr("data-uid");
+    if(senderId === curentlyUserChatId){
+      $("#modal-chat .chat-body .messages").append(`
+      <div class="message-item">
+          <div class="message-content">${messageText}</div>
+          <div class="message-action">
+            ${new Date().getHours()} : ${new Date().getMinutes()}
+          </div>
+      </div>`);
+    }
+
+    // cuộn chuột xuống tin nhắn
+    $("#modal-chat .chat-body .messages").scrollTop(1000);
 
     // nếu chưa có biểu tượng tin nhắn ở đấy thì thêm vào
     if(isMessThere.length === 0){
@@ -160,9 +176,8 @@ function receiveMessageText(){
     // thêm số tin nhắn chưa xem 
     let messageNotRead = 0;
     messageNotRead = isMessThere.find(".new-message-count").html();
-    console.log(isMessThere.find(".new-message-count"));
+   
     if(messageNotRead){
-      console.log(messageNotRead);
       isMessThere.find(".new-message-count").html(Number(messageNotRead) + 1);
     }
     
@@ -177,10 +192,7 @@ function receiveMessageText(){
 
 
     // những cái này để xóa hiển thị số những tin nhắn chưa đọc của user khi submit modal chát của user đó 
-    $(".layout .content .chat .chat-footer form").on("submit",function(){
-      let idModalChatToRemoveMessCount = $("#modal-chat").attr("data-uid");
-      removeNewMessCount(idModalChatToRemoveMessCount);
-    });
+    removeAmountMessNotRead();
 
     chats();
 
@@ -377,6 +389,11 @@ function removeNewMessCount(messId){
 }
 
 $(document).ready(function() {
+  // khi click vào tin nhắn nào thì bỏ amount message not read
+  $("#chats .sidebar-body ul li").on("click", function(){
+    removeNewMessCount($(this).attr("data-uid"));
+  })
+
   getMessages();
 
   sendMessageText();

@@ -143,6 +143,15 @@ function tickMessActive(){
   });
 }
 
+// những cái này để xóa hiển thị số những tin nhắn chưa đọc của user khi submit modal chát của user đó 
+function removeAmountMessNotRead(){
+  $(".layout .content .chat .chat-footer form").on("submit",function(){
+    let idModalChatToRemoveMessCount = $("#modal-chat").attr("data-uid");
+    removeNewMessCount(idModalChatToRemoveMessCount);
+  });
+}
+
+
 $(document).ready(function(){
   loadingModal.hide();
 
@@ -161,4 +170,8 @@ $(document).ready(function(){
   tickMessActive();
 
   autoClickFirstMessage();
+
+  removeAmountMessNotRead();
+
+
 })
