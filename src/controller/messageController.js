@@ -9,14 +9,14 @@ let getMessages = async (req, res) => {
   let testId = new RegExp(/^[0-9a-zA-Z]+$/);
   if(!testId.test(receiverMessId)) return res.status(500).send();
 
-  if(type !== "personal" && type !== "group") return res.status(500).send();
+  if(type !== "chat-personal" && type !== "chat-group") return res.status(500).send();
   
   let returnMess = await message.getMessages(senderMessId, receiverMessId, type);
 
   return res.status(200).send(returnMess);
 }
 
-let sendPersonalMess = async (req, res) => {
+let sendMess = async (req, res) => {
   let sender = req.body.sender;
   let receiver = req.body.receiver;
   let messageToSend = req.body.message;
@@ -34,7 +34,7 @@ let sendPersonalMess = async (req, res) => {
     await socketValid.validUserName(receiver.username);
     await socketValid.validUserName(receiver.username);
 
-    message.sendPersonalMess(sender,receiver,messageToSend);
+    message.sendMess(sender,receiver,messageToSend);
 
     return res.status(200).send();
   } catch (error) {
@@ -44,5 +44,5 @@ let sendPersonalMess = async (req, res) => {
 
 module.exports = {
   getMessages: getMessages,
-  sendPersonalMess: sendPersonalMess
+  sendMess: sendMess
 }

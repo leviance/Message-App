@@ -1,4 +1,5 @@
-import {home,contact,auth,notification,group} from '../services/index';
+import {home,contact,auth,notification,group,message} from '../services/index';
+import _ from 'lodash';
 
 let homeController = async (req, res) => {
   // go home page
@@ -17,14 +18,28 @@ let homeController = async (req, res) => {
     let listNotifications = await notification.getListNotifications(req.session.user.userId);
     let listChatGoupMess = await group.getListChatGoupMess(req.session.user.userId);
     let listFriends = await contact.getListFriends(req.session.user.userId);
+    let listConversations = await message.getListConversations(req.session.user.userId);
+
+    //  sort conversations 
+    let conversations = [];
+    listChatGoupMess.forEach( conversion =>{
+      conversations.push(conversion);
+    });
+    listConversations.forEach( conversion =>{
+      conversations.push(conversion);
+    });
+
+    _.sortBy(conversations, ['createdAt']);
+    _.reverse(conversations);
+    console.log(conversations)
 
     return res.render("main/layout/home",{
       user : userInfo,
       listReqContactSend: listReqContactSend,
       listReqContactReceived: listReqContactReceived,
       listNotifications: listNotifications,
-      listChatGoupMess: listChatGoupMess,
-      listFriends: listFriends
+      listFriends: listFriends,
+      conversations: conversations
     });
   }
 

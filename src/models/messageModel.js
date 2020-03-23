@@ -16,6 +16,7 @@ let messagesSchema = new Schema({
   text: String,
   isRead: {type: Boolean , default: false},
   file: String,
+  img: String,
   createdAt: {type: Number, default: Date.now},
   removedAt: {type: Number, default: null},
   updatedAt: {type: Number, default: null}
@@ -40,9 +41,9 @@ messagesSchema.statics = {
           ]
         }
       ]
-    }).sort({"createdAt" : 1}).limit(limit).exec();
+    }).sort({"createdAt" : -1}).limit(limit).exec();
   },
-  sendPersonalMess(sender,receiver,message){
+  sendMess(sender,receiver,message){
     return this.create({"sender": sender, "receiver": receiver,"text" : message });
   }
 }

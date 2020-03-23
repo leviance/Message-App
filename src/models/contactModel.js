@@ -97,6 +97,34 @@ contactSchema.statics = {
         {"active": false}
       ]
     }).sort({"createdAt" : -1}).skip(skip).limit(limit).exec();
+  },
+  chatTogether(sender,receiver){
+    return this.updateOne({
+      $or: [
+        {$and : [
+          {"receiverId": receiver},
+          {"senderId": sender}
+        ]},
+        {$and : [
+          {"receiverId": sender},
+          {"senderId": receiver}
+        ]}
+      ]
+    },{"updatedAt": Date.now()}).exec();
+  },
+  listContactHaveMess(userId){
+    return this.find({
+      $or : [
+        {$and : [
+          {"senderId" : userId},
+          {$nor : [{"updatedAt" : null}]}
+        ]},
+        {$and : [
+          {"receiverId" : userId},
+          {$nor : [{"updatedAt" : null}]}
+        ]}
+      ]
+    }).sort({"updatedAt": -1}).exec();
   }
 }
 

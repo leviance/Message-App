@@ -22,7 +22,7 @@
       <ul class="list-group list-group-flush">
           <%if(listFriends.length > 0){%>
             <% listFriends.forEach( friend => { %>
-                <li class="list-group-item" data-uid="<%= friend._id %>" style="position: relative">
+                <li class="list-group-item click-to-chats" data-uid="<%= friend._id %>" style="position: relative">
                     <div>
                         <figure class="avatar">
                             <img src="image/userImages/<%= friend.avatar %>" class="rounded-circle">
