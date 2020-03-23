@@ -20,18 +20,28 @@ let homeController = async (req, res) => {
     let listFriends = await contact.getListFriends(req.session.user.userId);
     let listConversations = await message.getListConversations(req.session.user.userId);
 
+    console.log(listConversations);
+    console.log('jajaj');
+    console.log(listChatGoupMess);
     //  sort conversations 
     let conversations = [];
-    listChatGoupMess.forEach( conversion =>{
-      conversations.push(conversion);
-    });
-    listConversations.forEach( conversion =>{
-      conversations.push(conversion);
-    });
+    
+    if(listChatGoupMess.length > 0){
+      listChatGoupMess.forEach( conversion =>{
+        conversations.push(conversion);
+      });
+    }
 
-    _.sortBy(conversations, ['createdAt']);
+    if(listConversations.length > 0){
+      listConversations.forEach( conversion =>{
+        conversations.push(conversion);
+      });
+    }
+    
+
+    _.sortBy(conversations, ['updatedAt']);
     _.reverse(conversations);
-    console.log(conversations)
+    //console.log(conversations)
 
     return res.render("main/layout/home",{
       user : userInfo,
