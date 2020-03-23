@@ -132,8 +132,18 @@ function sendMessageText(){
         appendPersonalMessageToModal(message,error);
       }
 
-    })
+    });
+
+    // xem chats slide bar đã có conversation chưa nếu chưa có thì thêm vào
+    let findConversation =  $("#chats .sidebar-body ul").find(`li[data-uid=${receiver.id}]`);
+    if(findConversation.length === 0){
+      $("#chats .sidebar-body ul").prepend(modelConversationToAppendChatsSlideBarWhenSendNewMessage(receiver.id,receiver.avatar,message,receiver.username));
+    }
     
+    removeAmountMessNotRead();
+    viewInformation();
+    chats();
+
   })
 }
 
@@ -165,7 +175,7 @@ function receiveMessageText(){
 
     // nếu chưa có biểu tượng tin nhắn ở đấy thì thêm vào
     if(isMessThere.length === 0){
-      $("#chats .sidebar-body ul").prepend(modelChatAppendModalChats(senderId,avatar,message,username));
+      $("#chats .sidebar-body ul").prepend(modelConversationToAppendChatsSlideBar(senderId,avatar,message,username));
     }
     
     // nếu có biểu tượng tin nhắn rồi thì thay đổi sub tin nhắn của biểu tượng 
@@ -232,8 +242,38 @@ function appendPersonalMessageToModal(message,error){
 
   $('.layout .content .chat .chat-body .messages').scrollTop(heightDivMess * amountMessage *200);
 }
+// appen when send a new mesage 
+function modelConversationToAppendChatsSlideBarWhenSendNewMessage(senderId,avatar,message,username){
+  return `
+  <li class="list-group-item click-to-chats" data-uid="${senderId}">
+      <div class="avatar-group">
+          <figure class="avatar">
+              <img src="${avatar}" class="rounded-circle">
+              </span>
+          </figure>
+      </div>
+      <div class="users-list-body">
+          <h5>${username}</h5>
+          <p>${message}</p>
+          <div class="users-list-action action-toggle">
+              <div class="dropdown">
+                <a data-toggle="dropdown" href="#">
+                    <i class="ti-more"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" >
+                    <a href="#" data-uid="${senderId}" data-navigation-target="contact-information" class="dropdown-item">Xem hồ sơ</a>
+                    <a href="#" data-uid="${senderId}" class="dropdown-item">Thêm vào liên hệ yêu thích</a>
+                    <a href="#" data-uid="${senderId}" class="dropdown-item">Xóa tin nhắn</a>
+                    <a href="#" data-uid="${senderId}" class="dropdown-item">Chặn người dùng</a>
+                </div>
+              </div>
+          </div>
+      </div>
+  </li>`;
+}
 
-function modelChatAppendModalChats(senderId,avatar,message,username){
+// append when received new message
+function modelConversationToAppendChatsSlideBar(senderId,avatar,message,username){
   return `
   <li class="list-group-item click-to-chats" data-uid="${senderId}">
       <div class="avatar-group">

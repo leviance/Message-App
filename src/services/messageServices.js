@@ -29,7 +29,7 @@ let getListConversations = (userId) => {
   return new Promise( async (resolve, reject) => {
     let listContactHaveMess = await ContactModel.listContactHaveMess(userId);
     
-    if(listContactHaveMess.length === 0) return resolve();
+    if(listContactHaveMess.length === 0) return resolve([]);
 
     // lấy những contact có updatedAt tức là đã nhăn tin với nhau
     let listContactHaveMessId = [];
@@ -50,6 +50,8 @@ let getListConversations = (userId) => {
     for(let i = 0; i < listContactHaveMessId.length; i++){
       let message = await MessageModel.findMessages(userId,listContactHaveMessId[i],1);
       
+      if(message.length === 0) return resolve([]);
+
       if(message[0].text){
         listConversations[i] = {
           username: listInForUsers[i].username,
