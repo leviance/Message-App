@@ -25,9 +25,9 @@
     </form>
     <div class="sidebar-body">
         <ul class="list-group list-group-flush" id="list-messages">
-            <% listChatGoupMess.forEach( data => { %>
-              <% if(data.groupName) {%>
-                  <li class="list-group-item" data-uid="<%= data._id %>" data-type="chat-group">
+            <% conversations.forEach( data => { %>
+                <% if(data.groupName) {%>
+                  <li class="list-group-item click-to-chats" data-uid="<%= data._id %>" data-type="chat-group">
                       <figure class="avatar avatar-state-success">
                           <img src="image/userImages/<%= data.avatar %>" class="rounded-circle">
                       </figure>
@@ -40,7 +40,21 @@
                           </div>
                       </div>
                   </li>
-                  <%}%>
+                <%} else {%>
+                    <li class="list-group-item click-to-chats" data-uid="<%= data.id %>" data-type="chat-group">
+                        <figure class="avatar avatar-state-success">
+                            <img src="image/userImages/<%= data.avatar %>" class="rounded-circle">
+                        </figure>
+                        <div class="users-list-body">
+                            <h5><%= data.username %></h5>
+                            <p><%= data.messageText %></p>
+                            <div class="users-list-action">
+                                <div class="new-message-count">+</div> 
+                                <!-- Xử lý hiển thị những tin nhắn chưa xem làm ở phần sau -->
+                            </div>
+                        </div>
+                    </li>
+                <%}%>
             <% }) %>
             <li class="list-group-item ">
                 <div>
