@@ -151,6 +151,36 @@ function removeAmountMessNotRead(){
   });
 }
 
+function tickReadNotif(){
+  $("#btn-view-notification").unbind('click').on('click', function(){
+    let className = $(this).attr('class');
+
+    // bỏ nền xanh ra khỏi thông báo
+    if(className === "active" || className === "active notifiy_badge" || className === ""){
+      let listNotif = document.querySelectorAll("#notification-modal .sidebar-body ul li.unread_notification");
+      let listNotifUnread = [];
+   
+      listNotif.forEach(function(notif){
+        notif.classList.remove("unread_notification");
+        listNotifUnread.push(notif.dataset.uid);
+      });
+
+      // tick isRead : true in server 
+      $.ajax({
+        url: "/list-notification-viewed",
+        type: "post",
+        data: {listNotifUnread : listNotifUnread}
+      })
+
+    }
+
+    // bỏ chấm đỏ khỏi biểu tượng thông báo
+    if(className === "active" || className === "notifiy_badge" || className === "" || className === "notifiy_badge active" || className=== "active notifiy_badge"){ 
+      $(this).removeClass("notifiy_badge");
+    }
+
+  })
+}
 
 $(document).ready(function(){
   loadingModal.hide();
@@ -173,5 +203,5 @@ $(document).ready(function(){
 
   removeAmountMessNotRead();
 
-
+  tickReadNotif();
 })

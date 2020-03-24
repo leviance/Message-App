@@ -211,7 +211,7 @@ let readMoreReqReceived = (receivedId,skip) => {
 
 let getListFriends = (userId) => {
   return new Promise( async (resolve, reject) => {
-    let listContacts = await ContactModel.findUserById(userId);
+    let listContacts = await ContactModel.findFriends(userId);
     
     let listID = [];
     listContacts.forEach( contact => {

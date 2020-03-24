@@ -43,42 +43,53 @@ let getListConversations = (userId) => {
       return n  == userId;
     });
 
-    let listInForUsers = await UserModel.listInForUser(listContactHaveMessId);
-
     let listConversations = [];
+    let inforUser;
+    let contactUpdatedAt;
 
     for(let i = 0; i < listContactHaveMessId.length; i++){
       let message = await MessageModel.findMessages(userId,listContactHaveMessId[i],1);
+      
+      // find infor user
+      if(message[0].sender.id !== userId){
+        inforUser = await UserModel.inforUser(message[0].sender.id);
+      }
+      else{
+        inforUser = await UserModel.inforUser(message[0].receiver.id);
+      }
+
+      // find contact updatedAt
+      contactUpdatedAt = await ContactModel.inforForGetConversation(userId,listContactHaveMessId[i]);
       
       if(message.length === 0) return resolve([]);
 
       if(message[0].text){
         listConversations[i] = {
-          username: listInForUsers[i].username,
-          avatar: listInForUsers[i].avatar,
-          id: listInForUsers[i]._id,
+          username: inforUser.username,
+          avatar: inforUser.avatar,
+          id: inforUser._id,
           messageText: message[0].text,
-          updatedAt: listContactHaveMess[i].updatedAt
+          updatedAt: contactUpdatedAt.updatedAt
         }
       }
 
       if(message[0].file){
         listConversations[i] = {
-          username: listInForUsers[i].username,
-          avatar: listInForUsers[i].avatar,
-          id: listInForUsers[i]._id,
+          username: inforUser.username,
+          avatar: inforUser.avatar,
+          id: inforUser._id,
           messageFile: message[0].file,
-          updatedAt: listContactHaveMess[i].updatedAt
+          updatedAt: contactUpdatedAt.updatedAt
         }
       }
 
       if(message[0].img){
         listConversations[i] = {
-          username: listInForUsers[i].username,
-          avatar: listInForUsers[i].avatar,
-          id: listInForUsers[i]._id,
+          username: inforUser.username,
+          avatar: inforUser.avatar,
+          id: inforUser._id,
           messageImg: message[0].img,
-          updatedAt: listContactHaveMess[i].updatedAt
+          updatedAt: contactUpdatedAt.updatedAt
         }
       }
     }
