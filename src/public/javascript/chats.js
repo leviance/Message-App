@@ -127,6 +127,9 @@ function sendMessageText(){
         }
 
         socket.emit("send-message-text", dataToEmit);
+
+        showMessSendInSymbolChat(message,receiver.id)
+        moveConversationToTop(receiver.id);
       },
       error: function(error){
         appendPersonalMessageToModal(message,error);
@@ -242,6 +245,7 @@ function appendPersonalMessageToModal(message,error){
 
   $('.layout .content .chat .chat-body .messages').scrollTop(heightDivMess * amountMessage *200);
 }
+
 // appen when send a new mesage 
 function modelConversationToAppendChatsSlideBarWhenSendNewMessage(senderId,avatar,message,username){
   return `
@@ -427,6 +431,27 @@ function removeNewMessCount(messId){
   }
 
 }
+
+// thêm hiển thị tin nhắn ở phần biểu tượng chat của mình khi gửi tin nhăn cho người khác
+function showMessSendInSymbolChat(message,id){
+  let symbolMessage = $("#chats .sidebar-body ul").find(`li[data-uid=${id}]`);
+  symbolMessage.find("p").html(message);
+}
+
+// khi nhắn tin tin thì di chuyển symbol conversation đó lên đầu 
+function moveConversationToTop(id){
+  let conversationToMoveTop = $("#chats .sidebar-body ul").find(`li[data-uid=${id}]`);
+  $("#chats .sidebar-body ul").find(`li[data-uid=${id}]`).remove();
+
+  $("#chats .sidebar-body ul").prepend(conversationToMoveTop);
+
+  viewInformation();
+  getMessages();
+  removeAmountMessNotRead();
+  chats();
+  tickReadNotif();
+}
+
 
 $(document).ready(function() {
   // khi click vào tin nhắn nào thì bỏ amount message not read

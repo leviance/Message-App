@@ -30,6 +30,7 @@ function acceptContact(){
     $(this).parents("li").remove();
 
     viewInformation();
+    getMessages();
   });
   
 }
@@ -92,8 +93,8 @@ $(document).ready(function(){
     //  prepend to list friends
     $("#friends .sidebar-body ul").prepend(modelFriendToApendListFriends(data.senderId,data.avatar,data.username));
 
-    openModalChat();
     viewInformation();
+    getMessages();
   });
 
 })

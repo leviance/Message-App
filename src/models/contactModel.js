@@ -125,6 +125,38 @@ contactSchema.statics = {
         ]}
       ]
     }).sort({"updatedAt": -1}).exec();
+  },
+  findFriends(userId){
+    return this.find({
+      $or: [
+        {$and: [
+          {"senderId": userId},
+          {"active" : true}
+        ]},
+        {$and: [
+          {"receiverId": userId},
+          {"active" : true}
+        ]}
+      ]
+    }).exec();
+  },
+  inforForGetConversation(senderId,receiverId){
+    return this.findOne({
+      $or: [
+        {
+          $and: [
+            {"senderId": senderId},
+            {"receiverId": receiverId}
+          ]
+        },
+        {
+          $and: [
+            {"senderId": receiverId},
+            {"receiverId": senderId}
+          ]
+        }
+      ]
+    })
   }
 }
 

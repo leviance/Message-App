@@ -4,7 +4,7 @@ let Schema = mongoose.Schema;
 
 let userSchema = new Schema({
   nameAccount: String,
-  username: {type: String, index: true},
+  username: {type: String, index: true,  text: true},
   avatar: {type: String, default: "avatarDefault.jpg"},
   phoneNumber: {type: String, default: null}, 
   images: Array,
