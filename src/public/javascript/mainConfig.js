@@ -150,6 +150,18 @@ function removeAmountMessNotRead(){
     removeNewMessCount(idModalChatToRemoveMessCount);
   });
 
+  // bỏ count new messages when click to a conversation
+  $(".click-to-chats").on("click", function(){
+    let isThereNewMessage = $(this).find(".new-message-count");
+
+    //  nếu conversation có symbol new mesage 
+    if(isThereNewMessage.length > 0){
+      let conversationId = $(this).attr("data-uid");
+      removeNewMessCount(conversationId);
+    }
+
+  })
+
   // sau này làm tính năng hiển thị tùy chọn cho group khác với tùy chọn của user ở đây
 }
 

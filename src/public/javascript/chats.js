@@ -152,7 +152,7 @@ function sendMessageText(){
     
     removeAmountMessNotRead();
     viewInformation();
-    chats();
+    getMessages();
 
   })
 }
@@ -210,9 +210,7 @@ function receiveMessageText(){
 
     // những cái này để xóa hiển thị số những tin nhắn chưa đọc của user khi submit modal chát của user đó 
     removeAmountMessNotRead();
-
-    chats();
-
+    getMessages();
 
   });
 }
@@ -300,108 +298,6 @@ function modelConversationToAppendChatsSlideBar(senderId,avatar,message,username
   </li>`;
 }
 
-function chats(){
-  $("#chats .sidebar-body ul li").on("click",function(){
-    // add class open chat
-    let lisChats =  document.querySelectorAll("#chats .sidebar-body ul li");
-    lisChats.forEach(chat =>{
-      chat.classList.remove("open-chat");
-    })
-    $(this).addClass("open-chat");
-
-    let receiverMessId = $(this).attr("data-uid");
-    let receiverMessAvatar = $(this).find("img").attr("src");
-    let receiverName = $(this).find("h5").html();
-    let type = "chat-group";
-    if(type === undefined) type = "chat-personal";
-
-    removeNewMessCount(receiverMessId);
-
-    // xử lý hiển thị ở modal gửi tin nhắn 
-
-    let avatar = $(this).find("img").attr("src");
-    let username = $(this).find("h5").html();
-    let idFriend = $(this).attr("data-uid");
-
-    $("#content-chat-person-avatar").attr("src", avatar);
-    $("#content-chat-person-name").html(username);
-    $("#modal-chat").attr("data-uid",idFriend);
-
-    // get mesage 
-    $.ajax({
-      url: "/get-messages",
-      type: "post",
-      data: {receiverMessId,type},
-      success: function(data) {
-        $('.layout .content .chat .chat-body .messages').empty();
-
-        if(data.length === 0){
-          $("#modal-chat .chat-body .messages").empty();
-        }
-
-        else{
-          let senderId = $("#editProfileModal").attr("data-uid");
-
-          data.forEach( mess => {
-            // nếu tin nhắn là mình gửi 
-            if(mess.sender.id === senderId){
-              // nếu đã xem
-              if(mess.updatedAt !== null){
-                $('.layout .content .chat .chat-body .messages').append(`
-                <div class="message-item outgoing-message">
-                    <div class="message-content">
-                        ${mess.text}
-                    </div>
-                    <div class="message-action">
-                        ${data.humanTime} <i class="ti-double-check"></i>
-                    </div>
-                </div>`);
-              }
-              // nếu chưa xem 
-              else{
-                $('.layout .content .chat .chat-body .messages').append(`
-                <div class="message-item outgoing-message">
-                    <div class="message-content">
-                        ${mess.text}
-                    </div>
-                    <div class="message-action">
-                        ${data.humanTime} <i class="fa fa-check" aria-hidden="true"></i>
-                    </div>
-                </div>`);
-              }
-            }
-
-            else{
-              $('.layout .content .chat .chat-body .messages').append(`
-                <div class="message-item">
-                    <div class="message-content">
-                        ${mess.text}
-                    </div>
-                    <div class="message-action">
-                        ${data.humanTime}
-                    </div>
-                </div>`);
-            }
-
-            // cuộn chuột xuống cuối 
-            $("#modal-chat").find("input.form-control").val("");
-            let heightDivMess =  $('#modal-chat .chat-body .message-item').outerHeight();
-            let amountMessage = $('.layout .content .chat .chat-body .messages .message-item').length;
-            $('.layout .content .chat .chat-body .messages').scrollTop(heightDivMess * amountMessage *200);
-          })
-
-        }
-      },
-      error: function(error) {
-        $("#modal-chat .chat-body .messages").empty();
-      }
-    })
-    
-
-
-  });
-}
-
 function removeNewMessCount(messId){
   // khi click vào những tin nhắn chưa xem xóa hiển thị những tin nhắn chưa xem thay vào là các tùy chọn
   let messageToRemoveCountNewMess = $("#chats .sidebar-body ul").find(`li[data-uid=${messId}]`);
@@ -452,10 +348,15 @@ function moveConversationToTop(id){
   viewInformation();
   getMessages();
   removeAmountMessNotRead();
-  chats();
+  getMessages()
   tickReadNotif();
 }
 
+// cuộn chuột xuống cuối khi có tin nhắn mới đến nếu đang cuộn ở dưới cùng nếu không thì không cuộn xuống
+function scrollToNewMessage(){
+  $("#chat-body").height();
+  $()
+}
 
 $(document).ready(function() {
   // khi click vào tin nhắn nào thì bỏ amount message not read
