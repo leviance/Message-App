@@ -37,7 +37,7 @@ function acceptContact(){
 
 function modelFriendToApendListFriends(userId,avatar,username){
   return `
-  <li class="list-group-item click-to-chats" data-uid="${userId}" style="position: relative">
+  <li class="list-group-item click-to-chats" data-uid="${userId}" style="position: relative" data-type="chat-personal">
       <div>
           <figure class="avatar">
               <img src="${avatar}" class="rounded-circle">
@@ -74,7 +74,7 @@ $(document).ready(function(){
     $("#list-request-contacts-send ").find(`ul li[data-uid = ${data.senderId}]`).remove();
     
     let modelNotification = `
-      <li class="list-group-item unread_notification click-to-chats" data-uid="${data.notifId}" >
+      <li class="list-group-item unread_notification click-to-chats" data-uid="${data.notifId}" data-type="chat-personal">
           <div>
               <figure class="avatar">
                   <img src="${data.avatar}" class="rounded-circle">

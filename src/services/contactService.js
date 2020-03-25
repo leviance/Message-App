@@ -78,7 +78,8 @@ let getListReqContactSend = (userId) => {
 let searchFriends = (userName,senderId) => {
   return new Promise( async (resolve, reject) => {
 
-    // regular expression for search friends 
+   try {
+      // regular expression for search friends 
     let regex = regularExpressions.regexSearchFriends(userName);
 
     // tìm trong danh sách contact những người có contact với mình 
@@ -105,6 +106,9 @@ let searchFriends = (userName,senderId) => {
     }
     
     return resolve(searchFriends);
+   } catch (error) {
+    return reject(error);
+   }
   })
 }
 

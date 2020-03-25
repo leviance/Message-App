@@ -30,6 +30,12 @@ groupSchema.statics = {
   },
   findById(userId){
     return this.find({"members": userId}).sort({"updatedAt": 1}).exec();
+  },
+  getGroupUsers(groupId){
+    return this.findOne({"_id" : groupId}, {members: 1}).exec();
+  },
+  chatTogether(groupId){
+    return this.update({"_id": groupId},{"updatedAt": Date.now});
   }
 }
 

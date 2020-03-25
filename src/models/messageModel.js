@@ -45,6 +45,14 @@ messagesSchema.statics = {
   },
   sendMess(sender,receiver,message){
     return this.create({"sender": sender, "receiver": receiver,"text" : message });
+  },
+  findGroupMessages(groupId,limit){
+    return this.find({
+      $and: [
+        {"receiver.id":groupId },
+        {"removedAt" : null}
+      ]
+    }).sort({"createdAt" : -1}).limit(limit).exec();
   }
 }
 

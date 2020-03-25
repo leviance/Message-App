@@ -1,6 +1,7 @@
 import MessageModel from '../models/messageModel';
 import ContactModel from '../models/contactModel';
 import UserModel from '../models/userModel';
+import GroupModel from '../models/groupModel';
 
 import _ from 'lodash';
 
@@ -17,12 +18,18 @@ let getMessages = (senderMessId, receiverMessId, type) => {
 
 }
 
-let sendMess = (sender,receiver,message) => {
+let sendMess = (sender,receiver,message,typeChat) => {
     MessageModel.sendMess(sender,receiver,message); 
-
     // thêm trường update cho con tắc 
     // nếu có updatedAt có nghĩa là 2 người này có nhắn tin với nhau
-    ContactModel.chatTogether(sender.id,receiver.id);
+
+    if(typeChat === "chat-personal"){
+      ContactModel.chatTogether(sender.id,receiver.id);
+    }
+    // chat chatTogether de update trường createdAt mỗi lần có tin nhắn mới để dùng trường này xắp xếp symbol conversation to render view
+    if(typeChat === "chat-group"){
+      GroupModel.chatTogether(receiver.id);
+    }
 }
 
 let getListConversations = (userId) => {
@@ -99,8 +106,21 @@ let getListConversations = (userId) => {
   })
 }
 
+let getMessagesGroup = (receiverMessId) => {
+  return new Promise( async (resolve, reject) => {
+
+    // receiverMessId is id of group chat
+    let messages = await MessageModel.findGroupMessages(receiverMessId,LIMIT_MESSAGES_TAKEN);
+    
+    _.reverse(messages);
+
+    return resolve(messages); 
+  })
+}
+
 module.exports = {
   getMessages: getMessages,
   sendMess: sendMess,
-  getListConversations: getListConversations
+  getListConversations: getListConversations,
+  getMessagesGroup: getMessagesGroup
 }
