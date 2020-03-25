@@ -1,5 +1,7 @@
 function getMessages(){
+  // có gì sai thì thêm unbind vào đây 
   $(".click-to-chats").on("click", function(){
+
     let receiverMessId = $(this).attr("data-uid");
     //let senderMessId = $("#editProfileModal").attr("data-uid");
     let type = $(this).attr("data-type");
@@ -12,6 +14,7 @@ function getMessages(){
     $("#modal-chat").attr("data-uid",receiverMessId);
     $("#modal-chat").find("img").attr("src",avatar);
     $("#content-chat-person-name").html(username);
+    $("#modal-chat").attr("data-type",type);
 
     // thêm id vào tùy chọn ở drop down menu
     let options =  document.querySelectorAll("#modal-chat li.list-inline-item .dropdown-menu a");
@@ -110,10 +113,12 @@ function sendMessageText(){
       avatar: $("#userAvatar").attr("src"),
     }
 
-    $.ajax({
+    let typeChat = $("#modal-chat").attr("data-type");
+
+      $.ajax({
       url: "/send-personal-message",
       type: "POST",
-      data: {message,receiver: receiver, sender: sender},
+      data: {message,receiver: receiver, sender: sender,typeChat},
       success: function(){
         appendPersonalMessageToModal(message);
 
@@ -135,7 +140,9 @@ function sendMessageText(){
         appendPersonalMessageToModal(message,error);
       }
 
-    });
+      });
+    
+    
 
     // xem chats slide bar đã có conversation chưa nếu chưa có thì thêm vào
     let findConversation =  $("#chats .sidebar-body ul").find(`li[data-uid=${receiver.id}]`);
@@ -172,9 +179,6 @@ function receiveMessageText(){
           </div>
       </div>`);
     }
-
-    // cuộn chuột xuống tin nhắn
-    $("#modal-chat .chat-body .messages").scrollTop(1000);
 
     // nếu chưa có biểu tượng tin nhắn ở đấy thì thêm vào
     if(isMessThere.length === 0){
@@ -249,7 +253,7 @@ function appendPersonalMessageToModal(message,error){
 // appen when send a new mesage 
 function modelConversationToAppendChatsSlideBarWhenSendNewMessage(senderId,avatar,message,username){
   return `
-  <li class="list-group-item click-to-chats" data-uid="${senderId}">
+  <li class="list-group-item click-to-chats" data-uid="${senderId}" data-type="chat-personal">
       <div class="avatar-group">
           <figure class="avatar">
               <img src="${avatar}" class="rounded-circle">
@@ -279,7 +283,7 @@ function modelConversationToAppendChatsSlideBarWhenSendNewMessage(senderId,avata
 // append when received new message
 function modelConversationToAppendChatsSlideBar(senderId,avatar,message,username){
   return `
-  <li class="list-group-item click-to-chats" data-uid="${senderId}">
+  <li class="list-group-item click-to-chats" data-uid="${senderId}" data-type="chat-personal">
       <div class="avatar-group">
           <figure class="avatar">
               <img src="${avatar}" class="rounded-circle">

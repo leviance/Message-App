@@ -149,6 +149,8 @@ function removeAmountMessNotRead(){
     let idModalChatToRemoveMessCount = $("#modal-chat").attr("data-uid");
     removeNewMessCount(idModalChatToRemoveMessCount);
   });
+
+  // sau này làm tính năng hiển thị tùy chọn cho group khác với tùy chọn của user ở đây
 }
 
 function tickReadNotif(){
@@ -204,4 +206,5 @@ $(document).ready(function(){
   removeAmountMessNotRead();
 
   tickReadNotif();
+  
 })
