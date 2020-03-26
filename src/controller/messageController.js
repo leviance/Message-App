@@ -32,7 +32,7 @@ let sendMess = async (req, res) => {
   try {
     if(!req.session.user.userId) return res.status(500).send();
     if(req.session.user.userId !== sender.id) return res.status(500).send();
-
+    
     await socketValid.validUserId(sender.id);
     await socketValid.validUserId(receiver.id);
    

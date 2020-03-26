@@ -196,6 +196,45 @@ function tickReadNotif(){
   })
 }
 
+function removeNotifiAcceptContact(){
+  // xóa chấm đỏ thông báo  có người chấp nhận lời mời kết bạn khi click  biểu tượng bạn bè 
+  $("#btn-view-list-friends").on("click", function(){
+    let className = $(this).attr("class");
+    
+    if(className === "active" || className === "notifiy_badge" || className === "" || className === "notifiy_badge active" || className=== "active notifiy_badge"){ 
+      $(this).removeClass("notifiy_badge");
+    }
+  });
+}
+
+function removeNotifWhenReceivedNewReqContact(){
+  // xóa chấm đỏ thông báo  có người chấp nhận lời mời kết bạn khi click  biểu tượng bạn bè 
+  $("#btn-view-request-contact-received").on("click", function(){
+    let className = $(this).attr("class");
+    
+    if(className === "active" || className === "notifiy_badge" || className === "" || className === "notifiy_badge active" || className=== "active notifiy_badge"){ 
+      $(this).removeClass("notifiy_badge");
+    }
+  });
+}
+
+// khi chấp nhận lời mời kết bạn thì xóa chấm đỏ ở lời mời kết bạn và ở trong thông báo đi 
+function removeNotifWhenAcceptContact(){
+  $("#list-request-contacts-received .dropdown-menu >a").on("click", function(){
+    
+
+    let targetId = $(this).attr("data-uid");
+    let numberOfNotifUnread = $("#notification-modal .sidebar-body ul li.unread_notification");
+    let notifId = numberOfNotifUnread.attr("data-senderId");
+
+    if(notifId === targetId && numberOfNotifUnread.length === 1) {
+      $("#btn-view-notification").removeClass("notifiy_badge");
+      $("#btn-view-request-contact-received").removeClass("notifiy_badge");
+    }
+    
+  })
+}
+
 $(document).ready(function(){
   loadingModal.hide();
 
@@ -218,5 +257,7 @@ $(document).ready(function(){
   removeAmountMessNotRead();
 
   tickReadNotif();
+  
+  removeNotifWhenAcceptContact();
   
 })

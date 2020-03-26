@@ -74,7 +74,7 @@ $(document).ready(function(){
     $("#list-request-contacts-send ").find(`ul li[data-uid = ${data.senderId}]`).remove();
     
     let modelNotification = `
-      <li class="list-group-item unread_notification click-to-chats" data-uid="${data.notifId}" data-type="chat-personal">
+      <li class="list-group-item unread_notification click-to-chats" data-uid="${data.notifId}" data-type="chat-personal" >
           <div>
               <figure class="avatar">
                   <img src="${data.avatar}" class="rounded-circle">
@@ -87,9 +87,11 @@ $(document).ready(function(){
       </li>`;
 
     $("#notification-modal .sidebar-body ul").prepend(modelNotification);
-    $("#btn-view-notification").addClass("notifiy_badge");
+    $("#btn-view-list-friends").addClass("notifiy_badge");
     
+    removeNotifiAcceptContact();
     tickReadNotif();
+    removeNotifWhenAcceptContact();
     //  prepend to list friends
     $("#friends .sidebar-body ul").prepend(modelFriendToApendListFriends(data.senderId,data.avatar,data.username));
 

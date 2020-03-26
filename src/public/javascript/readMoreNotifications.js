@@ -42,7 +42,8 @@ function readMoreNotifications(){
           tickReadNotif();
           viewInformation();
           removeAllNotifications();
-
+          removeNotifWhenAcceptContact();
+          
         },
         error: function(error){
           loadingModal.hide();
