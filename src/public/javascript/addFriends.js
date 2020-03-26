@@ -153,7 +153,7 @@ $(document).ready(function(){
           </li>`;
 
     let newNotification = `
-    <li class="list-group-item unread_notification" data-uid="${notifId}" </li>
+    <li class="list-group-item unread_notification" data-uid="${notifId}" data-senderId="${data.senderId}" >
                 <div>
                     <figure class="avatar">
                         <img src="${avatar}" class="rounded-circle">
@@ -178,6 +178,9 @@ $(document).ready(function(){
     cancelReqContactSend();
     notAcceptMakeFriend();
     readMoreContactReceived();
+    removeNotifWhenReceivedNewReqContact();
+    removeNotifWhenAcceptContact();
+    
 
   })
 

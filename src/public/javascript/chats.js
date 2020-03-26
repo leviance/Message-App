@@ -29,7 +29,7 @@ function getMessages(){
       type: "POST",
       data: {receiverMessId, type},
       success: function(data) {
-        console.log(data);
+        //console.log(data);
         if(data.length === 0) {
           $("#modal-chat .chat-body .messages").empty();
         }
@@ -159,7 +159,7 @@ function sendMessageText(){
 
 function receiveMessageText(){
   socket.on("response-send-message-text", data => {
-  
+    let scrollModal = scrollToNewMessage();
     let senderId = data.senderId
         ,avatar = data.avatar
         ,message = data.message
@@ -212,6 +212,13 @@ function receiveMessageText(){
     removeAmountMessNotRead();
     getMessages();
 
+    if(scrollModal === true) {
+      // chuột xuống cuối 
+      let heightDivMess =  $('#modal-chat .chat-body .message-item').outerHeight();
+      let amountMessage = $('.layout .content .chat .chat-body .messages .message-item').length;
+
+      $('.layout .content .chat .chat-body .messages').scrollTop(heightDivMess * amountMessage *200);
+    }
   });
 }
 
@@ -350,12 +357,28 @@ function moveConversationToTop(id){
   removeAmountMessNotRead();
   getMessages()
   tickReadNotif();
+  tickMessActive();
+  removeNotifWhenAcceptContact();
 }
 
 // cuộn chuột xuống cuối khi có tin nhắn mới đến nếu đang cuộn ở dưới cùng nếu không thì không cuộn xuống
 function scrollToNewMessage(){
-  $("#chat-body").height();
-  $()
+      let heightModalChat = $(".messages").height();
+      let heightMess = $(".message-item").outerHeight();
+      let amountMessage = $(".message-item").length;
+      let location = $(".messages").scrollTop();
+      
+      // cộng với 20 vì đấy là margin bottom 
+      let sumHeightOfmessages = (heightMess + 20) * amountMessage;
+      let heightWhenScroll = heightModalChat + location;
+
+      // nếu người dùng đang cuộn chuột ở cuối trang thì kéo xuống  
+      // còn không thì là người dùng đang xem tin nhẵn cũ nên không cuộn xuống 
+      if(sumHeightOfmessages === heightWhenScroll){
+        return true;
+      }
+
+      return false;
 }
 
 $(document).ready(function() {
@@ -369,4 +392,6 @@ $(document).ready(function() {
   sendMessageText();
 
   receiveMessageText();
+
+  
 });
