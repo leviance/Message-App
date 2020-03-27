@@ -24,6 +24,20 @@
   background-color: #3db15b33;
 }
 
+.message-item{
+  position: relative;
+  margin-left: 25px;
+}
+
+.sub_mess_avatar{
+  position: absolute;
+  top: 10px;
+  left: -26px;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+}
+
 #addFriends, #newGroup{
   .list-friends{
     width: 100%;

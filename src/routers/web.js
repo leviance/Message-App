@@ -67,7 +67,8 @@ let initRouters = (app) => {
   router.post("/create-new-group-chat",group.createNewGroup);
 
   router.post("/get-messages",message.getMessages);
-  router.post("/send-personal-message",message.sendMess);
+  router.post("/send-personal-message",message.sendPersonalMess);
+  router.post("/send-group-message",message.sendGroupMess);
 
   return app.use("/", router);
 }

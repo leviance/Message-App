@@ -4,6 +4,7 @@ import acceptContact from './contactSocket/acceptContact';
 import cancelReqContactSend from './contactSocket/cancelReqContactSend';
 import createNewGroup from './groupSocket/createNewGroup';
 import sendMessageText from './messageSocket/sendMessageText';
+import sendGroupMessageText from './messageSocket/sendGroupMessageText';
 
 let initSocket = (io) => {
   addNewContact(io);
@@ -12,6 +13,7 @@ let initSocket = (io) => {
   cancelReqContactSend(io);
   createNewGroup(io);
   sendMessageText(io);
+  sendGroupMessageText(io);
 }
 
 module.exports = initSocket;
