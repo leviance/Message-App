@@ -1,6 +1,6 @@
 function getMessages(){
   // có gì sai thì thêm unbind vào đây 
-  $(".click-to-chats").on("click", function(){
+  $(".click-to-chats").unbind("click").on("click", function(){
 
     let receiverMessId = $(this).attr("data-uid");
     //let senderMessId = $("#editProfileModal").attr("data-uid");
@@ -37,37 +37,50 @@ function getMessages(){
         else{
           let senderId = $("#editProfileModal").attr("data-uid");
 
-          data.forEach( mess => {
+          data.forEach( (mess,last,i) => {
             // nếu tin nhắn là mình gửi 
             if(mess.sender.id === senderId){
-              // nếu đã xem
-              if(mess.updatedAt !== null){
-                $('.layout .content .chat .chat-body .messages').append(`
-                <div class="message-item outgoing-message">
-                    <div class="message-content">${mess.text}</div>
-                    <div class="message-action">
-                        ${data.humanTime} <i class="ti-double-check"></i>
-                    </div>
-                </div>`);
+              // tin Nhắn mới nhất thì hiện ký hiệu đã xem hay chưa 
+              if(last === data.length - 1){
+                // nếu đã xem
+                if(mess.updatedAt !== null){
+                  $('.layout .content .chat .chat-body .messages').append(`
+                  <div class="message-item outgoing-message" title="${mess.time}">
+                      <div class="message-content">${mess.text}</div>
+                      <div class="message-action">
+                          ${mess.time} <i class="ti-double-check"></i>
+                      </div>
+                  </div>`);
+                }
+                // nếu chưa xem 
+                else{
+                  $('.layout .content .chat .chat-body .messages').append(`
+                  <div class="message-item outgoing-message" title="${mess.time}">
+                      <div class="message-content">${mess.text}</div>
+                      <div class="message-action">
+                          ${mess.time} <i class="fa fa-check" aria-hidden="true"></i>
+                      </div>
+                  </div>`);
+                }
               }
-              // nếu chưa xem 
+
+              // những tin nhắn khác thì để time trong title
               else{
                 $('.layout .content .chat .chat-body .messages').append(`
-                <div class="message-item outgoing-message">
-                    <div class="message-content">${mess.text}</div>
-                    <div class="message-action">
-                        ${data.humanTime} <i class="fa fa-check" aria-hidden="true"></i>
-                    </div>
-                </div>`);
+                  <div class="message-item outgoing-message" title=" ${mess.time}">
+                      <div class="message-content">${mess.text}</div>
+                      <div class="message-action">
+                      </div>
+                  </div>`);
               }
             }
 
             else{
               $('.layout .content .chat .chat-body .messages').append(`
-                <div class="message-item">
+                <div class="message-item" title="${mess.time}">
                     <div class="message-content">${mess.text}</div>
                     <div class="message-action">
-                        ${data.humanTime}
+                        
                     </div>
                 </div>`);
             }
@@ -84,6 +97,18 @@ function getMessages(){
         $("#modal-chat .chat-body .messages").empty();
       }
     });
+
+     // bỏ count new messages when click to a conversation
+     let isThereNewMessage = $(this).find(".new-message-count");
+
+     //  nếu conversation có symbol new mesage 
+     if(isThereNewMessage.length > 0){
+       let conversationId = $(this).attr("data-uid");
+       removeNewMessCount(conversationId);
+     }
+
+     tickMessActive($(this));
+     
   });
 }
 
@@ -116,6 +141,9 @@ function sendMessageText(){
         type: "POST",
         data: {message,receiver: receiver, sender: sender},
         success: function(){
+          // xóa timeStamp ở tin nhắn trước nó 
+          $("#modal-chat .messages div:last-child").find(".message-action").remove();
+
           appendPersonalMessageToModal(message);
   
           // send message real time
@@ -146,6 +174,9 @@ function sendMessageText(){
         type: "POST",
         data: {message,receiver: receiver, sender: sender},
         success: function(data){
+          // xóa timeStamp ở tin nhắn trước nó 
+          $("#modal-chat .messages div:last-child").find(".message-action").remove();
+
           appendPersonalMessageToModal(message);
     
           let receiverId = [];
@@ -198,6 +229,9 @@ function receiveMessageGroup(){
 
     // nếu modal chat đó đang mở 
     if(data.groupId === idModalChatOpen){
+      // xóa timeStamp ở tin nhắn trước nó 
+      $("#modal-chat .messages div:last-child").find(".message-action").remove();
+
       $("#modal-chat .chat-body .messages").append(`
         <div class="message-item">
             <div class="message-content">
@@ -205,7 +239,7 @@ function receiveMessageGroup(){
             </div>
             <img data-uid="${data.senderId}" title="${data.username}" class="sub_mess_avatar" src="${data.avatar}" data-navigation-target="contact-information"></img>
             <div class="message-action">
-                ${new Date().getHours()} h : ${new Date().getMinutes()} p
+              ${new Date().getHours()}h : ${new Date().getMinutes()}p : ${new Date().getSeconds()}s
             </div>
         </div>`);
 
@@ -261,21 +295,24 @@ function receiveMessageText(){
         ,username = data.username
         ,messageText = data.message
 
-    let isMessThere = $("#chats .sidebar-body ul").find(`li[data-uid=${senderId}]`);
-
     // append message to modal chat
     let curentlyUserChatId = $("#modal-chat").attr("data-uid");
     if(senderId === curentlyUserChatId){
+      // xóa timeStamp ở tin nhắn trước nó 
+      $("#modal-chat .messages div:last-child").find(".message-action").remove();
+
       $("#modal-chat .chat-body .messages").append(`
       <div class="message-item">
           <div class="message-content">${messageText}</div>
           <div class="message-action">
-          ${new Date().getHours()} h : ${new Date().getMinutes()} p
+          Vừa xong
           </div>
       </div>`);
     }
 
     // nếu chưa có biểu tượng tin nhắn ở đấy thì thêm vào
+    let isMessThere = $("#chats .sidebar-body ul").find(`li[data-uid=${senderId}]`);
+
     if(isMessThere.length === 0){
       $("#chats .sidebar-body ul").prepend(modelConversationToAppendChatsSlideBar(senderId,avatar,message,username));
     }
@@ -301,13 +338,11 @@ function receiveMessageText(){
 
     $("#btn-view-list-chat").addClass("notifiy_badge");
 
-
-
     // những cái này để xóa hiển thị số những tin nhắn chưa đọc của user khi submit modal chát của user đó 
     removeAmountMessNotRead();
     getMessages();
     
-
+    console.log(scrollModal);
     if(scrollModal === true) {
       // chuột xuống cuối 
       let heightDivMess =  $('#modal-chat .chat-body .message-item').outerHeight();
@@ -326,7 +361,7 @@ function appendPersonalMessageToModal(message,error){
             ${message}
         </div>
         <div class="message-action">
-        ${new Date().getHours()} h : ${new Date().getMinutes()} p <i class="fa fa-check" aria-hidden="true"></i>
+        Vừa xong <i class="fa fa-check" aria-hidden="true"></i>
         </div>
     </div>`);
   }
@@ -338,7 +373,7 @@ function appendPersonalMessageToModal(message,error){
               ${message}
           </div>
           <div class="message-action">
-          ${new Date().getHours()} h : ${new Date().getMinutes()} p <i title="Message could not be sent" class="ti-info-alt text-danger"></i>
+          Vừa xong <i title="Message could not be sent" class="ti-info-alt text-danger"></i>
           </div>
       </div>`);
   }
@@ -453,28 +488,20 @@ function moveConversationToTop(id){
   removeAmountMessNotRead();
   getMessages()
   tickReadNotif();
-  tickMessActive();
   removeNotifWhenAcceptContact();
 }
 
 // cuộn chuột xuống cuối khi có tin nhắn mới đến nếu đang cuộn ở dưới cùng nếu không thì không cuộn xuống
 function scrollToNewMessage(){
-      let heightModalChat = $(".messages").height();
-      let heightMess = $(".message-item").outerHeight();
-      let amountMessage = $(".message-item").length;
-      let location = $(".messages").scrollTop();
-      
-      // cộng với 20 vì đấy là margin bottom 
-      let sumHeightOfmessages = (heightMess + 20) * amountMessage;
-      let heightWhenScroll = heightModalChat + location;
+  let heightScrollBarModalChat = document.querySelector(".messages").scrollHeight;
+  let locationOfScrollBar = $(".messages").scrollTop();
+  let heightModal = $(".messages").height();
+  
+  // nếu người dùng đang cuộn chuột ở cuối trang thì kéo xuống  
+  // còn không thì là người dùng đang xem tin nhẵn cũ nên không cuộn xuống 
+ if(locationOfScrollBar + heightModal === heightScrollBarModalChat ) return true;
 
-      // nếu người dùng đang cuộn chuột ở cuối trang thì kéo xuống  
-      // còn không thì là người dùng đang xem tin nhẵn cũ nên không cuộn xuống 
-      if(sumHeightOfmessages === heightWhenScroll){
-        return true;
-      }
-
-      return false;
+ return false;
 }
 
 $(document).ready(function() {

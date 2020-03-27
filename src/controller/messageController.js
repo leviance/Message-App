@@ -1,5 +1,6 @@
 import {message} from '../services/index';
 import {socketValid} from '../validation/index';
+import timeSince from '../helper/timeSince';
 
 let getMessages = async (req, res) => {
   let senderMessId = req.session.user.userId;
@@ -20,7 +21,25 @@ let getMessages = async (req, res) => {
     messageReturn = await message.getMessagesGroup(receiverMessId);
   }
 
-  return res.status(200).send(messageReturn);
+   // convert time stamp to human time 
+  let messageConvertedTime = [];
+  let convertTime = {};
+  
+  for(let i = 0 ; i< messageReturn.length ; i ++){
+    convertTime.sender = messageReturn[i].sender;
+    convertTime.receiver = messageReturn[i].receiver;
+    convertTime.isRead = messageReturn[i].isRead;
+    convertTime.removedAt = messageReturn[i].removedAt;
+    convertTime.updatedAt = messageReturn[i].updatedAt;
+    convertTime._id = messageReturn[i]._id;
+    convertTime.text = messageReturn[i].text;
+    convertTime.time = await timeSince(messageReturn[i].createdAt);
+    
+    messageConvertedTime.push(convertTime);
+    convertTime = {};
+  }
+  
+  return res.status(200).send(messageConvertedTime);
 }
 
 let sendPersonalMess = async (req, res) => {

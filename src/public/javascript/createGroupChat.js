@@ -186,7 +186,7 @@ function createNewGroup() {
   });
 
   getMessages();
-  tickMessActive();
+  //();
 }
 
 function modelMessChatGroup(groupId,avatar,groupName,description){
@@ -231,7 +231,6 @@ $(document).ready(function(){
     $("#list-messages").prepend(modelMessChatGroup(groupId,avatar,groupName,description));
 
     getMessages();
-    tickMessActive();
     removeNewMessCount(groupId);
   })
 

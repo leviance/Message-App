@@ -24,11 +24,13 @@
   background-color: #3db15b33;
 }
 
-.message-item{
+.message-item {
   position: relative;
   margin-left: 25px;
+  max-width: 50% !important;
+  margin-bottom: 20px;
+  overflow-wrap: break-word;
 }
-
 .sub_mess_avatar{
   position: absolute;
   top: 10px;
@@ -36,6 +38,10 @@
   border-radius: 50%;
   width: 20px;
   height: 20px;
+}
+
+#modal-chat{
+  width: 100vh !important;
 }
 
 #addFriends, #newGroup{
@@ -82,9 +88,24 @@
 }
 
 @media (max-width: 768px){
-  
+  #modal-chat{
+    width: 100 !important;
+  }
+  .message-item {
+    padding-right: 0!important;
+    margin-bottom: 20px;
+    overflow-wrap: break-word;
+  }
 }
 @media (max-width: 576px){
+  #modal-chat{
+    width: 100 !important;
+  }
+  .message-item {
+    padding-right: 0!important;
+    margin-bottom: 20px;
+    overflow-wrap: break-word;
+  }
   #addFriends{
     .list-friends{
       .list-friend-item{
