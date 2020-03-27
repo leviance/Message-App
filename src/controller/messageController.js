@@ -23,11 +23,10 @@ let getMessages = async (req, res) => {
   return res.status(200).send(messageReturn);
 }
 
-let sendMess = async (req, res) => {
+let sendPersonalMess = async (req, res) => {
   let sender = req.body.sender;
   let receiver = req.body.receiver;
   let messageToSend = req.body.message;
-  let typeChat = req.body.typeChat;
   
   try {
     if(!req.session.user.userId) return res.status(500).send();
@@ -42,7 +41,7 @@ let sendMess = async (req, res) => {
     await socketValid.validUserName(receiver.username);
     await socketValid.validUserName(receiver.username);
  
-    message.sendMess(sender,receiver,messageToSend,typeChat);
+    message.sendPersonalMess(sender,receiver,messageToSend);
    
     return res.status(200).send();
   } catch (error) {
@@ -50,7 +49,34 @@ let sendMess = async (req, res) => {
   }
 }
 
+let sendGroupMess = async (req, res) => {
+  let sender = req.body.sender;
+  let receiver = req.body.receiver;
+  let messageToSend = req.body.message;
+  
+  try {
+    if(!req.session.user.userId) return res.status(500).send();
+    if(req.session.user.userId !== sender.id) return res.status(500).send();
+    
+    await socketValid.validUserId(sender.id);
+    await socketValid.validUserId(receiver.id);
+   
+    await socketValid.validAvatar(receiver.avatar);
+    await socketValid.validAvatar(receiver.avatar);
+    
+    await socketValid.validUserName(receiver.username);
+    await socketValid.validUserName(receiver.username);
+ 
+    let listUserIdReceiveMessInGroup = await message.sendGroupMess(sender,receiver,messageToSend);
+   
+    return res.status(200).send(listUserIdReceiveMessInGroup);
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+}
+
 module.exports = {
   getMessages: getMessages,
-  sendMess: sendMess
+  sendPersonalMess: sendPersonalMess,
+  sendGroupMess: sendGroupMess
 }

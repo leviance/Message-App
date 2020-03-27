@@ -29,7 +29,7 @@ function getMessages(){
       type: "POST",
       data: {receiverMessId, type},
       success: function(data) {
-        //console.log(data);
+        console.log(data);
         if(data.length === 0) {
           $("#modal-chat .chat-body .messages").empty();
         }
@@ -44,9 +44,7 @@ function getMessages(){
               if(mess.updatedAt !== null){
                 $('.layout .content .chat .chat-body .messages').append(`
                 <div class="message-item outgoing-message">
-                    <div class="message-content">
-                        ${mess.text}
-                    </div>
+                    <div class="message-content">${mess.text}</div>
                     <div class="message-action">
                         ${data.humanTime} <i class="ti-double-check"></i>
                     </div>
@@ -56,9 +54,7 @@ function getMessages(){
               else{
                 $('.layout .content .chat .chat-body .messages').append(`
                 <div class="message-item outgoing-message">
-                    <div class="message-content">
-                        ${mess.text}
-                    </div>
+                    <div class="message-content">${mess.text}</div>
                     <div class="message-action">
                         ${data.humanTime} <i class="fa fa-check" aria-hidden="true"></i>
                     </div>
@@ -69,9 +65,7 @@ function getMessages(){
             else{
               $('.layout .content .chat .chat-body .messages').append(`
                 <div class="message-item">
-                    <div class="message-content">
-                        ${mess.text}
-                    </div>
+                    <div class="message-content">${mess.text}</div>
                     <div class="message-action">
                         ${data.humanTime}
                     </div>
@@ -115,33 +109,73 @@ function sendMessageText(){
 
     let typeChat = $("#modal-chat").attr("data-type");
 
+    // gửi tin nhắn cá nhân
+    if(typeChat == "chat-personal"){
       $.ajax({
-      url: "/send-personal-message",
-      type: "POST",
-      data: {message,receiver: receiver, sender: sender,typeChat},
-      success: function(){
-        appendPersonalMessageToModal(message);
-
-        // send message real time
-        dataToEmit = {
-          senderId : sender.id,
-          receiverId : receiver.id,
-          username : sender.username,
-          avatar : sender.avatar,
-          message: message
+        url: "/send-personal-message",
+        type: "POST",
+        data: {message,receiver: receiver, sender: sender},
+        success: function(){
+          appendPersonalMessageToModal(message);
+  
+          // send message real time
+          dataToEmit = {
+            senderId : sender.id,
+            receiverId : receiver.id,
+            username : sender.username,
+            avatar : sender.avatar,
+            message: message
+          }
+  
+          socket.emit("send-message-text", dataToEmit);
+  
+          showMessSendInSymbolChat(message,receiver.id)
+          moveConversationToTop(receiver.id);
+        },
+        error: function(error){
+          appendPersonalMessageToModal(message,error);
         }
-
-        socket.emit("send-message-text", dataToEmit);
-
-        showMessSendInSymbolChat(message,receiver.id)
-        moveConversationToTop(receiver.id);
-      },
-      error: function(error){
-        appendPersonalMessageToModal(message,error);
-      }
-
-      });
+  
+        });
+    }
+      
+    // gửi tin nhắn nhóm
+    else{
+      $.ajax({
+        url: "/send-group-message",
+        type: "POST",
+        data: {message,receiver: receiver, sender: sender},
+        success: function(data){
+          appendPersonalMessageToModal(message);
     
+          let receiverId = [];
+          data.members.forEach(function(memberId){
+            if(memberId !== sender.id){
+              receiverId.push(memberId);
+            }
+          })
+          
+          // send message real time
+          dataToEmit = {
+            groupId: data._id,
+            senderId : sender.id,
+            receiverId : receiverId,
+            username : sender.username,
+            avatar : sender.avatar,
+            message: message
+          }
+          
+          socket.emit("send-group-message-text", dataToEmit);
+  
+          showMessSendInSymbolChat(message,receiver.id)
+          moveConversationToTop(receiver.id);
+        },
+        error: function(error){
+          appendPersonalMessageToModal(message,error);
+        }
+  
+        });
+    }
     
 
     // xem chats slide bar đã có conversation chưa nếu chưa có thì thêm vào
@@ -154,6 +188,67 @@ function sendMessageText(){
     viewInformation();
     getMessages();
 
+  })
+}
+
+function receiveMessageGroup(){
+  socket.on("response-send-group-message-text", data => {
+    let scrollModal = scrollToNewMessage();
+    let idModalChatOpen = $("#modal-chat").attr("data-uid");
+
+    // nếu modal chat đó đang mở 
+    if(data.groupId === idModalChatOpen){
+      $("#modal-chat .chat-body .messages").append(`
+        <div class="message-item">
+            <div class="message-content">
+                ${data.message}
+            </div>
+            <img data-uid="${data.senderId}" title="${data.username}" class="sub_mess_avatar" src="${data.avatar}" data-navigation-target="contact-information"></img>
+            <div class="message-action">
+                ${new Date().getHours()} h : ${new Date().getMinutes()} p
+            </div>
+        </div>`);
+
+        let symbolConversation = $("#list-messages").find(`li[data-uid=${data.groupId}]`);
+        symbolConversation.find("p").html(`${data.username} : ${data.message}`);
+    }
+
+    // nếu không thì thêm tin nhắn vào phần sub conversation 
+    else{
+      let symbolConversation = $("#list-messages").find(`li[data-uid=${data.groupId}]`);
+      symbolConversation.find("p").html(`${data.username} : ${data.message}`);
+    }
+
+    // thêm số tin nhắn chưa xem 
+    let isMessThere = $("#chats .sidebar-body ul").find(`li[data-uid=${data.groupId}]`);
+    let messageNotRead = 0;
+    messageNotRead = isMessThere.find(".new-message-count").html();
+   
+    if(messageNotRead){
+      isMessThere.find(".new-message-count").html(Number(messageNotRead) + 1);
+    }
+    
+    else{
+      let messageToAddAmountMessNotRead = $("#chats .sidebar-body ul").find(`li[data-uid=${data.groupId}]`);
+      messageToAddAmountMessNotRead.find(".users-list-action").removeClass("action-toggle").empty();
+      messageToAddAmountMessNotRead.find(".users-list-action").append(`<div class="new-message-count">1</div>`);
+    }
+
+    $("#btn-view-list-chat").addClass("notifiy_badge");
+
+    if(scrollModal === true) {
+      // chuột xuống cuối 
+      let heightDivMess =  $('#modal-chat .chat-body .message-item').outerHeight();
+      let amountMessage = $('.layout .content .chat .chat-body .messages .message-item').length;
+
+      $('.layout .content .chat .chat-body .messages').scrollTop(heightDivMess * amountMessage *200);
+    }
+    
+    // những cái này để xóa hiển thị số những tin nhắn chưa đọc của user khi submit modal chát của user đó 
+    removeAmountMessNotRead();
+    getMessages();
+    viewInformation();
+    moveConversationToTop(data.groupId);
   })
 }
 
@@ -175,7 +270,7 @@ function receiveMessageText(){
       <div class="message-item">
           <div class="message-content">${messageText}</div>
           <div class="message-action">
-            ${new Date().getHours()} : ${new Date().getMinutes()}
+          ${new Date().getHours()} h : ${new Date().getMinutes()} p
           </div>
       </div>`);
     }
@@ -211,6 +306,7 @@ function receiveMessageText(){
     // những cái này để xóa hiển thị số những tin nhắn chưa đọc của user khi submit modal chát của user đó 
     removeAmountMessNotRead();
     getMessages();
+    
 
     if(scrollModal === true) {
       // chuột xuống cuối 
@@ -230,7 +326,7 @@ function appendPersonalMessageToModal(message,error){
             ${message}
         </div>
         <div class="message-action">
-            ${new Date().getHours()} : ${new Date().getMinutes()} <i class="fa fa-check" aria-hidden="true"></i>
+        ${new Date().getHours()} h : ${new Date().getMinutes()} p <i class="fa fa-check" aria-hidden="true"></i>
         </div>
     </div>`);
   }
@@ -242,7 +338,7 @@ function appendPersonalMessageToModal(message,error){
               ${message}
           </div>
           <div class="message-action">
-          ${new Date().getHours()} : ${new Date().getMinutes()} <i title="Message could not be sent" class="ti-info-alt text-danger"></i>
+          ${new Date().getHours()} h : ${new Date().getMinutes()} p <i title="Message could not be sent" class="ti-info-alt text-danger"></i>
           </div>
       </div>`);
   }
@@ -393,5 +489,6 @@ $(document).ready(function() {
 
   receiveMessageText();
 
+  receiveMessageGroup();
   
 });

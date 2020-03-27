@@ -18,18 +18,29 @@ let getMessages = (senderMessId, receiverMessId, type) => {
 
 }
 
-let sendMess = (sender,receiver,message,typeChat) => {
+let sendPersonalMess = (sender,receiver,message) => {
     MessageModel.sendMess(sender,receiver,message); 
     // thêm trường update cho con tắc 
     // nếu có updatedAt có nghĩa là 2 người này có nhắn tin với nhau
+    ContactModel.chatTogether(sender.id,receiver.id);
+    
+}
 
-    if(typeChat === "chat-personal"){
-      ContactModel.chatTogether(sender.id,receiver.id);
-    }
-    // chat chatTogether de update trường createdAt mỗi lần có tin nhắn mới để dùng trường này xắp xếp symbol conversation to render view
-    if(typeChat === "chat-group"){
-      GroupModel.chatTogether(receiver.id);
-    }
+let sendGroupMess = (sender,receiver,message) => {
+  MessageModel.sendMess(sender,receiver,message); 
+  // thêm trường update cho contact
+
+  // có updatedAt là có trò truyện với nhau
+  GroupModel.chatTogether(receiver.id);
+
+  // lấy về danh sách id những người có trong group để client gửi socket 
+  return new Promise( async (resolve, reject) => {
+    let listUserIdReceiveMessInGroup = GroupModel.getGroupUsers(receiver.id);
+
+    if(listUserIdReceiveMessInGroup.length === 0) return reject();
+
+    return resolve(listUserIdReceiveMessInGroup);
+  })
 }
 
 let getListConversations = (userId) => {
@@ -120,7 +131,8 @@ let getMessagesGroup = (receiverMessId) => {
 
 module.exports = {
   getMessages: getMessages,
-  sendMess: sendMess,
+  sendPersonalMess: sendPersonalMess,
   getListConversations: getListConversations,
-  getMessagesGroup: getMessagesGroup
+  getMessagesGroup: getMessagesGroup,
+  sendGroupMess: sendGroupMess
 }
