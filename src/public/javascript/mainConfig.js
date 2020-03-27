@@ -67,7 +67,7 @@ function viewInformation(){
     
   })
 
-  $(".sub_mess_avatar").on("click", function(){
+  $(".sub_mess_avatar").unbind("click").on("click", function(){
     let userId = $(this).attr("data-uid");
     let type = $(this).attr("data-navigation-target");
 
@@ -196,15 +196,12 @@ function autoClickFirstMessage(){
 
 // click vào tin nhắn nào ở phần chat thì thêm cạnh màu xanh ở bên trái vào
 function tickMessActive(conversation){
-  $("#chats .sidebar-body ul li").on("click",function(){
     let messages = document.querySelectorAll("#chats .sidebar-body ul li");
     messages.forEach( message =>{
       message.classList.remove("open-chat");
     });
-
+    
     conversation.addClass("open-chat");
-
-  });
 }
 
 // những cái này để xóa hiển thị số những tin nhắn chưa đọc của user khi submit modal chát của user đó 

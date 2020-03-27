@@ -75,14 +75,28 @@ function getMessages(){
               }
             }
 
+            // nếu tin nhắn là người khác gửi đến 
             else{
-              $('.layout .content .chat .chat-body .messages').append(`
-                <div class="message-item" title="${mess.time}">
-                    <div class="message-content">${mess.text}</div>
-                    <div class="message-action">
-                        
-                    </div>
-                </div>`);
+              // nếu tin nhắn ở trong nhóm thì thêm avatar người gửi vào 
+              if(mess.type === "chat-group"){
+                  $('.layout .content .chat .chat-body .messages').append(`
+                    <div class="message-item" title="${mess.time}">
+                        <div class="message-content">${mess.text}</div>
+                        <img data-uid="${mess.sender.id}" title="${mess.sender.username}" class="sub_mess_avatar" src="${mess.sender.avatar}" data-navigation-target="contact-information"></img>
+                    </div>`);
+                  viewInformation();
+              }
+
+              // nếu không phải tin nhắn trong nhóm thì không cần thêm avatar
+              else{
+                $('.layout .content .chat .chat-body .messages').append(`
+                  <div class="message-item" title="${mess.time}">
+                      <div class="message-content">${mess.text}</div>
+                      <div class="message-action">
+                          
+                      </div>
+                  </div>`);
+              }
             }
 
             // cuộn chuột xuống cuối 

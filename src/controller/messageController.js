@@ -34,7 +34,8 @@ let getMessages = async (req, res) => {
     convertTime._id = messageReturn[i]._id;
     convertTime.text = messageReturn[i].text;
     convertTime.time = await timeSince(messageReturn[i].createdAt);
-    
+    convertTime.type = type;
+
     messageConvertedTime.push(convertTime);
     convertTime = {};
   }
