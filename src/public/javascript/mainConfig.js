@@ -195,14 +195,14 @@ function autoClickFirstMessage(){
 }
 
 // click vào tin nhắn nào ở phần chat thì thêm cạnh màu xanh ở bên trái vào
-function tickMessActive(){
+function tickMessActive(conversation){
   $("#chats .sidebar-body ul li").on("click",function(){
     let messages = document.querySelectorAll("#chats .sidebar-body ul li");
     messages.forEach( message =>{
       message.classList.remove("open-chat");
     });
 
-    $(this).addClass("open-chat");
+    conversation.addClass("open-chat");
 
   });
 }
@@ -213,18 +213,6 @@ function removeAmountMessNotRead(){
     let idModalChatToRemoveMessCount = $("#modal-chat").attr("data-uid");
     removeNewMessCount(idModalChatToRemoveMessCount);
   });
-
-  // bỏ count new messages when click to a conversation
-  $(".click-to-chats").on("click", function(){
-    let isThereNewMessage = $(this).find(".new-message-count");
-
-    //  nếu conversation có symbol new mesage 
-    if(isThereNewMessage.length > 0){
-      let conversationId = $(this).attr("data-uid");
-      removeNewMessCount(conversationId);
-    }
-
-  })
 
   // sau này làm tính năng hiển thị tùy chọn cho group khác với tùy chọn của user ở đây
 }
@@ -328,8 +316,6 @@ $(document).ready(function(){
   notAcceptMakeFriend();
  
   changeDisplayOnMobile();
-
-  tickMessActive();
 
   autoClickFirstMessage();
 
