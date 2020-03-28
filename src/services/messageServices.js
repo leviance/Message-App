@@ -155,11 +155,16 @@ let numberMessagesUnRead = (senderMessId, receiverMessId, type) => {
 
 }
 
+let messagePersionalViewed = (senderMessId, receiverMessId) => {
+  MessageModel.messagePersionalViewed(senderMessId, receiverMessId);
+}
+
 module.exports = {
   getMessages: getMessages,
   sendPersonalMess: sendPersonalMess,
   getListConversations: getListConversations,
   getMessagesGroup: getMessagesGroup,
   sendGroupMess: sendGroupMess,
-  numberMessagesUnRead: numberMessagesUnRead
+  numberMessagesUnRead: numberMessagesUnRead,
+  messagePersionalViewed: messagePersionalViewed
 }

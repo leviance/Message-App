@@ -52,11 +52,25 @@
                         <div class="users-list-body">
                             <h5><%= data.username %></h5>
                             <p><%= data.messageText %></p>
-                            <div class="users-list-action">
                                 <% if(data.messageUnRead > 0){ %>
-                                    <div class="new-message-count"><%= data.messageUnRead %></div>
-                                  <% } %>
-                            </div>
+                                    <div class="users-list-action">
+                                        <div class="new-message-count"><%= data.messageUnRead %></div>
+                                    </div>
+                                <% } else{ %>
+                                    <div class="users-list-action action-toggle">
+                                        <div class="dropdown">
+                                            <a data-toggle="dropdown" href="#">
+                                                <i class="ti-more"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="#" data-uid="<%= data.id %>" data-navigation-target="contact-information" class="dropdown-item active">Xem hồ sơ</a>
+                                                <a href="#" data-uid="<%= data.id %>" class="dropdown-item">Xóa tin nhắn</a>
+                                                <a href="#" data-uid="<%= data.id %>" class="dropdown-item">Thêm vào ưa thích</a>
+                                                <a href="#" data-uid="<%= data.id %>" class="dropdown-item">Chặn</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% } %>
                         </div>
                     </li>
                 <%}%>

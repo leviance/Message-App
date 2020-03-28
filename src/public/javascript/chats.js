@@ -43,7 +43,7 @@ function getMessages(){
               // tin Nhắn mới nhất thì hiện ký hiệu đã xem hay chưa 
               if(last === data.length - 1){
                 // nếu đã xem
-                if(mess.updatedAt !== null){
+                if(mess.isRead === true ){
                   $('.layout .content .chat .chat-body .messages').append(`
                   <div class="message-item outgoing-message" title="${mess.time}">
                       <div class="message-content">${mess.text}</div>
@@ -105,6 +105,11 @@ function getMessages(){
             let amountMessage = $('.layout .content .chat .chat-body .messages .message-item').length;
             $('.layout .content .chat .chat-body .messages').scrollTop(heightDivMess * amountMessage *200);
           })
+        }
+
+        // xử  lý tin nhắn đã xem real time 
+        if(type === "chat-personal"){
+          messagePersionalViewed(receiverMessId);
         }
       },
       error: function(error) {
