@@ -53,6 +53,22 @@ messagesSchema.statics = {
         {"removedAt" : null}
       ]
     }).sort({"createdAt" : -1}).limit(limit).exec();
+  },
+  findMessagesUnRead(senderMessId, receiverMessId){
+    return this.find({$and: [
+      {"sender.id": senderMessId},
+      {"receiver.id": receiverMessId},
+      {"isRead": false}
+    ]}).exec();
+  },
+  findMessagesGroupUnRead(groupId,idUserGetNumMessUnRead){
+    return this.find({
+      $and: [
+        {"receiver.id": groupId},
+        {$nor: [{"sender.id": idUserGetNumMessUnRead}]},
+        {"isRead": false}
+      ]
+    }).exec();
   }
 }
 

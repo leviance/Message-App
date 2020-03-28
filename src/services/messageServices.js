@@ -30,6 +30,9 @@ let sendGroupMess = (sender,receiver,message) => {
   MessageModel.sendMess(sender,receiver,message); 
   // thêm trường update cho contact
 
+  // + 1 vào messageAmount 
+  GroupModel.updateMessAmount(receiver.id);
+
   // có updatedAt là có trò truyện với nhau
   GroupModel.chatTogether(receiver.id);
 
@@ -129,10 +132,34 @@ let getMessagesGroup = (receiverMessId) => {
   })
 }
 
+let numberMessagesUnRead = (senderMessId, receiverMessId, type) => {
+  return new Promise( async (resolve, reject) => {
+    // lấy ra số messages chưa xem 
+    let amountMessUnRead = 0;
+
+    if(type === "chat-group") {
+      // senderMessId là id của group | receiverMessId là id của người lấy số tin nhắn chưa xem
+      amountMessUnRead = await MessageModel.findMessagesGroupUnRead(senderMessId, receiverMessId); 
+      amountMessUnRead = amountMessUnRead.length;
+      return resolve(amountMessUnRead);
+    }
+
+    amountMessUnRead = await MessageModel.findMessagesUnRead(senderMessId, receiverMessId);
+    amountMessUnRead = amountMessUnRead.length;
+    return resolve(amountMessUnRead);
+    
+
+    
+  })
+
+
+}
+
 module.exports = {
   getMessages: getMessages,
   sendPersonalMess: sendPersonalMess,
   getListConversations: getListConversations,
   getMessagesGroup: getMessagesGroup,
-  sendGroupMess: sendGroupMess
+  sendGroupMess: sendGroupMess,
+  numberMessagesUnRead: numberMessagesUnRead
 }
