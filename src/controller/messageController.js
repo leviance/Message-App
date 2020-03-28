@@ -96,8 +96,22 @@ let sendGroupMess = async (req, res) => {
   }
 }
 
+let messagePersionalViewed = (req, res) => {
+  try {
+    let receiverMessId = req.params.receiverMessId;
+    let senderMessId = req.session.user.userId;
+
+    message.messagePersionalViewed(senderMessId,receiverMessId);
+
+    return res.status(200).send();
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+}
+
 module.exports = {
   getMessages: getMessages,
   sendPersonalMess: sendPersonalMess,
-  sendGroupMess: sendGroupMess
+  sendGroupMess: sendGroupMess,
+  messagePersionalViewed: messagePersionalViewed
 }

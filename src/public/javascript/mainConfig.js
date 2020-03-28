@@ -3,7 +3,7 @@ const socket = io({reconnection: false});
 let loadingModal = $(".loading-modal");
 
 function viewInformation(){
-  $(".dropdown-item").on("click", function(){
+  $(".dropdown-item").unbind("click").on("click", function(){
     let userId = $(this).attr("data-uid");
     let type = $(this).attr("data-navigation-target");
 
@@ -299,6 +299,15 @@ function removeNotifWhenAcceptContact(){
   })
 }
 
+// hiển chấm đỏ ở biểu tượng tin nhẵn khi server render ra có tin nhắn mới
+function handleShowHaveNewMessage(){
+  let isThereNewMessage = $("#chats .sidebar-body ul li").find(".new-message-count");
+  if(isThereNewMessage.length > 0){
+    $("#btn-view-list-chat").addClass("notifiy_badge");
+  }
+}
+
+
 $(document).ready(function(){
   loadingModal.hide();
 
@@ -321,5 +330,7 @@ $(document).ready(function(){
   tickReadNotif();
   
   removeNotifWhenAcceptContact();
+
+  handleShowHaveNewMessage();
   
 })

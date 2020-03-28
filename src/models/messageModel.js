@@ -69,6 +69,15 @@ messagesSchema.statics = {
         {"isRead": false}
       ]
     }).exec();
+  },
+  messagePersionalViewed(senderMessId, receiverMessId){
+    return this.updateMany({
+      $and: [
+        {"sender.id": receiverMessId},
+        {"receiver.id": senderMessId},
+        {"isRead": false}
+      ]
+    },{"isRead": true}).exec();
   }
 }
 
