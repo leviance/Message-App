@@ -13,6 +13,7 @@ let getMessages = async (req, res) => {
   if(type !== "chat-personal" && type !== "chat-group") return res.status(500).send();
   
   let messageReturn;
+
   if(type === "chat-personal"){
     messageReturn = await message.getMessages(senderMessId, receiverMessId, type);
   }

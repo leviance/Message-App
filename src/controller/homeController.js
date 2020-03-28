@@ -1,4 +1,5 @@
 import {home,contact,auth,notification,group,message} from '../services/index';
+import {handleConversations} from '../helper/handleConversations';
 import _ from 'lodash';
 
 let homeController = async (req, res) => {
@@ -19,13 +20,12 @@ let homeController = async (req, res) => {
     let listChatGoupMess = await group.getListChatGoupMess(req.session.user.userId);
     let listFriends = await contact.getListFriends(req.session.user.userId);
     let listConversations = await message.getListConversations(req.session.user.userId);
-
-
+     
     //  sort conversations 
-    let conversations = listChatGoupMess.concat(listConversations);
+    let conversations = await handleConversations(listChatGoupMess,listConversations,req.session.user.userId);
     
     
-
+    console.log(conversations);
     return res.render("main/layout/home",{
       user : userInfo,
       listReqContactSend: listReqContactSend,

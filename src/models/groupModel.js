@@ -36,6 +36,9 @@ groupSchema.statics = {
   },
   chatTogether(groupId){
     return this.update({"_id": groupId},{"updatedAt": Date.now});
+  },
+  updateMessAmount(groupId){
+    return this.updateOne({"_id": groupId},{$inc: {"messageAmount" : 1}}).exec();
   }
 }
 

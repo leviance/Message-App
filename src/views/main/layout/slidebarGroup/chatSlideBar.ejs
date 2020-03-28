@@ -35,8 +35,12 @@
                           <h5><%= data.groupName %></h5>
                           <p><%= data.description %></p>
                           <div class="users-list-action">
-                              <% if(data.messageAmount === 0){%> <div class="new-message-count">+</div> <%}%>
-                              <!-- Xử lý hiển thị những tin nhắn chưa xem làm ở phần sau -->
+                              <% if(data.messageAmount === 0){%> <div class="new-message-count">+</div> 
+                              <%} else { %>
+                                <% if(data.messageUnRead > 0){ %>
+                                    <div class="new-message-count"><%= data.messageUnRead %></div>
+                                  <% } %>
+                              <%}%>
                           </div>
                       </div>
                   </li>
@@ -49,8 +53,9 @@
                             <h5><%= data.username %></h5>
                             <p><%= data.messageText %></p>
                             <div class="users-list-action">
-                                <div class="new-message-count">+</div> 
-                                <!-- Xử lý hiển thị những tin nhắn chưa xem làm ở phần sau -->
+                                <% if(data.messageUnRead > 0){ %>
+                                    <div class="new-message-count"><%= data.messageUnRead %></div>
+                                  <% } %>
                             </div>
                         </div>
                     </li>
