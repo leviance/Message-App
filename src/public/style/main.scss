@@ -48,7 +48,7 @@
   .list-friends{
     width: 100%;
     padding: 0px 30px;
-    height: 400px;
+    max-height: 400px;
     overflow-y: scroll;
     .list-friend-item{
       width: 100%;
@@ -74,7 +74,20 @@
 
       }
     }
+    
   }
+}
+#btn-search-friends-to-add-group{
+  position: absolute;
+  background: #3db16b;
+  right: 0px;
+  width: 40px;
+  display: flex;
+  top: 34px;
+  height: 37px;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
 }
 
 #modal-error-update-infor{
