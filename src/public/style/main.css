@@ -46,6 +46,53 @@
   width: 100vh !important;
 }
 
+#modal-chat .people-viewed-mess {
+  top: 0;
+  left: 0;
+  display: none;
+  width: 300px;
+  max-width: 80%;
+  height: auto;
+  background-color: #464852;
+  margin-left: 50px;
+  border-radius: 5px;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#modal-chat .people-viewed-mess > li {
+  margin: 0 !important;
+  padding: 0 !important;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  list-style: none;
+  color: #acacac;
+  margin-top: 5px;
+  font-style: italic;
+  font-size: 14px;
+}
+
+#modal-chat .people-viewed-mess > li img {
+  margin-top: 6px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+#modal-chat .people-viewed-mess > li .name {
+  width: 184px;
+}
+
+#modal-chat .people-viewed-mess > li .time {
+  width: 150px;
+}
+
 #addFriends .list-friends, #newGroup .list-friends {
   width: 100%;
   padding: 0px 30px;
