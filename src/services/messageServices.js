@@ -27,7 +27,7 @@ let sendPersonalMess = (sender,receiver,message) => {
 }
 
 let sendGroupMess = (sender,receiver,message) => {
-  MessageModel.sendMess(sender,receiver,message); 
+  MessageModel.sendGroupMess(sender,receiver,message); 
   // thêm trường update cho contact
 
   // + 1 vào messageAmount 
@@ -159,6 +159,21 @@ let messagePersionalViewed = (senderMessId, receiverMessId) => {
   MessageModel.messagePersionalViewed(senderMessId, receiverMessId);
 }
 
+let messageGroupViewed = async (senderMessId, groupId) => {
+  // get username của người gửi 
+  let inforUser = await UserModel.inforUser(senderMessId);
+
+  let userViewedMess = [
+    {
+      idUserViewed: senderMessId,
+      username: inforUser.username,
+      avatar: inforUser.avatar,
+      date: Date.now()
+    }
+  ]
+  MessageModel.messageGroupViewed(userViewedMess, groupId);
+}
+
 module.exports = {
   getMessages: getMessages,
   sendPersonalMess: sendPersonalMess,
@@ -166,5 +181,6 @@ module.exports = {
   getMessagesGroup: getMessagesGroup,
   sendGroupMess: sendGroupMess,
   numberMessagesUnRead: numberMessagesUnRead,
-  messagePersionalViewed: messagePersionalViewed
+  messagePersionalViewed: messagePersionalViewed,
+  messageGroupViewed: messageGroupViewed
 }

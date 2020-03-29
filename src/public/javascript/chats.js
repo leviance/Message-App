@@ -111,6 +111,9 @@ function getMessages(){
         if(type === "chat-personal"){
           messagePersionalViewed(receiverMessId);
         }
+        else{
+          messageGroupViewed(receiverMessId);
+        }
       },
       error: function(error) {
         $("#modal-chat .chat-body .messages").empty();

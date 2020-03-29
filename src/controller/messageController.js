@@ -30,6 +30,7 @@ let getMessages = async (req, res) => {
     convertTime.sender = messageReturn[i].sender;
     convertTime.receiver = messageReturn[i].receiver;
     convertTime.isRead = messageReturn[i].isRead;
+    convertTime.isReadGroup = messageReturn[i].isReadGroup;
     convertTime.removedAt = messageReturn[i].removedAt;
     convertTime.updatedAt = messageReturn[i].updatedAt;
     convertTime._id = messageReturn[i]._id;
@@ -109,9 +110,25 @@ let messagePersionalViewed = (req, res) => {
   }
 }
 
+let messageGroupViewed = (req, res) => {
+  try {
+    // id của group
+    let receiverMessId = req.params.receiverMessId;
+    // id của người gửi tin nhắn 
+    let senderMessId = req.session.user.userId;
+
+    message.messageGroupViewed(senderMessId,receiverMessId);
+
+    return res.status(200).send();
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+}
+
 module.exports = {
   getMessages: getMessages,
   sendPersonalMess: sendPersonalMess,
   sendGroupMess: sendGroupMess,
-  messagePersionalViewed: messagePersionalViewed
+  messagePersionalViewed: messagePersionalViewed,
+  messageGroupViewed: messageGroupViewed
 }

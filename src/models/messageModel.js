@@ -15,6 +15,7 @@ let messagesSchema = new Schema({
   },
   text: String,
   isRead: {type: Boolean , default: false},
+  isReadGroup: {type: Array},
   file: String,
   img: String,
   createdAt: {type: Number, default: Date.now},
@@ -46,6 +47,9 @@ messagesSchema.statics = {
   sendMess(sender,receiver,message){
     return this.create({"sender": sender, "receiver": receiver,"text" : message });
   },
+  sendGroupMess(sender,receiver,message){
+    return this.create({"sender": sender, "receiver": receiver,"text" : message , "isReadGroup": []});
+  },
   findGroupMessages(groupId,limit){
     return this.find({
       $and: [
@@ -66,7 +70,7 @@ messagesSchema.statics = {
       $and: [
         {"receiver.id": groupId},
         {$nor: [{"sender.id": idUserGetNumMessUnRead}]},
-        {"isRead": false}
+        {"isReadGroup": []}
       ]
     }).exec();
   },
@@ -78,6 +82,18 @@ messagesSchema.statics = {
         {"isRead": false}
       ]
     },{"isRead": true}).exec();
+  },
+  messageGroupViewed(userViewedMess, groupId){
+    return this.updateMany({
+      $and: [
+        {"receiver.id": groupId},
+        {"sender.id": {$ne: userViewedMess[0].idUserViewed}},
+        {$or: [
+          {"isReadGroup": []},
+          {"isReadGroup": {$elemMatch: {idUserViewed: {$ne: userViewedMess[0].idUserViewed}}}}
+        ]}
+      ]
+    },{$addToSet: {isReadGroup: userViewedMess}}).exec();
   }
 }
 

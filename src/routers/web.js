@@ -70,6 +70,7 @@ let initRouters = (app) => {
   router.post("/send-personal-message",message.sendPersonalMess);
   router.post("/send-group-message",message.sendGroupMess);
   router.put("/message-persional-viewed-:receiverMessId",message.messagePersionalViewed);
+  router.put("/message-group-viewed-:receiverMessId",message.messageGroupViewed);
 
   return app.use("/", router);
 }
