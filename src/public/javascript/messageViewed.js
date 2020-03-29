@@ -19,7 +19,6 @@ function messageGroupViewed(receiverMessId){
     type: "post",
     success: function(data){
       if(data.nModified > 0){
-        alert("send")
         showWhoViewedMessRealTime(receiverMessId);
       }
     }
@@ -85,12 +84,12 @@ $(document).ready(function(){
         amountViewer = regex.test(amountViewer);
         
         amountViewer = Number(amountViewer) + 1;
-        newMessage.find(".message-action").html(`${amountViewer} đã xem`);
+        newMessage.find(".message-action").html(`${amountViewer} người đã xem <i class="ti-double-check"></i>`);
       }
       // nếu tin nhắn chưa có ai xem
       else{
         newMessage.attr("title",`${data.username} đã xem`);
-        newMessage.find(".message-action").html("1 người xem")
+        newMessage.find(".message-action").html(`1 người xem <i class="ti-double-check"></i>`)
       }
       
     }
