@@ -1,9 +1,7 @@
 function messagePersionalViewed(receiverMessId){
   $.ajax({
     url: `/message-persional-viewed-${receiverMessId}`,
-    type: "put",
-    success: function(){},
-    error: function(){}
+    type: "put"
   });
 
   // gửi socket là tin nhẵn đã được xem đến người gửi 
@@ -12,6 +10,15 @@ function messagePersionalViewed(receiverMessId){
     senderId: $("#editProfileModal").attr("data-uid")
   }
   socket.emit("message-persional-viewed",dataToEmit);
+
+}
+
+function messageGroupViewed(receiverMessId){
+  console.log(receiverMessId);
+  $.ajax({
+    url: `/message-group-viewed-${receiverMessId}`,
+    type: "put"
+  });
 
 }
 
