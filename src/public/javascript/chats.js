@@ -60,7 +60,7 @@ function getMessages(){
                       <div class="message-item outgoing-message">
                           <div class="message-content">${mess.text}</div>
                           <div class="message-action">
-                              ${mess.isReadGroup.length} đã xem <i class="ti-double-check"></i>
+                              ${mess.isReadGroup.length} người đã xem <i class="ti-double-check"></i>
                           </div>
                       </div>`);
                   }
@@ -90,25 +90,54 @@ function getMessages(){
 
             // nếu tin nhắn là người khác gửi đến 
             else{
-              // nếu tin nhắn ở trong nhóm thì thêm avatar người gửi vào 
-              if(mess.type === "chat-group"){
+              // tin Nhắn mới nhất thì hiện ký hiệu đã xem hay chưa 
+              if(last === data.length - 1){
+                // nếu tin nhắn ở trong nhóm thì thêm avatar người gửi vào 
+                if(mess.type === "chat-group"){
+                  $('.layout .content .chat .chat-body .messages').append(`
+                    <div class="message-item" title="${mess.time}">
+                        <div class="message-content">${mess.text}</div>
+                        <img data-uid="${mess.sender.id}" title="${mess.sender.username} đã gửi : ${mess.time}" class="sub_mess_avatar" src="${mess.sender.avatar}" data-navigation-target="contact-information"></img>
+                        <div class="message-action">
+                            ${mess.isReadGroup.length} người đã xem <i class="ti-double-check"></i>
+                        </div>
+                    </div>`);
+                  viewInformation();
+                }
+
+                // nếu không phải tin nhắn trong nhóm thì không cần thêm avatar
+                else{
+                  $('.layout .content .chat .chat-body .messages').append(`
+                    <div class="message-item" title="${mess.time}">
+                        <div class="message-content">${mess.text}</div>
+                        <div class="message-action">
+                          ${mess.time} 
+                        </div>
+                    </div>`);
+                }
+              }
+
+              else{
+                // nếu tin nhắn ở trong nhóm thì thêm avatar người gửi vào 
+                if(mess.type === "chat-group"){
                   $('.layout .content .chat .chat-body .messages').append(`
                     <div class="message-item" title="${mess.time}">
                         <div class="message-content">${mess.text}</div>
                         <img data-uid="${mess.sender.id}" title="${mess.sender.username} đã gửi : ${mess.time}" class="sub_mess_avatar" src="${mess.sender.avatar}" data-navigation-target="contact-information"></img>
                     </div>`);
                   viewInformation();
-              }
+                }
 
-              // nếu không phải tin nhắn trong nhóm thì không cần thêm avatar
-              else{
-                $('.layout .content .chat .chat-body .messages').append(`
-                  <div class="message-item" title="${mess.time}">
-                      <div class="message-content">${mess.text}</div>
-                      <div class="message-action">
-                          
-                      </div>
-                  </div>`);
+                // nếu không phải tin nhắn trong nhóm thì không cần thêm avatar
+                else{
+                  $('.layout .content .chat .chat-body .messages').append(`
+                    <div class="message-item" title="${mess.time}">
+                        <div class="message-content">${mess.text}</div>
+                        <div class="message-action">
+                            
+                        </div>
+                    </div>`);
+                }
               }
             }
 
@@ -275,7 +304,7 @@ function receiveMessageGroup(){
             <div class="message-content">
                 ${data.message}
             </div>
-            <img data-uid="${data.senderId}" title="${data.username}" class="sub_mess_avatar" src="${data.avatar}" data-navigation-target="contact-information"></img>
+            <img data-uid="${data.senderId}" title="${data.username} đã gửi : ${new Date().getHours()}h : ${new Date().getMinutes()}p : ${new Date().getSeconds()}s" class="sub_mess_avatar" src="${data.avatar}" data-navigation-target="contact-information"></img>
             <div class="message-action">
               ${new Date().getHours()}h : ${new Date().getMinutes()}p : ${new Date().getSeconds()}s
             </div>
