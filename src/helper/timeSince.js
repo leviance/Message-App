@@ -18,6 +18,9 @@ function timeSince(date) {
   }
   interval = Math.floor(seconds / 3600);
   if (interval > 1) {
+    if(timeStamp.getDay() === 0){
+      return `Chủ nhật lúc ${timeStamp.getHours()}h : ${timeStamp.getMinutes()}p`;
+    }
     return `Thứ ${timeStamp.getDay()} lúc ${timeStamp.getHours()}h : ${timeStamp.getMinutes()}p`;
   }
   interval = Math.floor(seconds / 60);

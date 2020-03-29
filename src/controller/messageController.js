@@ -110,16 +110,16 @@ let messagePersionalViewed = (req, res) => {
   }
 }
 
-let messageGroupViewed = (req, res) => {
+let messageGroupViewed = async (req, res) => {
   try {
     // id của group
     let receiverMessId = req.params.receiverMessId;
     // id của người gửi tin nhắn 
     let senderMessId = req.session.user.userId;
 
-    message.messageGroupViewed(senderMessId,receiverMessId);
+    let result = await message.messageGroupViewed(senderMessId,receiverMessId);
 
-    return res.status(200).send();
+    return res.status(200).send(result);
   } catch (error) {
     return res.status(500).send(error);
   }

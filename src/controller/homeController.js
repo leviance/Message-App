@@ -25,7 +25,7 @@ let homeController = async (req, res) => {
     let conversations = await handleConversations(listChatGoupMess,listConversations,req.session.user.userId);
     
     
-    console.log(conversations);
+    //console.log(conversations);
     return res.render("main/layout/home",{
       user : userInfo,
       listReqContactSend: listReqContactSend,

@@ -48,7 +48,7 @@ messagesSchema.statics = {
     return this.create({"sender": sender, "receiver": receiver,"text" : message });
   },
   sendGroupMess(sender,receiver,message){
-    return this.create({"sender": sender, "receiver": receiver,"text" : message , "isReadGroup": []});
+    return this.create({"sender": sender, "receiver": receiver,"text" : message ,});
   },
   findGroupMessages(groupId,limit){
     return this.find({
@@ -87,11 +87,8 @@ messagesSchema.statics = {
     return this.updateMany({
       $and: [
         {"receiver.id": groupId},
-        {"sender.id": {$ne: userViewedMess[0].idUserViewed}},
-        {$or: [
-          {"isReadGroup": []},
-          {"isReadGroup": {$elemMatch: {idUserViewed: {$ne: userViewedMess[0].idUserViewed}}}}
-        ]}
+        {"sender.id": {$ne: userViewedMess[0].idUserViewed}},      
+        {"isReadGroup.idUserViewed": {$ne: userViewedMess[0].idUserViewed}}    
       ]
     },{$addToSet: {isReadGroup: userViewedMess}}).exec();
   }
