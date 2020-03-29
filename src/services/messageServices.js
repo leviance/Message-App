@@ -159,19 +159,23 @@ let messagePersionalViewed = (senderMessId, receiverMessId) => {
   MessageModel.messagePersionalViewed(senderMessId, receiverMessId);
 }
 
-let messageGroupViewed = async (senderMessId, groupId) => {
-  // get username của người gửi 
-  let inforUser = await UserModel.inforUser(senderMessId);
+let messageGroupViewed =  (senderMessId, groupId) => {
+  return new Promise( async (resolve, reject) => {
+    // get username của người gửi 
+    let inforUser = await UserModel.inforUser(senderMessId);
 
-  let userViewedMess = [
-    {
-      idUserViewed: senderMessId,
-      username: inforUser.username,
-      avatar: inforUser.avatar,
-      date: Date.now()
-    }
-  ]
-  MessageModel.messageGroupViewed(userViewedMess, groupId);
+    let userViewedMess = [
+      {
+        idUserViewed: senderMessId,
+        username: inforUser.username,
+        avatar: inforUser.avatar,
+        date: Date.now()
+      }
+    ]
+    let result = await MessageModel.messageGroupViewed(userViewedMess, groupId);
+   
+    return resolve(result);
+  })
 }
 
 module.exports = {

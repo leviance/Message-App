@@ -95,7 +95,7 @@ function getMessages(){
                   $('.layout .content .chat .chat-body .messages').append(`
                     <div class="message-item" title="${mess.time}">
                         <div class="message-content">${mess.text}</div>
-                        <img data-uid="${mess.sender.id}" title="${mess.sender.username}" class="sub_mess_avatar" src="${mess.sender.avatar}" data-navigation-target="contact-information"></img>
+                        <img data-uid="${mess.sender.id}" title="${mess.sender.username} đã gửi : ${mess.time}" class="sub_mess_avatar" src="${mess.sender.avatar}" data-navigation-target="contact-information"></img>
                     </div>`);
                   viewInformation();
               }
@@ -126,9 +126,11 @@ function getMessages(){
         }
         else{
           messageGroupViewed(receiverMessId);
+          showPeopleViewedMess(data);
         }
 
-        showPeopleViewedMess(data);
+        
+        //showWhoViewedMessRealTime(receiverMessId);
       },
       error: function(error) {
         $("#modal-chat .chat-body .messages").empty();
@@ -312,6 +314,12 @@ function receiveMessageGroup(){
       let amountMessage = $('.layout .content .chat .chat-body .messages .message-item').length;
 
       $('.layout .content .chat .chat-body .messages').scrollTop(heightDivMess * amountMessage *200);
+    }
+
+
+    // nếu modal chat group đang mở thì gửi luôn sự kiện đã xem tin nhắn đến mọi người 
+    if(data.groupId === idModalChatOpen){
+      messageGroupViewed(data.groupId)
     }
     
     // những cái này để xóa hiển thị số những tin nhắn chưa đọc của user khi submit modal chát của user đó 

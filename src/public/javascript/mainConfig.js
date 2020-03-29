@@ -307,16 +307,6 @@ function handleShowHaveNewMessage(){
   }
 }
 
-// khi người dùng di chuột lên tin nhẵn cuối cùng trong nhóm thì hiển thị những người đã xem
-function showPeopleViewedMess(data){
-  let userReaded = ``;
-  
-    data[data.length-1].isReadGroup.forEach(obj =>{
-      userReaded = userReaded + obj.username + ` đã xem`  + '\n'; 
-    })
-
-  $("#modal-chat .chat-body .messages").find(".message-item:last-child").attr("title",userReaded );
-}
 
 $(document).ready(function(){
   loadingModal.hide();
