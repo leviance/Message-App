@@ -43,14 +43,27 @@ function getMessages(){
               // tin Nhắn mới nhất thì hiện ký hiệu đã xem hay chưa 
               if(last === data.length - 1){
                 // nếu đã xem
-                if(mess.isRead === true ){
-                  $('.layout .content .chat .chat-body .messages').append(`
-                  <div class="message-item outgoing-message" title="${mess.time}">
-                      <div class="message-content">${mess.text}</div>
-                      <div class="message-action">
-                          ${mess.time} <i class="ti-double-check"></i>
-                      </div>
-                  </div>`);
+                if(mess.isRead === true || mess.isReadGroup.length > 0){
+                  // nếu tin nhắn cá nhân
+                  if(mess.isRead === true){
+                    $('.layout .content .chat .chat-body .messages').append(`
+                      <div class="message-item outgoing-message" title="${mess.time}">
+                          <div class="message-content">${mess.text}</div>
+                          <div class="message-action">
+                              ${mess.time} <i class="ti-double-check"></i>
+                          </div>
+                      </div>`);
+                  }
+                  // nếu là tin nhắn nhóm 
+                  else{
+                    $('.layout .content .chat .chat-body .messages').append(`
+                      <div class="message-item outgoing-message">
+                          <div class="message-content">${mess.text}</div>
+                          <div class="message-action">
+                              ${mess.isReadGroup.length} đã xem <i class="ti-double-check"></i>
+                          </div>
+                      </div>`);
+                  }
                 }
                 // nếu chưa xem 
                 else{
@@ -114,6 +127,8 @@ function getMessages(){
         else{
           messageGroupViewed(receiverMessId);
         }
+
+        showPeopleViewedMess(data);
       },
       error: function(error) {
         $("#modal-chat .chat-body .messages").empty();
@@ -130,7 +145,6 @@ function getMessages(){
      }
 
      tickMessActive($(this));
-     
   });
 }
 
