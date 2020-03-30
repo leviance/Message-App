@@ -50,8 +50,16 @@ let getGroupInformation = async (req, res) => {
   }
 }
 
+let leaveGroupChat = (req, res) => {
+  let userId = req.session.user.userId;
+  let groupId = req.params.groupId;
+ 
+  group.leaveGroupChat(userId,groupId);
+}
+
 module.exports = {
   createNewGroup: createNewGroup,
   checkIsAdmin: checkIsAdmin,
-  getGroupInformation: getGroupInformation
+  getGroupInformation: getGroupInformation,
+  leaveGroupChat: leaveGroupChat
 }

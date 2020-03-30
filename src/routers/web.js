@@ -75,6 +75,9 @@ let initRouters = (app) => {
 
   router.get("/check-user-is-admin-:groupId",group.checkIsAdmin)
 
+  router.put("/leave-group-chat-:groupId",group.leaveGroupChat)
+
+
   return app.use("/", router);
 }
 

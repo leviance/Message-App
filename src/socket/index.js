@@ -7,6 +7,7 @@ import sendMessageText from './messageSocket/sendMessageText';
 import sendGroupMessageText from './messageSocket/sendGroupMessageText';
 import messagePersionalViewed from './messageSocket/messagePersionalViewed';
 import showWhoViewedMessGroup from './messageSocket/showWhoViewedMessGroup';
+import leaveGroupChat from './groupSocket/leaveGroupChat';
 
 let initSocket = (io) => {
   addNewContact(io);
@@ -18,6 +19,7 @@ let initSocket = (io) => {
   sendGroupMessageText(io);
   messagePersionalViewed(io);
   showWhoViewedMessGroup(io);
+  leaveGroupChat(io);
 }
 
 module.exports = initSocket;
