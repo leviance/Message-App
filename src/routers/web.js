@@ -62,6 +62,7 @@ let initRouters = (app) => {
   router.put("/remove-all-notifications-:targetId",notif.removeAllNotifications);
 
   router.get("/view-user-information-:userId",user.getUserInformation);
+  router.get("/view-group-information-:groupId",group.getGroupInformation);
 
   router.post("/search-friends-to-add-group",user.searchFriendsToAddGroup);
   router.post("/create-new-group-chat",group.createNewGroup);
@@ -71,6 +72,8 @@ let initRouters = (app) => {
   router.post("/send-group-message",message.sendGroupMess);
   router.put("/message-persional-viewed-:receiverMessId",message.messagePersionalViewed);
   router.post("/message-group-viewed-:receiverMessId",message.messageGroupViewed);
+
+  router.get("/check-user-is-admin-:groupId",group.checkIsAdmin)
 
   return app.use("/", router);
 }

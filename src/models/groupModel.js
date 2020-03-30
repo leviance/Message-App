@@ -39,6 +39,22 @@ groupSchema.statics = {
   },
   updateMessAmount(groupId){
     return this.updateOne({"_id": groupId},{$inc: {"messageAmount" : 1}}).exec();
+  },
+  checkIsAdmin(userId,groupId){
+    return this.findOne({
+      $and:[
+        {"userCreatedId": userId},
+        {"_id": groupId}
+      ]
+    }).exec();
+  },
+  groupInfo(userId, groupId){
+    return this.findOne({
+      $and:[
+        {"_id": groupId},
+        {"members": userId}
+      ]
+    }).exec();
   }
 }
 
