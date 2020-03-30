@@ -178,6 +178,7 @@ let messageGroupViewed =  (senderMessId, groupId) => {
   })
 }
 
+
 module.exports = {
   getMessages: getMessages,
   sendPersonalMess: sendPersonalMess,

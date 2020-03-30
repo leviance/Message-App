@@ -104,6 +104,12 @@ userSchema.statics = {
         ]
   },{_id: 1, avatar: 1, username: 1, class: 1,score: { $meta: "textScore" } }).sort( { score: { $meta: "textScore" } } ).skip(skip).limit(limit).exec();
   },
+  findInforMembersInGroup(listMembersId){
+    return this.find(
+    {"_id": {$in: listMembersId}},
+    {"local.password": 0, "local.isActive": 0, "local.veryfyToken": 0, "facebook.token": 0, "google.token": 0}
+    ).exec();
+  }
 }
 
 module.exports = mongoose.model("Users", userSchema);

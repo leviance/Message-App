@@ -29,7 +29,7 @@ function getMessages(){
       type: "POST",
       data: {receiverMessId, type},
       success: function(data) {
-        console.log(data);
+        //console.log(data);
         if(data.length === 0) {
           $("#modal-chat .chat-body .messages").empty();
         }
@@ -102,7 +102,7 @@ function getMessages(){
                             ${mess.isReadGroup.length} người đã xem <i class="ti-double-check"></i>
                         </div>
                     </div>`);
-                  viewInformation();
+                    viewInformation();
                 }
 
                 // nếu không phải tin nhắn trong nhóm thì không cần thêm avatar
@@ -125,7 +125,7 @@ function getMessages(){
                         <div class="message-content">${mess.text}</div>
                         <img data-uid="${mess.sender.id}" title="${mess.sender.username} đã gửi : ${mess.time}" class="sub_mess_avatar" src="${mess.sender.avatar}" data-navigation-target="contact-information"></img>
                     </div>`);
-                  viewInformation();
+                    viewInformation();
                 }
 
                 // nếu không phải tin nhắn trong nhóm thì không cần thêm avatar
@@ -149,15 +149,20 @@ function getMessages(){
           })
         }
 
+
         // xử  lý tin nhắn đã xem real time 
         if(type === "chat-personal"){
+          changeOptionModalChat(receiverMessId,type);
           messagePersionalViewed(receiverMessId);
         }
         else{
+          // thay đổi tùy chọn của modal chat 
+          changeOptionModalChat(receiverMessId,type)
           messageGroupViewed(receiverMessId);
           showPeopleViewedMess(data);
         }
 
+        
         
         //showWhoViewedMessRealTime(receiverMessId);
       },
