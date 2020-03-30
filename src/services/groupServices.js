@@ -81,10 +81,14 @@ let getGroupInformation = (userId,groupId) => {
   })
 }
 
+let leaveGroupChat = async (userId,groupId) => {
+  GroupModel.leaveGroupChat(userId,groupId);
+}
 
 module.exports = {
   createNewGroup: createNewGroup,
   getListChatGoupMess: getListChatGoupMess,
   checkIsAdmin: checkIsAdmin,
-  getGroupInformation: getGroupInformation
+  getGroupInformation: getGroupInformation,
+  leaveGroupChat: leaveGroupChat
 }

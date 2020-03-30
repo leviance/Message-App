@@ -36,7 +36,7 @@ notificationSchema.statics = {
     return this.find({"receiverNotif.id" : userId}).sort({"createdAt" : -1}).skip(skip).limit(limit).exec();
   },
   removeAll(targetId){
-    this.deleteMany({"receiverNotif.id" : targetId}).exec();
+  this.deleteMany({"receiverNotif.id" : targetId}).exec();
   }
 };
 

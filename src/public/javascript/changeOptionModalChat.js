@@ -12,7 +12,7 @@ function modelToChangeModalChatGroup(idToChange){
       <a href="#" data-type-chat="chat-group" data-navigation-target="contact-information" class="dropdown-item active" data-uid="${idToChange}">Xem hồ sơ nhóm</a>
       <a href="#" data-type-chat="chat-group" class="dropdown-item" data-uid="${idToChange}">Xem những tệp được chia sẻ</a>
       <a href="#" data-type-chat="chat-group" class="dropdown-item" data-uid="${idToChange}">Thêm thành viên</a>
-      <a href="#" data-type-chat="chat-group" class="dropdown-item" data-uid="${idToChange}">Rời nhóm</a>
+      <a href="#" data-type-chat="chat-group" data-navigation-target="leave-group" class="dropdown-item" data-uid="${idToChange}">Rời nhóm</a>
       <div class="dropdown-divider"></div>`
 }
 
@@ -49,6 +49,7 @@ function changeOptionModalChat(idToChange,type){
         $("#options-modal-chat").find(".dropdown-menu").append(modelAdminToChangeModalChatGroup(idToChange));
 
         viewInformation();
+        leaveGroupChat();
       },
       // thêm option của chat group nếu không phải admin
       error: function(){
@@ -56,16 +57,10 @@ function changeOptionModalChat(idToChange,type){
         $("#options-modal-chat").find(".dropdown-menu").append(modelToChangeModalChatGroup(idToChange));
 
         viewInformation();
+        leaveGroupChat();
       }
     })
 
 
   }
-}
-
-function viewGroupInformation(idGroup) {
-  $.ajax({
-
-  })
-
 }

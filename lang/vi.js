@@ -15,7 +15,14 @@ export const groupValid = {
   userAmountIsCorrect: "Cần phải có tối thiểu 3 người để tạo nhóm !",
   groupNameIsCorrect: "Tên nhóm phải có từ 6 đến 45 ký tự! không được chứa ký tự đặc biệt !",
   descriptionIsCorrect: "Giới thiệu nhóm phải có từ 6 đến 100 ký tự! không được chứa ký tự đặc biệt !",
-  exeededGroupAllow: "Bạn đã đạt đến số lượng nhóm mỗi người có thể tạo là 10 nhóm !"
+  exeededGroupAllow: "Bạn đã đạt đến số lượng nhóm mỗi người có thể tạo là 10 nhóm !",
+  
+}
+
+export const groupAction = {
+  leaveGroupChat: (username,groupName) => {
+    return `${username} đã rời khỏi nhóm ${groupName}.`
+  }
 }
 
 export const loginRegisterIncorrect = {
