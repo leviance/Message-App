@@ -18,10 +18,15 @@ function timeSince(date) {
   }
   interval = Math.floor(seconds / 3600);
   if (interval > 1) {
-    if(timeStamp.getDay() === 0){
-      return `Chủ nhật lúc ${timeStamp.getHours()}h : ${timeStamp.getMinutes()}p`;
+    switch (timeStamp.getDay()) {
+      case 0: return `Chủ nhật lúc ${timeStamp.getHours()}h : ${timeStamp.getMinutes()}p`;
+      case 1: return `Thứ hai lúc ${timeStamp.getHours()}h : ${timeStamp.getMinutes()}p`;
+      case 2: return `Thứ ba lúc ${timeStamp.getHours()}h : ${timeStamp.getMinutes()}p`;
+      case 3: return `Thứ tư lúc ${timeStamp.getHours()}h : ${timeStamp.getMinutes()}p`;
+      case 4: return `THứ năm lúc ${timeStamp.getHours()}h : ${timeStamp.getMinutes()}p`;
+      case 5: return `Thứ sáu lúc ${timeStamp.getHours()}h : ${timeStamp.getMinutes()}p`;
+      case 6: return `Thứ bảy lúc ${timeStamp.getHours()}h : ${timeStamp.getMinutes()}p`;
     }
-    return `Thứ ${timeStamp.getDay()} lúc ${timeStamp.getHours()}h : ${timeStamp.getMinutes()}p`;
   }
   interval = Math.floor(seconds / 60);
   if (interval > 1) {
