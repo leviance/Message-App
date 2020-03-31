@@ -57,7 +57,7 @@ let searchFriendsToAddGroup = (searcherId,listUserIdAdded,keyWords,skip) => {
     _.remove(listFriendsId, function(id) {
       return id  == searcherId;
     });
-
+    
     let inforUser = await UserModel.searchFriendsToAddGroup(listFriendsId,listUserIdAdded,keyWords,LIMIT_FRIENDS_TEKEN,skip);
 
     return resolve(inforUser);

@@ -1,5 +1,5 @@
 function viewInformation(){
-  $(".dropdown-item").unbind("click").on("click", function(){
+  $(".dropdown-item").on("click", function(){
     // information group
     let optionId = $(this).attr("data-uid");
     let modalChatId = $("#modal-chat").attr("data-uid");
@@ -98,7 +98,7 @@ function modelGetInformationGroup(tagToGetData){
         let groupName = data.groupName;
         let amountMembers = data.userAmount;
         let description = data.description;
-        let dateOfGroup = `${new Date(data.createdAt).getDate()} : ${new Date(data.createdAt).getMonth()} : ${new Date(data.createdAt).getFullYear()}`;
+        let dateOfGroup = `${new Date(data.createdAt).getDate()} : ${new Date(data.createdAt).getMonth() + 1} : ${new Date(data.createdAt).getFullYear()}`;
         
         // găns dữ liệu được load từ sever vào modal 
         let dataToAppend = modelInformationGroupToAppend(avatar,userCreatedName,userCreatedAvatar,groupName,amountMembers,description,dateOfGroup)

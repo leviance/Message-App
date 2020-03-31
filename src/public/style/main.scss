@@ -129,7 +129,7 @@
   }
 }
 
-#addFriends, #newGroup{
+#addFriends, #newGroup, #addFriendToGroup{
   .list-friends{
     width: 100%;
     padding: 0px 30px;
@@ -148,7 +148,7 @@
         img{width: 100%; height: 100%;}
       }
       .users-list-body{
-        width: 70%;
+        width: 60% !important;
         min-height: 20px !important;
         padding-left: 20px;
         padding-right: 10px;

@@ -32,7 +32,7 @@ groupSchema.statics = {
     return this.find({"members": userId}).sort({"updatedAt": 1}).exec();
   },
   getGroupUsers(groupId){
-    return this.findOne({"_id" : groupId}, {members: 1, groupName: 1}).exec();
+    return this.findOne({"_id" : groupId}, {members: 1, groupName: 1, avatar: 1}).exec();
   },
   chatTogether(groupId){
     return this.update({"_id": groupId},{"updatedAt": Date.now});
@@ -60,6 +60,17 @@ groupSchema.statics = {
     this.updateOne({"_id": groupId},{
       $pull: {"members": userId}
     }).exec();
+  },
+  checkMemberIsInGroup(userId,groupId){
+    return this.findOne({
+      $and:[
+        {"_id": groupId},
+        {"members": userId}
+      ]
+    })
+  },
+  addMemberToGroup(userIdToAddGroup,groupId){
+    this.updateOne({"_id": groupId},{$push: {members: userIdToAddGroup}}).exec();
   }
 }
 

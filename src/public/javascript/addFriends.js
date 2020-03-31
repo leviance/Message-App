@@ -22,7 +22,7 @@ function searchFriends(){
     let countFriends = 0;
     // loại bỏ những người có score = 0, prepend vào modal add friend
     data.forEach(function(friend){
-        (friend.gender === "Male") ? friend.gender = "Nam" : friend.gender = "Nữ";
+        (member.gender === "Male") ? member.gender = "Nữ" : member.gender = "Nam";
 
         modalAddFriends.append(friendModel(friend._id, friend.username, friend.avatar, friend.gender));
         countFriends += 1;

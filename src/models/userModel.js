@@ -104,6 +104,15 @@ userSchema.statics = {
         ]
   },{_id: 1, avatar: 1, username: 1, class: 1,score: { $meta: "textScore" } }).sort( { score: { $meta: "textScore" } } ).skip(skip).limit(limit).exec();
   },
+  searchMemberToAddGroup(listFriendsId,keyWords,limit,skip){
+    return this.find({ 
+        $and: [
+          {$text: { $search: keyWords  }},
+          {"local.isActive": true},
+          {"_id": {$in: listFriendsId }}
+        ]
+  },{_id: 1, avatar: 1, username: 1, class: 1,score: { $meta: "textScore" } }).sort( { score: { $meta: "textScore" } } ).skip(skip).limit(limit).exec();
+  },
   findInforMembersInGroup(listMembersId){
     return this.find(
     {"_id": {$in: listMembersId}},
