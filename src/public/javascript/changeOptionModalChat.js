@@ -11,7 +11,7 @@ function modelToChangeModalChatGroup(idToChange){
   return `
       <a href="#" data-type-chat="chat-group" data-navigation-target="contact-information" class="dropdown-item active" data-uid="${idToChange}">Xem hồ sơ nhóm</a>
       <a href="#" data-type-chat="chat-group" class="dropdown-item" data-uid="${idToChange}">Xem những tệp được chia sẻ</a>
-      <a href="#" data-type-chat="chat-group" class="dropdown-item" data-uid="${idToChange}">Thêm thành viên</a>
+      <a href="#" data-type-chat="chat-group" data-toggle="modal" data-target="#addFriendToGroup" data-navigation-target="add-member-to-group" class="dropdown-item" data-uid="${idToChange}">Thêm thành viên</a>
       <a href="#" data-type-chat="chat-group" data-navigation-target="leave-group" class="dropdown-item" data-uid="${idToChange}">Rời nhóm</a>
       <div class="dropdown-divider"></div>`
 }
@@ -21,7 +21,7 @@ function modelAdminToChangeModalChatGroup(idToChange){
       <a href="#" data-type-chat="chat-group" data-navigation-target="contact-information" class="dropdown-item active" data-uid="${idToChange}">Xem hồ sơ</a>
       <a href="#" data-type-chat="chat-group" class="dropdown-item" data-uid="${idToChange}">Chuyển quyền quản trị</a>
       <a href="#" data-type-chat="chat-group" class="dropdown-item" data-uid="${idToChange}">Đổi tên nhóm</a>
-      <a href="#" data-type-chat="chat-group" class="dropdown-item" data-uid="${idToChange}">Thêm thành viên</a>
+      <a href="#" data-type-chat="chat-group" data-toggle="modal" data-target="#addFriendToGroup" data-navigation-target="add-member-to-group" class="dropdown-item" data-uid="${idToChange}">Thêm thành viên</a>
       <a href="#" data-type-chat="chat-group" class="dropdown-item" data-uid="${idToChange}">Kích thành viên</a>
       <a href="#" data-type-chat="chat-group" class="dropdown-item" data-uid="${idToChange}">Xóa nhóm</a>
       <div class="dropdown-divider"></div>`
@@ -50,6 +50,7 @@ function changeOptionModalChat(idToChange,type){
 
         viewInformation();
         leaveGroupChat();
+        addMemberToGroup();
       },
       // thêm option của chat group nếu không phải admin
       error: function(){
@@ -58,6 +59,7 @@ function changeOptionModalChat(idToChange,type){
 
         viewInformation();
         leaveGroupChat();
+        addMemberToGroup();
       }
     })
 

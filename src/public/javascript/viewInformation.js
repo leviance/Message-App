@@ -1,5 +1,5 @@
 function viewInformation(){
-  $(".dropdown-item").unbind("click").on("click", function(){
+  $(".dropdown-item").on("click", function(){
     // information group
     let optionId = $(this).attr("data-uid");
     let modalChatId = $("#modal-chat").attr("data-uid");
