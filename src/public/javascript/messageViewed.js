@@ -27,13 +27,16 @@ function messageGroupViewed(receiverMessId){
 
 // khi người dùng di chuột lên tin nhẵn cuối cùng trong nhóm thì hiển thị những người đã xem
 function showPeopleViewedMess(data){
-  let userReaded = "";
+  let countMessagesItem = $("#modal-chat .chat-body .messages").find(".message-item");
+  if(countMessagesItem.length > 0){
+    let userReaded = "";
   
     data[data.length-1].isReadGroup.forEach(obj =>{
       userReaded = userReaded + obj.username + ` đã xem`  + '\n'; 
     })
 
-  $("#modal-chat .chat-body .messages").find(".message-item:last-child").attr("title",userReaded );
+    $("#modal-chat .chat-body .messages").find(".message-item:last-child").attr("title",userReaded );
+  }
 }
 
 // hiển thị những người đã xem tin nhắn real time

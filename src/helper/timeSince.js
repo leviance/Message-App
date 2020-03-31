@@ -6,11 +6,11 @@ function timeSince(date) {
   var interval = Math.floor(seconds / 31536000);
 
   if (interval > 1) {
-    return `Ngày ${timeStamp.getDate()} Tháng ${timeStamp.getMonth()} Năm ${timeStamp.getYear()}`;
+    return `Ngày ${timeStamp.getDate()} Tháng ${timeStamp.getMonth() + 1} Năm ${timeStamp.getYear()}`;
   }
   interval = Math.floor(seconds / 2592000);
   if (interval > 1) {
-    return `Ngày ${timeStamp.getDate()} Tháng ${timeStamp.getMonth()} lúc ${timeStamp.getHours()}H`;
+    return `Ngày ${timeStamp.getDate()} Tháng ${timeStamp.getMonth() + 1} lúc ${timeStamp.getHours()}H`;
   }
   interval = Math.floor(seconds / 86400);
   if (interval > 1) {

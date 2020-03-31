@@ -153,14 +153,14 @@
   width: 150px;
 }
 
-#addFriends .list-friends, #newGroup .list-friends {
+#addFriends .list-friends, #newGroup .list-friends, #addFriendToGroup .list-friends {
   width: 100%;
   padding: 0px 30px;
   max-height: 400px;
   overflow-y: scroll;
 }
 
-#addFriends .list-friends .list-friend-item, #newGroup .list-friends .list-friend-item {
+#addFriends .list-friends .list-friend-item, #newGroup .list-friends .list-friend-item, #addFriendToGroup .list-friends .list-friend-item {
   width: 100%;
   min-height: 70px !important;
   display: -webkit-box;
@@ -174,24 +174,24 @@
   margin-bottom: 20px;
 }
 
-#addFriends .list-friends .list-friend-item .avatar, #newGroup .list-friends .list-friend-item .avatar {
+#addFriends .list-friends .list-friend-item .avatar, #newGroup .list-friends .list-friend-item .avatar, #addFriendToGroup .list-friends .list-friend-item .avatar {
   width: 65px;
   height: 65px !important;
 }
 
-#addFriends .list-friends .list-friend-item .avatar img, #newGroup .list-friends .list-friend-item .avatar img {
+#addFriends .list-friends .list-friend-item .avatar img, #newGroup .list-friends .list-friend-item .avatar img, #addFriendToGroup .list-friends .list-friend-item .avatar img {
   width: 100%;
   height: 100%;
 }
 
-#addFriends .list-friends .list-friend-item .users-list-body, #newGroup .list-friends .list-friend-item .users-list-body {
-  width: 70%;
+#addFriends .list-friends .list-friend-item .users-list-body, #newGroup .list-friends .list-friend-item .users-list-body, #addFriendToGroup .list-friends .list-friend-item .users-list-body {
+  width: 60% !important;
   min-height: 20px !important;
   padding-left: 20px;
   padding-right: 10px;
 }
 
-#addFriends .list-friends .list-friend-item .btn-add-friend, #newGroup .list-friends .list-friend-item .btn-add-friend {
+#addFriends .list-friends .list-friend-item .btn-add-friend, #newGroup .list-friends .list-friend-item .btn-add-friend, #addFriendToGroup .list-friends .list-friend-item .btn-add-friend {
   width: 65px;
   height: 70px !important;
 }

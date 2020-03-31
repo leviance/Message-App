@@ -76,6 +76,8 @@ let initRouters = (app) => {
   router.get("/check-user-is-admin-:groupId",group.checkIsAdmin)
 
   router.put("/leave-group-chat-:groupId",group.leaveGroupChat)
+  router.put("/add-member-to-group-chat-:userIdToAddGroup-:groupId",group.addMemberToGroup)
+  router.post("/search-member-to-add-group-chat",group.searchMemberToAddGroup)
 
 
   return app.use("/", router);

@@ -1,5 +1,5 @@
 function leaveGroupChat(){
-  $(".dropdown-item").unbind("click").on("click", function(){
+  $(".dropdown-item").on("click", function(){
     let typeOfOption = $(this).attr("data-navigation-target");
 
     if(typeOfOption == "leave-group"){

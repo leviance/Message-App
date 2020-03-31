@@ -22,6 +22,12 @@ export const groupValid = {
 export const groupAction = {
   leaveGroupChat: (username,groupName) => {
     return `${username} đã rời khỏi nhóm ${groupName}.`
+  },
+  addMemberToGroup: (nameOfUserAddMember,nameOfUserAdded,groupName) => {
+    return `${nameOfUserAddMember} đã thêm ${nameOfUserAdded} vào nhóm ${groupName}`;
+  },
+  newMemberAdded: (nameOfUserAddMember,groupName) => {
+    return `${nameOfUserAddMember} đã thêm bạn vào nhóm ${groupName}`;
   }
 }
 

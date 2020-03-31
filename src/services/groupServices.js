@@ -1,6 +1,10 @@
 import GroupModel from '../models/groupModel';
 import {groupValid} from '../validation/index';
 import UserModel from '../models/userModel';
+import ContactModel from '../models/contactModel';
+import _ from 'lodash';
+
+const LIMIT_FRIENDS_TEKEN = 20;
 
 let createNewGroup = (userCreatedId,listUserIdToCreateGroup,groupName,description,userAmount) => {
   return new Promise( async (resolve, reject) => {
@@ -85,10 +89,62 @@ let leaveGroupChat = async (userId,groupId) => {
   GroupModel.leaveGroupChat(userId,groupId);
 }
 
+let addMemberToGroup = async (userAddMemberId,userIdToAddGroup,groupId) => {
+  // kiểm tra xem người mà thêm thành viên có ở trong nhóm không 
+  let checkUserIsInGroup = await GroupModel.checkMemberIsInGroup(userAddMemberId,groupId);
+  if(checkUserIsInGroup === null) return
+
+  // kiểm tra xem người được thêm đã ở trong nhóm chưa 
+  checkUserIsInGroup = await GroupModel.checkMemberIsInGroup(userIdToAddGroup,groupId);
+  if(checkUserIsInGroup !== null) return
+  
+  GroupModel.addMemberToGroup(userIdToAddGroup,groupId);
+  
+}
+
+let searchMemberToAddGroup = (searcherId,keyWords,skip,groupId) => {
+  return new Promise( async (resolve, reject) => {
+
+    let listFriends = await ContactModel.findUserById(searcherId);
+
+    if(listFriends.length === 0) return reject();
+
+    // tìm id những bạn bè trong phần contact
+    let listFriendsId = [];
+    listFriends.forEach( friend => {
+      listFriendsId.push(friend.senderId);
+      listFriendsId.push(friend.receiverId);
+    });
+
+    // lọc bỏ id của chính mình
+    _.remove(listFriendsId, function(id) {
+      return id  == searcherId;
+    });
+
+    // tìm id những member trong group
+    let listMembersId = await GroupModel.getGroupUsers(groupId);
+    // lọc bỏ những người đã ở trong nhóm 
+    listMembersId.members.forEach( memberId => {
+      _.remove(listFriendsId, function(id) {
+        return id  == memberId;
+      });
+    })
+
+    if(listFriendsId.length === 0) return reject();
+
+    // tìm infor những id trong list đã lọc và trả về 
+    let inforUser = await UserModel.searchMemberToAddGroup(listFriendsId,keyWords,LIMIT_FRIENDS_TEKEN,skip);
+
+    return resolve(inforUser);
+  })
+}
+
 module.exports = {
   createNewGroup: createNewGroup,
   getListChatGoupMess: getListChatGoupMess,
   checkIsAdmin: checkIsAdmin,
   getGroupInformation: getGroupInformation,
-  leaveGroupChat: leaveGroupChat
+  leaveGroupChat: leaveGroupChat,
+  addMemberToGroup: addMemberToGroup,
+  searchMemberToAddGroup: searchMemberToAddGroup
 }
